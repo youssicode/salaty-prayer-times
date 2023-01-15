@@ -1,142 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/main.css">
-    <title>Salaty Prayer Times</title>
-</head>
-<body>
-    <main>
-        <section class="heroSection">
-            <header>
-                <div class="logo">salaty prayer times</div>
-                <div class="date">
-                    <div class="hijri_date">friday, 15 ramadan 1444</div>
-                    <div class="gregorian_date">02 juin 2022</div>
-                </div>
-            </header>
-            <div class="location">rabat, morocco</div>
-            <div class="timingContainer">
-                <div class="timingContainer__timeDua">
-                    <h1 class="timingContainer__timeDua__timeNow">8:34:21</h1>
-                    <p class="timingContainer__timeDua__dua">
-                        "Peace be upon the Messenger of
-                        Allah. O Allah, Open for me the
-                        gates of Your Mercy."
-                    </p>
-                </div>
-                <div class="timingContainer__upcomingPrayer">
-                    <label class="timingContainer__upcomingPrayer__label">upcoming prayer</label>
-                    <p class="timingContainer__upcomingPrayer__prayerName">isha'a</p>
-                    <label class="timingContainer__upcomingPrayer__remainingTimeLabel">remaining time</label>
-                    <p class="timingContainer__upcomingPrayer__remainingTime">00:12:55</p>
-                </div>
-            </div>
-        </section>
-        <section class="prayerTimesSection">
-            <div class="prayerTimesContainer">
-                <div class="prayerTimesWrapper">
-
-                    <div class="prayerTimesGroup">
-                        <div class="prayerTimeCard">
-                            <i class="sunIcon"></i>
-                            <h2 class="prayerTimeCard__prayerName">fajr</h2>
-                            <p class="prayerTimeCard__prayerTime">6:53 (AM)</p>
-                            <i class="prayerTimeCard__athan prayerTimeCard__athan--active"></i>
-                        </div>
-                        <div class="prayerTimeCard">
-                            <i class="sunIcon"></i>
-                            <h2 class="prayerTimeCard__prayerName">sunrise</h2>
-                            <p class="prayerTimeCard__prayerTime">8:21 (AM)</p>
-                            <i class="prayerTimeCard__athan"></i>
-                        </div>
-                        <div class="prayerTimeCard">
-                            <i class="sunIcon"></i>
-                            <h2 class="prayerTimeCard__prayerName">dhuhr</h2>
-                            <p class="prayerTimeCard__prayerTime">1:28 (PM)</p>
-                            <i class="prayerTimeCard__athan prayerTimeCard__athan--active"></i>
-                        </div>      
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Carattere&family=Carter+One&family=Catamaran:wght@100;200;400;700&family=Comfortaa:wght@100;200;400;700&display=swap" rel="stylesheet">
+        <!-- fontawesome icons Kit's Code -->
+        <script src="https://kit.fontawesome.com/5313277c87.js" crossorigin="anonymous"></script>
+        <!-- Costum style file -->
+        <link rel="stylesheet" href="./css/main.css">
+        <title>Salaty Prayer Times</title>
+    </head>
+    <body>
+        <main>
+            <section class="heroSection">
+                <header class="heroSection__header">
+                    <div class="appLogo">salaty prayer times</div>
+                    <div class="date">
+                        <div class="hijri_date">friday, 15 ramadan 1444</div>
+                        <div class="gregorian_date">02 juin 2022</div>
                     </div>
-                
-                    <div class="prayerTimesGroup">
-                        <div class="prayerTimeCard">
-                            <i class="sunIcon"></i>
-                            <h2 class="prayerTimeCard__prayerName">asr</h2>
-                            <p class="prayerTimeCard__prayerTime">4:13 (PM)</p>
-                            <i class="prayerTimeCard__athan"></i>
-                        </div>
-                        <div class="prayerTimeCard">
-                            <i class="sunIcon"></i>
-                            <h2 class="prayerTimeCard__prayerName">maghrib</h2>
-                            <p class="prayerTimeCard__prayerTime">6:55 (PM)</p>
-                            <i class="prayerTimeCard__athan  prayerTimeCard__athan--disabled"></i>
-                        </div>
-                        <div class="prayerTimeCard prayerTimeCard--nextPrayer">
-                            <i class="sunIcon"></i>
-                            <h2 class="prayerTimeCard__prayerName prayerTimeCard__prayerName--nextPrayer">isha'a</h2>
-                            <p class="prayerTimeCard__prayerTime prayerTimeCard__prayerTime--nextPrayer">8:46 (PM)</p>
-                            <i class="prayerTimeCard__athan"></i>
-                        </div>
+                </header>
+                <div class="location">
+                    <i class="location__icon fa-solid fa-location-dot"></i>
+                    <select class="location__select">
+                        <option value="autoLocate">Auto Locate</option>
+                        <option value="Rabat">rabat, morocco</option>
+                        <option value="Tangier">Tangier, Morocco</option>
+                        <option value="Cairo">Cairo, Egypt</option>
+                        <option value="Al-Quds">Al-Quds, Palestine</option>
+                    </select>
+                </div>
+                <div class="timingContainer">
+                    <div class="timingContainer__timeDua">
+                        <h1 class="timingContainer__timeDua__timeNow">8:34:21 PM</h1>
+                        <p class="timingContainer__timeDua__dua">
+                            "Peace be upon the Messenger of
+                            Allah. O Allah, Open for me the
+                            gates of Your Mercy."
+                        </p>
+                    </div>
+                    <div class="timingContainer__upcomingPrayer">
+                        <label class="timingContainer__upcomingPrayer__label">upcoming prayer</label>
+                        <p class="timingContainer__upcomingPrayer__prayerName">isha'a</p>
+                        <label class="timingContainer__upcomingPrayer__remainingTimeLabel">remaining time</label>
+                        <p class="timingContainer__upcomingPrayer__remainingTime">00:12:55</p>
                     </div>
                 </div>
-                
-                <div class="nearbyMosquesListWrapper">
-                    <header class="displayNearbyMosques">
-                        <div role="button" class="displayNearbyMosques__show">
-                            <h3 class="displayNearbyMosques__show__text">nearby mosques</h3>
-                            <img class="displayNearbyMosques__show__img" src="./src/images/map-location-icon.png" alt="location-on-map-icon">
-                        </div>
-                        <p role="button" class="displayNearbyMosques__hide">hide</p>
-                    </header>
-                    <section class="mosquesList">
-                        <div class="mosqueCard">
-                            <div class="mosqueCard__header">
-                                <h4 class="mosqueCard__header__mosqueName">masjid agdal</h4>
-                                <p class="mosqueCard__header__miles">3.5 miles</p>
-                            </div>
-                            <div class="mosqueCard__adresse">
-                                <i class="mosqueCard__adresse__locationIcon"></i>
-                                <p class="mosqueCard__adresse__fullAdresse">13 Qt Agdal bloc 42</p>
-                            </div>
-                            <div class="mosqueCard__phone">
-                                <i class="mosqueCard__phone__phoneIcon"></i>
-                                <p class="mosqueCard__phone__phoneNumber">+212-537-506-84</p>
-                            </div>
-                        </div>
-                        <div class="mosqueCard">
-                            <div class="mosqueCard__header">
-                                <h4 class="mosqueCard__header__mosqueName">masjid Elbokhari</h4>
-                                <p class="mosqueCard__header__miles">5 miles</p>
-                            </div>
-                            <div class="mosqueCard__adresse">
-                                <i class="mosqueCard__adresse__locationIcon"></i>
-                                <p class="mosqueCard__adresse__fullAdresse">1 hay jalil ettazi av marjan</p>
-                            </div>
-                            <div class="mosqueCard__phone">
-                                <i class="mosqueCard__phone__phoneIcon"></i>
-                                <p class="mosqueCard__phone__phoneNumber">+212-537-626-45</p>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="mosquesMap">
-                        <img src="./src/images/mosque-agdal-location.png" alt="locations-on-map-of-listed-mosques" srcset="">
-                    </section>
+            </section>
+            <section class="prayerTimesSection">
+                <div class="prayerTimesContainer">
+                    <ul class="prayerTimesWrapper">
+                        <!-- <div class="prayerTimesGroup"> -->
+                            <li class="prayerTimeCard">
+                                <i class="fa-solid fa-mountain-sun"></i>
+                                <h2 class="prayerTimeCard__prayerName">fajr</h2>
+                                <p class="prayerTimeCard__prayerTime">6:53 (AM)</p>
+                                <i class="fa-solid fa-bell prayerTimeCard__athan" ></i>
+                            </li>
+                            <li class="prayerTimeCard">
+                                <i class="fa-solid fa-sunrise"></i>
+                                <h2 class="prayerTimeCard__prayerName">sunrise</h2>
+                                <p class="prayerTimeCard__prayerTime">8:21 (AM)</p>
+                            </li>
+                            <li class="prayerTimeCard">
+                                <i class="fa-regular fa-sun"></i>
+                                <h2 class="prayerTimeCard__prayerName">dhuhr</h2>
+                                <p class="prayerTimeCard__prayerTime">1:28 (PM)</p>
+                                <i class="fa-solid fa-bell prayerTimeCard__athan" ></i>
+                            </li>      
+                        <!-- </div> -->
+                    
+                        <!-- <div class="prayerTimesGroup"> -->
+                            <li class="prayerTimeCard">
+                                <i class="fa-solid fa-cloud-sun"></i>
+                                <h2 class="prayerTimeCard__prayerName">asr</h2>
+                                <p class="prayerTimeCard__prayerTime">4:13 (PM)</p>
+                                <i class="fa-solid fa-bell prayerTimeCard__athan" ></i>
+                            </li>
+                            <li class="prayerTimeCard">
+                                <i class="fa-solid fa-sunset"></i>
+                                <h2 class="prayerTimeCard__prayerName">maghrib</h2>
+                                <p class="prayerTimeCard__prayerTime">6:55 (PM)</p>
+                                <i class="fa-solid fa-bell prayerTimeCard__athan prayerTimeCard__athan--disabled" ></i>
+                            </li>
+                            <li class="prayerTimeCard prayerTimeCard--nextPrayer">
+                                <i class="fa-regular fa-moon"></i>
+                                <h2 class="prayerTimeCard__prayerName prayerTimeCard__prayerName--nextPrayer">isha'a</h2>
+                                <p class="prayerTimeCard__prayerTime prayerTimeCard__prayerTime--nextPrayer">8:46 (PM)</p>
+                                <i class="fa-solid fa-bell prayerTimeCard__athan" ></i>
+                            </li>
+                        <!-- </div> -->
+                    </ul>
+                    
+                    <div class="nearbyMosquesSection">
+                        <header class="displayNearbyMosques">
+                            <button class="displayNearbyMosques__show">
+                                <h3 class="displayNearbyMosques__show__text">nearby mosques</h3>
+                                <i class="displayNearbyMosques__show__icon fa-solid fa-map-location-dot"></i>
+                                <!-- <img class="displayNearbyMosques__show__icon" src="./src/images/map-location-icon.png" alt="location-on-map-icon"> -->
+                            </button>
+                            <button class="displayNearbyMosques__hide">hide</button>
+                        </header>
+                        <ul class="mosquesList" role="list">
+                            <li class="mosqueCard">
+                                <div class="mosqueCard__header">
+                                    <h4 class="mosqueCard__header__mosqueName">masjid agdal</h4>
+                                    <p class="mosqueCard__header__miles">3.5 miles</p>
+                                </div>
+                                <div class="mosqueCard__adresse">
+                                    <i class="mosqueCard__adresse__locationIcon fa-solid fa-location-dot"></i>
+                                    <p class="mosqueCard__adresse__fullAdresse">13 Qt Agdal bloc 42</p>
+                                </div>
+                                <div class="mosqueCard__phone">
+                                    <i class="mosqueCard__phone__phoneIcon fa-solid fa-phone-volume"></i>
+                                    <p class="mosqueCard__phone__phoneNumber">+212-537-506-84</p>
+                                </div>
+                            </li>
+                            <li class="mosqueCard">
+                                <div class="mosqueCard__header">
+                                    <h4 class="mosqueCard__header__mosqueName">masjid Elbokhari</h4>
+                                    <p class="mosqueCard__header__miles">5 miles</p>
+                                </div>
+                                <div class="mosqueCard__adresse">
+                                    <i class="mosqueCard__adresse__locationIcon fa-solid fa-location-dot"></i>
+                                    <p class="mosqueCard__adresse__fullAdresse">1 hay jalil ettazi av marjan</p>
+                                </div>
+                                <div class="mosqueCard__phone">
+                                    <i class="mosqueCard__phone__phoneIcon fa-solid fa-phone-volume"></i>
+                                    <p class="mosqueCard__phone__phoneNumber">+212-537-626-45</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <aside class="mosquesMap">
+                            <img src="./src/images/mosque-agdal-location.png" alt="locations-on-map-of-listed-mosques" srcset="">
+                        </aside>
+                    </div>
                 </div>
-            </div>
-        </section>
-        <footer>
-            <p class="developerInfos">
-                designed & coded by youssef el-hrouzi - 2023 
-            </p>
-            <div class="contactIcons">
-                <i>mail</i>
-                <i>linked-in</i>
-                <i>facebook</i>
-                <i>git</i>
-            </div>
-        </footer>
-    </main>
-</body>
+            </section>
+            <footer>
+                <p class="developerInfos">
+                    designed & coded by youssef el-hrouzi - 2023 
+                </p>
+                <ul class="contactIcons" role="list">
+                    <li><i class="fa-solid fa-envelope"></i></li>
+                    <li><i class="fa-brands fa-linkedin"></i></li>
+                    <li><i class="fa-brands fa-square-facebook"></i></i></li>
+                    <li><i class="fa-brands fa-square-github"></i></li>
+                </ul>
+            </footer>
+        </main>
+    </body>
 </html>

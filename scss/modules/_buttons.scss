@@ -1,0 +1,41 @@
+@use "../utilities" as *; // ... as *; to use just the variables names.
+
+.location {
+    width: max-content;
+    height: 3.5rem;
+    border: 1px solid $text-color-primary;
+    border-radius: 3.3rem;
+    @include auto-margin-center;
+    @include center-content-with-flex;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    margin-bottom: $margin-2rem5;
+
+    &__icon {
+        font-size: 1.2rem;
+    }
+
+    &__select {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        border: none;
+        background-color: transparent;
+        padding-left: .5rem;
+
+        // Typography
+        font-family: $CarterOne;
+        font-size: 1.3rem;
+        color: $text-color-primary;
+        letter-spacing: 0.2rem;
+
+        // Remove the odd outline when selecting an option
+        &:focus {
+            outline: none
+        }
+    }
+
+    @include responsive_Large() {
+        margin-left: 0;
+    }
+}

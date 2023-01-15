@@ -1,8 +1,55 @@
-@forward "abstracts";
-@forward "base";
-@forward "layout";
+@use "base";
+@use "utilities" as *;
+@use "partials";
+@use "modules";
+
+html {
+    @include responsive_medium() {
+        font-size: 72%;
+    }
+
+    @include responsive_Large() {
+        font-size: 85%;
+    }
+}
+
+main {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $bg-main;
+    background-color: $bg-primary;
+
+    @include responsive_Large() {
+        @include auto-margin-center;
+        max-width: 1000px;
+        border-radius: 1rem;
+        margin-top: $margin-2rem5;
+
+    }
+}
+
+.appLogo {
+    font-family: $carattere;
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+    text-align: center;
+    margin-bottom: $margin-2rem5;
+}
+
+.hijri_date {
+    font-family: $Comfortaa;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: $margin-0rem5;
+}
+
+.gregorian_date {
+    font-family: $Comfortaa;
+    font-size: 1.2rem;
+    text-align: center;
+}
 
 
-body {
-    background-color: lime;
+.heroSection__header {
+    margin-bottom: $margin-2rem5;
 }

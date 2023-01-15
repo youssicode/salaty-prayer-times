@@ -1,0 +1,8 @@
+@use "../utilities" as *; // ... as *; to use just the variables names.
+
+@include responsive_Large() {
+    .heroSection__header {
+        @include center-content-with-flex;
+        justify-content: space-between;
+    }
+}

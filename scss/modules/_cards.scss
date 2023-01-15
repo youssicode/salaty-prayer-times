@@ -1,0 +1,21 @@
+@use "../utilities" as *; // ... as *; to use just the variables names.
+
+.timingContainer__timeDua__timeNow {
+    font-family: $CarterOne;
+    font-size: 2.8rem;
+    font-weight: normal;
+    letter-spacing: .16rem;
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.88);
+    text-align: center;
+}
+
+.timingContainer__timeDua__dua {
+    font-size: 1.2rem;
+    text-transform: none;
+    font-family: $Comfortaa;
+    display: none;
+
+    @include responsive_Large() {
+        display: block;
+    }
+}
