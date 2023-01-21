@@ -10,6 +10,14 @@
 
 html {
     font-size: 62.5%;
+
+    @include responsive_medium() {
+        font-size: 72%;
+    }
+
+    @include responsive_Large() {
+        font-size: 85%;
+    }
 }
 
 body {

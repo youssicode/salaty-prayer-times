@@ -1,5 +1,9 @@
 @use "../utilities" as *; // ... as *; to use just the variables names.
 
+.timingContainer {
+    margin-bottom: 4rem;
+}
+
 .timingContainer__timeDua__timeNow {
     font-family: $CarterOne;
     font-size: 2.8rem;
@@ -7,6 +11,7 @@
     letter-spacing: .16rem;
     text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.88);
     text-align: center;
+    margin-bottom: $margin-2rem5;
 }
 
 .timingContainer__timeDua__dua {
