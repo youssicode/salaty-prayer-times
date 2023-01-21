@@ -15,12 +15,22 @@
 }
 
 .timingContainer__timeDua__dua {
-    font-size: 1.2rem;
     text-transform: none;
     font-family: $Comfortaa;
+    text-align: center;
     display: none;
 
     @include responsive_Large() {
         display: block;
     }
+
+    .timingContainer__timeDua__dua__quote {
+        font-size: 1.2rem;
+        margin-bottom: $margin-0rem5;
+    }
+
+    .timingContainer__timeDua__dua__source {
+        font-size: .9rem;
+    }
+
 }

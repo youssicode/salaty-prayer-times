@@ -1,38 +1,47 @@
 @use "../utilities" as *;
 
-.timingContainer__upcomingPrayer {
-    width: 170px;
-    height: 170px;
-    @include auto-margin-center;
-    background-color: rgba(3, 3, 3, 0.27);
-    border: 5px dashed $active-color;
-    border-radius: 50%;
-    @include center-content-with-flex;
-    flex-direction: column;
-
-
-    &__label,
-    &__remainingTimeLabel {
-        font-family: $Comfortaa;
-        font-size: 1.4rem;
+.timingContainer {
+    @include responsive_Large {
+        width: 65%;
+        @include auto-margin-center;
+        @include center-content-with-flex;
+        gap: 50px;
     }
 
-    &__label {
-        width: min-content;
-        text-align: center;
+    .timingContainer__upcomingPrayer {
+        width: 17rem;
+        height: 17rem;
+        @include auto-margin-center;
+        background-color: rgba(3, 3, 3, 0.27);
+        border: .5rem dashed $active-color;
+        border-radius: 50%;
+        @include center-content-with-flex;
+        flex-direction: column;
+        flex-shrink: 0;
+
+
+        &__label,
+        &__remainingTimeLabel {
+            font-family: $Comfortaa;
+            font-size: 1.4rem;
+        }
+
+        &__label {
+            width: min-content;
+            text-align: center;
+        }
+
+        &__prayerName {
+            font-family: $CarterOne;
+            font-size: 2.2rem;
+            // font-weight: bold;
+
+        }
+
+        &__remainingTime {
+            font-family: $CarterOne;
+            font-size: 1.8rem;
+            // font-weight: 700;
+        }
     }
-
-    &__prayerName {
-        font-family: $CarterOne;
-        font-size: 2.2rem;
-        // font-weight: bold;
-
-    }
-
-    &__remainingTime {
-        font-family: $CarterOne;
-        font-size: 1.8rem;
-        // font-weight: 700;
-    }
-
 }
