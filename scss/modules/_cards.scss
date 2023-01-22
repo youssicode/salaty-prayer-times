@@ -5,7 +5,8 @@
 }
 
 .timingContainer__timeDua__timeNow {
-    font-family: $CarterOne;
+    color: $text-color-primary;
+    font-family: $carterOne;
     font-size: 2.8rem;
     font-weight: normal;
     letter-spacing: .16rem;
@@ -15,6 +16,7 @@
 }
 
 .timingContainer__timeDua__dua {
+    color: $text-color-primary;
     text-transform: none;
     font-family: $Comfortaa;
     text-align: center;
@@ -32,5 +34,79 @@
     .timingContainer__timeDua__dua__source {
         font-size: .9rem;
     }
+}
 
+//List of prayer times and Athan notification
+.prayerTimesContainer {
+    width: 100%;
+    background-color: $bg-primary;
+    border-radius: .3rem;
+    padding: inherit;
+
+    .prayerTimesWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        border-radius: inherit;
+
+        .prayerTimeCard {
+
+            color: $text-color-primary;
+            padding: $margin-0rem5 3.5vw;
+            background-color: $bg-second;
+            box-shadow: 0 0 2px 2px $shadow-color;
+            border-radius: 0.5rem;
+            @include center-content-with-flex;
+            justify-content: space-between;
+
+            .name-icon-wrapper,
+            .time-icon-wrapper {
+                @include center-content-with-flex;
+            }
+
+            .name-icon-wrapper {
+                justify-content: flex-start;
+                // margin-left: 1.4vw;
+
+            }
+
+            .time-icon-wrapper {
+                justify-content: space-between;
+                width: 37vw;
+            }
+
+            &__sky-icon {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            &__prayerName {
+                font-family: $Catamaran;
+                font-size: 1.8rem;
+                letter-spacing: .2rem;
+                margin-left: 3vw;
+            }
+
+            &__prayerTime {
+                font-family: $Catamaran;
+                font-size: 1.8rem;
+                letter-spacing: .2rem;
+            }
+
+            &__athan {
+                color: $active-color;
+                font-size: 1.7rem;
+                // margin-right: 1.4vw;
+            }
+
+            &__athan--disabled {
+                color: $disabled-color;
+            }
+
+            &--nextPrayer {
+                color: $active-color;
+                box-shadow: 0 0 2px 2px $active-color;
+            }
+        }
+    }
 }

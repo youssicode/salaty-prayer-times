@@ -1,7 +1,7 @@
 // Fonts: 
 $carattere : 'Carattere',
 cursive;
-$CarterOne : 'Carter One',
+$carterOne : 'Carter One',
 cursive;
 $Catamaran : 'Catamaran',
 sans-serif;
@@ -16,6 +16,8 @@ $bg-primary : rgba(183, 110, 0, 1);
 $bg-second : rgba(55, 27, 11, 0.90);
 $text-color-primary : rgba(255, 255, 255, 1);
 $active-color : rgba(255, 199, 0, 1);
+$disabled-color : rgba(110, 85, 0, 1);
+$shadow-color : rgba(255, 255, 255, 0.5);
 
 // Breakpionts
 $min-width-medium : 481px;

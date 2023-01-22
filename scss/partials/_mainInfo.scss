@@ -32,14 +32,13 @@
         }
 
         &__prayerName {
-            font-family: $CarterOne;
+            font-family: $carterOne;
             font-size: 2.2rem;
-            // font-weight: bold;
-
+            margin-bottom: $margin-0rem5;
         }
 
         &__remainingTime {
-            font-family: $CarterOne;
+            font-family: $carterOne;
             font-size: 1.8rem;
             // font-weight: 700;
         }
