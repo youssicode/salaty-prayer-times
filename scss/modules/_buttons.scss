@@ -44,3 +44,27 @@
         margin-left: 0;
     }
 }
+
+// Nearby Mosques Button
+
+.nearbyMosquesSection {
+    @include card-style;
+}
+
+.displayNearbyMosques__hide {
+    display: none;
+}
+
+.displayNearbyMosques__show__text {
+    display: inline-block;
+    margin-right: $margin-0rem5;
+    color: $text-color-primary;
+    font-family: $Catamaran;
+    text-transform: capitalize;
+    font-size: 1.8rem;
+    letter-spacing: .1rem;
+}
+
+.displayNearbyMosques__show__icon {
+    display: inline-block;
+}

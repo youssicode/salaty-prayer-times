@@ -1,3 +1,5 @@
+@use "./variables" as var;
+
 @mixin auto-margin-center {
     margin-left: auto;
     margin-right: auto;
@@ -7,4 +9,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@mixin card-style {
+    color: var.$text-color-primary;
+    padding: 0.5rem 3.5vw;
+    background-color: var.$bg-second;
+    box-shadow: 0 0 2px 2px var.$shadow-color;
+    border-radius: 0.5rem;
 }

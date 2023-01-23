@@ -2,14 +2,14 @@
 
 .heroSection__header {
     margin-bottom: $margin-2rem5;
-}
 
-@include responsive_Large() {
-    .heroSection__header {
+    @include responsive_medium() {
         @include center-content-with-flex;
         justify-content: space-between;
+
     }
 }
+
 
 .appLogo {
     font-family: $carattere;
@@ -27,6 +27,14 @@
 }
 
 .gregorian_date {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-align: center;
+}
+
+// Mosques List Header
+
+.displayNearbyMosquesHeader {
+    // display: flex;
+    // justify-content: center;
+    @include center-content-with-flex;
 }
