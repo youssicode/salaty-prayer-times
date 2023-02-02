@@ -121,59 +121,63 @@
                     </ul>
                     
                     <div class="nearbyMosquesSection">
-                        <header class="displayNearbyMosquesHeader">
+                        <header class="displayNearbyMosquesHeader nearbyMosquesBtnClicked">
                             <button class="displayNearbyMosques__show">
                                 <h3 class="displayNearbyMosques__show__text">nearby mosques</h3>
                                 <img class="displayNearbyMosques__show__icon" src="./src/images/map-location-icon.png" alt="location-on-map-icon">
                             </button>
-                            <button class="displayNearbyMosques__hide">hide</button>
+                            <button class="displayNearbyMosques__hide nearbyMosquesBtnClicked">hide</button>
                         </header>
-                        <ul class="mosquesList">
-                            <li class="mosqueCard">
-                                <div class="mosqueCard__header">
-                                    <h4 class="mosqueCard__header__mosqueName">masjid agdal</h4>
-                                    <p class="mosqueCard__header__miles">3.5 miles</p>
-                                </div>
-                                <div class="mosqueCard__adresse">
-                                    <i class="mosqueCard__adresse__locationIcon fa-solid fa-location-dot"></i>
-                                    <p class="mosqueCard__adresse__fullAdresse">13 Qt Agdal bloc 42</p>
-                                </div>
-                                <div class="mosqueCard__phone">
-                                    <i class="mosqueCard__phone__phoneIcon fa-solid fa-phone-volume"></i>
-                                    <p class="mosqueCard__phone__phoneNumber">+212-537-506-84</p>
-                                </div>
-                            </li>
-                            <li class="mosqueCard">
-                                <div class="mosqueCard__header">
-                                    <h4 class="mosqueCard__header__mosqueName">masjid Elbokhari</h4>
-                                    <p class="mosqueCard__header__miles">5 miles</p>
-                                </div>
-                                <div class="mosqueCard__adresse">
-                                    <i class="mosqueCard__adresse__locationIcon fa-solid fa-location-dot"></i>
-                                    <p class="mosqueCard__adresse__fullAdresse">1 hay jalil ettazi av marjan</p>
-                                </div>
-                                <div class="mosqueCard__phone">
-                                    <i class="mosqueCard__phone__phoneIcon fa-solid fa-phone-volume"></i>
-                                    <p class="mosqueCard__phone__phoneNumber">+212-537-626-45</p>
-                                </div>
-                            </li>
-                        </ul>
-                        <aside class="mosquesMap">
-                            <!-- <img src="./src/images/mosque-agdal-location.png" alt="locations-on-map-of-listed-mosques" srcset=""> -->
-                        </aside>
+                        <div class="mosquesWrapper">
+                            <ul class="mosquesList">
+                                <li class="mosqueInformationsCard">
+                                    <div class="mosqueInformationsCard__header">
+                                        <h4 class="mosqueInformationsCard__header__mosqueName">masjid agdal</h4>
+                                        <p class="mosqueInformationsCard__header__miles">3.5 miles</p>
+                                    </div>
+                                    <div class="mosqueInformationsCard__adresse">
+                                        <i class="mosqueInformationsCard__adresse__locationIcon fa-solid fa-location-dot"></i>
+                                        <p class="mosqueInformationsCard__adresse__fullAdresse">13 Qt Agdal bloc 42</p>
+                                    </div>
+                                    <div class="mosqueInformationsCard__phone">
+                                        <i class="mosqueInformationsCard__phone__phoneIcon fa-solid fa-phone-volume"></i>
+                                        <p class="mosqueInformationsCard__phone__phoneNumber">+212-537-506-84</p>
+                                    </div>
+                                </li>
+                                <li class="mosqueInformationsCard">
+                                    <div class="mosqueInformationsCard__header">
+                                        <h4 class="mosqueInformationsCard__header__mosqueName">masjid Elbokhari</h4>
+                                        <p class="mosqueInformationsCard__header__miles">5 miles</p>
+                                    </div>
+                                    <div class="mosqueInformationsCard__adresse">
+                                        <i class="mosqueInformationsCard__adresse__locationIcon fa-solid fa-location-dot"></i>
+                                        <p class="mosqueInformationsCard__adresse__fullAdresse">1 hay jalil ettazi av marjan</p>
+                                    </div>
+                                    <div class="mosqueInformationsCard__phone">
+                                        <i class="mosqueInformationsCard__phone__phoneIcon fa-solid fa-phone-volume"></i>
+                                        <p class="mosqueInformationsCard__phone__phoneNumber">+212-537-626-45</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <aside class="mosquesMap">
+                                <img class="mosquesLocatedOnMap" src="./src/images/mosque-agdal-location.png" alt="listed-mosques-located-on-map">
+                            </aside>
+                        </div>
                     </div>
                 </div>
             </section>
-            <footer>
-                <p class="developerInfos">
-                    designed & coded by youssef el-hrouzi - 2023 
-                </p>
-                <ul class="contactIcons" role="list">
-                    <li><i class="fa-solid fa-envelope"></i></li>
-                    <li><i class="fa-brands fa-linkedin"></i></li>
-                    <li><i class="fa-brands fa-square-facebook"></i></i></li>
-                    <li><i class="fa-brands fa-square-github"></i></li>
-                </ul>
+            <footer class="pageFooter">
+                <div class="footerWrapper">
+                    <p class="developerInfos">
+                        designed & coded by youssef el-hrouzi - 2023 
+                    </p>
+                    <ul class="contactIcons">
+                        <li><a href="mailto:youssimail@gmail.com" class="contactIcons__socialIcon fa-solid fa-envelope"></a></li>
+                        <li><a class="contactIcons__socialIcon fa-brands fa-linkedin"></a></li>
+                        <li><a class="contactIcons__socialIcon fa-brands fa-square-facebook"></a></i></li>
+                        <li><a class="contactIcons__socialIcon fa-brands fa-square-github"></a></li>
+                    </ul>
+                </div>
             </footer>
         </main>
     </body>

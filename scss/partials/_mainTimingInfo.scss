@@ -1,8 +1,11 @@
 @use "../utilities" as *;
 
 .timingContainer {
-    @include responsive_Large {
-        width: 65%;
+    // margin-bottom: 4rem; to remove if not necessairly
+
+    @include responsive_medium {
+        width: clamp(450px, 65%, 750px); // clamp (min-width, width, max-width)
+        // width: min(75%, 750px);
         @include auto-margin-center;
         @include center-content-with-flex;
         gap: 50px;

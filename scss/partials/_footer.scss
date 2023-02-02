@@ -1,0 +1,42 @@
+@use "../utilities" as util;
+
+.pageFooter {
+    padding: 1.2rem;
+    background-color: util.$bg-main;
+    color: util.$text-color-primary;
+
+    .footerWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        border-top: 3px solid util.$active-color;
+        padding-top: 1rem;
+
+        @include util.responsive_medium2 {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    .developerInfos {
+        font-family: util.$Catamaran;
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .contactIcons {
+        @include util.center-content-with-flex;
+
+        &__socialIcon {
+            font-size: 2rem;
+            color: util.$text-color-primary;
+            text-decoration: none;
+            margin-left: 1.2rem;
+            cursor: pointer;
+
+            &:hover {
+                color: util.$active-color;
+            }
+        }
+    }
+}

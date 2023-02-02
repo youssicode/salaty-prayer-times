@@ -30,11 +30,3 @@
     font-size: 1.4rem;
     text-align: center;
 }
-
-// Mosques List Header
-
-.displayNearbyMosquesHeader {
-    // display: flex;
-    // justify-content: center;
-    @include center-content-with-flex;
-}

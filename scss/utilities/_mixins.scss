@@ -11,10 +11,19 @@
     justify-content: center;
 }
 
-@mixin card-style {
+@mixin card-style($shadowColor) {
     color: var.$text-color-primary;
     padding: 0.5rem 3.5vw;
     background-color: var.$bg-second;
-    box-shadow: 0 0 2px 2px var.$shadow-color;
+    @include box-shadow ($shadowColor);
+    // box-shadow: 0 0 2px 2px var.$shadow-color;
     border-radius: 0.5rem;
+}
+
+@mixin box-shadow ($shadowColor) {
+    box-shadow: 2px 2px 2px $shadowColor;
+}
+
+.text-black-shadow {
+    text-shadow: 2px 2px 2px var.$bg-main;
 }
