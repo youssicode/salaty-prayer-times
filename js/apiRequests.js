@@ -14,26 +14,31 @@ export async function getPrayerTimesByCityResult(zone, date) {
     }
 }
 
-// Geting the client geographical position
-async function getClientPosition() {
+// Geting the client geographical position 
+
+export async function getClientPosition() {
     try {
-        let clientGeoPosition = {}
-        await navigator.geolocation.getCurrentPosition(myPosition => {
-            clientGeoPosition.latitude = myPosition.coords.latitude
-            clientGeoPosition.longitude = myPosition.coords.longitude
+        let position = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+                pos => resolve(pos), // Success CallBack Method parameter
+                err => reject(err)  // Error CallBack Method parameter
+            )
+            //* OR simply:   
+            //* navigator.geolocation.getCurrentPosition(resolve, reject)
         })
-        return clientGeoPosition
+        return {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        }
     } catch (err) {
-        alert("Unable to auto locate your position.")
+        throw err
     }
 }
 
 // Geting the prayer times by geolocation (Latitude/Longitude)
-export async function getPrayerTimesByGeolocationResult(date) {
+export async function getPrayerTimesByAutolocationResult(date) {
     let coordinates = await getClientPosition()
-    console.log(coordinates)
     let apiUrl = `http://api.aladhan.com/v1/timings/${date.day}-${date.month}-${date.year}?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&method=3`
-    console.log(apiUrl)
     let response = await axios({
         method: "GET",
         url: apiUrl,
@@ -44,3 +49,5 @@ export async function getPrayerTimesByGeolocationResult(date) {
         throw Error
     }
 }
+
+//* Geocoding API

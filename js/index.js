@@ -2,7 +2,7 @@
 // const axios = require('axios') // Work with node.js but NOT with v. javascript in front-end
 
 // Imported Functions
-import { getPrayerTimesByCityResult, getPrayerTimesByGeolocationResult } from "./apiRequests.js";
+import { getPrayerTimesByCityResult, getPrayerTimesByAutolocationResult, getClientPosition } from "./apiRequests.js";
 
 
 // Temp. data
@@ -18,6 +18,7 @@ let choosenZone = {
     longitude: "-6.8498129"
 }
 
+// Get prayer times By specifying a city
 let getPrayerTimesByCity = async function () {
     try {
         console.log(await getPrayerTimesByCityResult(choosenZone, toDay))
@@ -26,17 +27,29 @@ let getPrayerTimesByCity = async function () {
     }
 }
 
-// Geting the client geographical position
+//  Get prayer times By auto locate the client's geographical position
 let getPrayerTimesByGeolocation = async function () {
     try {
-        console.log(await getPrayerTimesByGeolocationResult(toDay))
+        console.log(await getPrayerTimesByAutolocationResult(toDay))
     } catch (err) {
-        alert("Oups, unexpected result! " + err)
+        let errorMessage = "Undefined error."
+        switch (err.code) {
+            case 1:
+                errorMessage = "Permission denied. Please allow the app to access your location in your browser settings."
+                break;
+            case 2:
+                errorMessage = "Location unavailable."
+                break;
+            case 3:
+                errorMessage = "Timeout."
+                break;
+        }
+        alert("Oups! " + errorMessage)
     }
 }
 
 // getPrayerTimesByCity()
-getPrayerTimesByGeolocation()
+getPrayerTimesByGeolocation() //! window.onload = getPrayerTimesByGeolocation()
 
 
 

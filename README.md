@@ -46,8 +46,11 @@ Thanks for checking out this front-end coding project.
 
 - Fetching API data (using Axios)
 - More practice with Vanella JavaScript.
-- Improve problem solving methodology.
+- Improving problem solving methodology.
+- Improving searching problems solutions skill.
 - Practicing CSS BEM-Architecture
+- Handling errors
+- Dealing with Promises
 
 - Dealing with nesting functions.
 - Using setTimout() and setInterval() time methods.
