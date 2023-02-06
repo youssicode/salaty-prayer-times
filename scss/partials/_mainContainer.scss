@@ -1,0 +1,17 @@
+@use "../utilities" as *;
+
+main {
+    width: 100%;
+    background-color: $bg-main;
+    background-color: $bg-primary;
+
+    @include responsive_Large {
+        @include auto-margin-center;
+        max-width: 1200px;
+        border-radius: 1rem;
+        overflow: hidden;
+        margin-top: $margin-2rem5;
+        margin-bottom: $margin-2rem5;
+        box-shadow: 0 0 30px 2px $active-color;
+    }
+}

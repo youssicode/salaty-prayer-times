@@ -1,19 +1,4 @@
 @use "base";
-@use "utilities" as *;
+@use "utilities";
 @use "partials";
 @use "modules";
-
-main {
-    width: 100%;
-    min-height: 100vh;
-    background-color: $bg-main;
-    background-color: $bg-primary;
-
-    @include responsive_Large {
-        @include auto-margin-center;
-        max-width: 1200px;
-        border-radius: 1rem;
-        margin-top: $margin-2rem5;
-        box-shadow: 0 0 30px 2px $active-color;
-    }
-}
