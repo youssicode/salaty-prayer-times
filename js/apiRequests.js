@@ -35,9 +35,10 @@ export async function getClientPosition() {
     }
 }
 
-// Geting the prayer times by geolocation (Latitude/Longitude)
+// Getting the prayer times based on geolocation (Latitude/Longitude) coordinates
 export async function getPrayerTimesByAutolocationResult(date) {
     let coordinates = await getClientPosition()
+    document.querySelector(".temp-coords").innerText = `Lat: ${coordinates.latitude} / Long: ${coordinates.longitude}`
     let apiUrl = `http://api.aladhan.com/v1/timings/${date.day}-${date.month}-${date.year}?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&method=3`
     let response = await axios({
         method: "GET",
