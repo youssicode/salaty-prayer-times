@@ -2,10 +2,10 @@
 // const axios = require('axios') // Work with node.js but NOT with v. javascript in front-end
 
 // Imported Functions
-import { getPrayerTimesByCityResult, getPrayerTimesByAutolocationResult, getClientPosition } from "./apiRequests.js";
+import { prayerTimesByCity, prayerTimesByLocationCoordinates, getClientLocationCoordinates } from "./apiRequests.js";
 
 
-// Temp. data
+//! Temp. data to get dynamically
 let toDay = {
     day: "05",
     month: "02",
@@ -17,22 +17,35 @@ let choosenZone = {
     latitude: "33.9715904",
     longitude: "-6.8498129"
 }
+const myDate = new Date();
+console.log(myDate)
+console.log(myDate.toLocaleDateString())
+console.log(myDate.toJSON())
+console.log(myDate.toJSON().slice(0, 10))
+console.log(myDate.getDay()) // 2 = Tuesday
+console.log(myDate.getDate()) // 7 = day number
+console.log(myDate.getMonth()) // 2 = month number (0 = Jan, 1= Feb)
+console.log(myDate.getFullYear()) // 2023
 
 // Get prayer times By specifying a city
 let getPrayerTimesByCity = async function () {
     try {
-        console.log(await getPrayerTimesByCityResult(choosenZone, toDay))
+        console.log(await prayerTimesByCity(choosenZone, toDay))
     } catch (err) {
         alert("Oups, unexpected result! " + err)
     }
 }
 
-//  Get prayer times By auto locate the client's geographical position
-let getPrayerTimesByGeolocation = async function () {
+//*  Get prayer times By auto locate the client's position coordinates
+
+let getPrayerTimesByLocationCoordinates = async function () {
     try {
-        console.log(await getPrayerTimesByAutolocationResult(toDay))
+        let coordinates = await getClientLocationCoordinates()
+        //! Ligne to remove
+        document.querySelector(".temp-coords").innerText = `Lat: ${coordinates.latitude} / Long: ${coordinates.longitude}`
+        console.log(await prayerTimesByLocationCoordinates(coordinates.latitude, coordinates.longitude, toDay))
     } catch (err) {
-        let errorMessage = "Undefined error."
+        let errorMessage = err.message
         switch (err.code) {
             case 1:
                 errorMessage = "Permission denied. Please allow the app to access your location in your browser settings."
@@ -49,8 +62,8 @@ let getPrayerTimesByGeolocation = async function () {
 }
 
 // getPrayerTimesByCity()
-getPrayerTimesByGeolocation() //! window.onload = getPrayerTimesByGeolocation()
-
+getPrayerTimesByLocationCoordinates() //! window.onload = getPrayerTimesByGeolocation()
+// getClientLocationCoordinates()
 
 
 
