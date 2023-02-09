@@ -2,71 +2,96 @@
 // const axios = require('axios') // Work with node.js but NOT with v. javascript in front-end
 
 // Imported Functions
-import { prayerTimesByCity, prayerTimesByLocationCoordinates, getClientLocationCoordinates } from "./apiRequests.js";
+import { prayerTimesByCity, prayerTimesByLocationCoordinates } from "./prayerTimesAPI.js";
+import { getUserLocationCoordinates } from "./autoLocationAPI.js";
+import { getAdresse } from "./GoogleMapGeoAPI.js";
 
 
 //! Temp. data to get dynamically
-let toDay = {
-    day: "05",
-    month: "02",
-    year: "2023"
-}
 let choosenZone = {
     city: "Rabat",
     country: "Morocco",
     latitude: "33.9715904",
     longitude: "-6.8498129"
 }
-const myDate = new Date();
-console.log(myDate)
-console.log(myDate.toLocaleDateString())
-console.log(myDate.toJSON())
-console.log(myDate.toJSON().slice(0, 10))
-console.log(myDate.getDay()) // 2 = Tuesday
-console.log(myDate.getDate()) // 7 = day number
-console.log(myDate.getMonth()) // 2 = month number (0 = Jan, 1= Feb)
-console.log(myDate.getFullYear()) // 2023
+// const myDate = new Date();
+// console.log(myDate)
+// console.log(myDate.toLocaleDateString())
+// console.log(myDate.toJSON())
+// console.log(myDate.toJSON().slice(0, 10))
+// console.log(myDate.getDay()) // 2 = Tuesday
+// console.log(myDate.getDate()) // 7 = day number
+// console.log(myDate.getMonth()) // 2 = month number (0 = Jan, 1= Feb)
+// console.log(myDate.getFullYear()) // 2023
 
-// Get prayer times By specifying a city
+let toDay = new Date()
+let actualMonth = toDay.getMonth() + 1
+let actualYear = toDay.getFullYear()
+
+//* Get prayer times By specifying a city
 let getPrayerTimesByCity = async function () {
     try {
-        console.log(await prayerTimesByCity(choosenZone, toDay))
+        console.log(await prayerTimesByCity(choosenZone, actualMonth, actualYear))
     } catch (err) {
-        alert("Oups, unexpected result! " + err)
+        errorHandler(err)
     }
 }
 
-//*  Get prayer times By auto locate the client's position coordinates
+//*  Get prayer times By auto locate the user's position coordinates
 
 let getPrayerTimesByLocationCoordinates = async function () {
     try {
-        let coordinates = await getClientLocationCoordinates()
+        let coordinates = await getUserLocationCoordinates()
         //! Ligne to remove
         document.querySelector(".temp-coords").innerText = `Lat: ${coordinates.latitude} / Long: ${coordinates.longitude}`
+        //? Result to manipulate & use
         console.log(await prayerTimesByLocationCoordinates(coordinates.latitude, coordinates.longitude, toDay))
     } catch (err) {
-        let errorMessage = err.message
-        switch (err.code) {
-            case 1:
-                errorMessage = "Permission denied. Please allow the app to access your location in your browser settings."
-                break;
-            case 2:
-                errorMessage = "Location unavailable."
-                break;
-            case 3:
-                errorMessage = "Timeout."
-                break;
-        }
-        alert("Oups! " + errorMessage)
+        errorHandler(err)
     }
 }
 
+//* Get the ocal adresse by "Reverse Geocoding" (from user's position coordinates)
+
+let autoLocatedCity = async () => {
+    try {
+        let coordinates = await getUserLocationCoordinates()
+        // let cityName = await getAddress(coords.latitude, coords.longitude)
+        let cityName = await getAdresse(coordinates.latitude, coordinates.longitude)
+        console.log("G.API result:", cityName)
+
+    } catch (err) {
+        errorHandler(err)
+    }
+}
+
+
+const errorHandler = (error) => {
+    let errorMessage = "Unknown error."
+    switch (error.code) {
+
+        case 'ERR_NETWORK':
+            errorMessage = "Network Error."
+            break;
+        case 'ERR_BAD_REQUEST':
+            errorMessage = "Bad request. Unkown area or bad parameters."
+            break;
+        case 1:
+            errorMessage = "Permission denied. Please allow the app to access your location in your browser settings."
+            break;
+        case 2:
+            errorMessage = "Location unavailable."
+            break;
+        case 3:
+            errorMessage = "Request timeout."
+            break;
+    }
+    alert("Oups! " + errorMessage)
+}
+
+autoLocatedCity()
 // getPrayerTimesByCity()
-getPrayerTimesByLocationCoordinates() //! window.onload = getPrayerTimesByGeolocation()
-// getClientLocationCoordinates()
-
-
-
+// getPrayerTimesByLocationCoordinates() //! window.onload = getPrayerTimesByGeolocation()
 
 
 
