@@ -49,11 +49,12 @@ export async function getAdresse(lat, long) {
             method: "GET",
             url: latLongUrl,
         })
-        if (response.status >= 200 && response.status < 300) {
-            return response.data.results[2].address_components
-        } else {
-            throw Error(response.status)
-        }
+        return response.data.results[2].address_components
+        // if (response.status >= 200 && response.status < 300) {
+        //     return response.data.results[2].address_components
+        // } else {
+        //     throw Error(response.status)
+        // }
     } catch (err) {
         throw err
     }

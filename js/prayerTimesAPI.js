@@ -3,6 +3,7 @@
 export async function prayerTimesByCity(zone, month, year) {
     try {
         let apiUrl = `http://api.aladhan.com/v1/calendarByCity?city=${zone.city}&country=${zone.country}&method=3&month=${month}&year=${year}`
+        console.log(apiUrl)
         let response = await axios({
             method: "GET",
             url: apiUrl,
