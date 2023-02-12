@@ -24,7 +24,7 @@
                         <div class="gregorian_date">02 juin 2022</div>
                     </div>
                 </header>
-                <div class="location">
+                <!-- <div class="location">
                     <i class="location__icon fa-solid fa-location-dot"></i>
                     <select class="location__select">
                         <option value="autoLocate">Auto Locate</option>
@@ -33,7 +33,56 @@
                         <option value="Cairo">Cairo, Egypt</option>
                         <option value="Al-Quds">Al-Quds, Palestine</option>
                     </select>
+                </div> -->
+                <div class="location">
+                    <div class="location__actual-location-wrapper">
+                        <i class="actual-location__icon fa-solid fa-location-dot"></i>
+                        <div class="location__actual-location-wrapper__cityName">
+                            Rabat, Morroco
+                        </div>
+                        <i class="actual-location__icon fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="location__search-wrapper">
+                        <div class="location__search-wrapper__city">
+                            <i class="search-for-city-icon fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="search-for-city-input" placeholder="Please enter your city">
+                            <!-- List of cities suggestions == To Add Dinamically with JS == -->
+                            <div class="cities-list-match">
+                                <div class="cities-list-match__city">
+                                    Valenca, Brazil
+                                </div>
+                                <div class="cities-list-match__city">
+                                    Valerio, Brazil
+                                </div>
+                                <div class="cities-list-match__city">
+                                    Valence, France
+                                </div>
+                                <div class="cities-list-match__city">
+                                    Valentigney, France
+                                </div>
+                                <div class="cities-list-match__city">
+                                    Valencia, Philippines
+                                </div>
+                                <div class="cities-list-match__city">
+                                    Valenii de Munte, Romania
+                                </div>
+                                <div class="cities-list-match__city">
+                                    Valentin, Russia
+                                </div>
+                                <div class="cities-list-match__city">
+                                    Valencia, Spain
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="location__search-wrapper__auto-locate-button">
+                            <i class="auto-locate__icon fa-solid fa-location-arrow"></i>
+                            <button class="auto-locate-button">Auto Locate</button>
+                        </div>
+
+                    </div>
                 </div>
+                <!--! Ligne to remove -->
                 <div class="temp-coords"></div>
                 <div class="timingContainer">
                     <div class="timingContainer__timeDua">

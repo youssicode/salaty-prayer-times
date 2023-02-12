@@ -1,7 +1,7 @@
 @use "../utilities" as *;
 
 main {
-    width: 100%;
+    width: max(280px, 100%);
     background-color: $bg-main;
     background-color: $bg-primary;
 
