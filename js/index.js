@@ -6,12 +6,18 @@ import { prayerTimesByCity, prayerTimesByLocationCoordinates } from "./prayerTim
 import { getUserLocationCoordinates } from "./autoLocationAPI.js";
 import { getAdresse } from "./GoogleMapGeoAPI.js";
 import { getCities, getCountries } from "./countriesAndCitiesAPI.js";
+// Import an entire module for side effects only, without importing anything.
+// This runs the module's global code, but doesn't actually import any values.
+// Example: If we run autoCompleteCitiesList() here it won't work because its not defined
+
+import "./autoCompleteCitiesList.js";
+
 
 
 //! Temp. data to get dynamically
 const choosenZone = {
     city: "Meknes",
-    // country: "france",
+    country: "france",
     latitude: "33.9715904",
     longitude: "-6.8498129"
 }
@@ -108,7 +114,27 @@ const getCitiesFromCountryName = async (countryName) => {
     //List of cities in Array Object
     console.log(citiesList)
 }
-//* Create an array of all countries with cities list 
+
+//* Display city search component
+
+const locationSearchWrapper = document.querySelector(".location__search-wrapper")
+const locationBtn = document.querySelector(".location")
+
+locationBtn.onclick = () => {
+    locationSearchWrapper.classList.add("city-search-component-activated")
+}
+
+window.addEventListener("keydown", e => {
+    if (e.key === "Escape") locationSearchWrapper.classList.remove("city-search-component-activated")
+})
+
+//* Activate Auto Complete service
+
+
+
+
+
+//* Create an array of all countries with cities list
 
 // const saveCountriesTable = async () => {
 //     let countriesList = await getCountries()
@@ -124,7 +150,7 @@ const getCitiesFromCountryName = async (countryName) => {
 // }
 // console.log(await saveCountriesTable())
 
-//* Create an array of all Cities with country name  
+//* Create an array of all Cities with country name
 
 // const saveCitiesTable = async () => {
 //     let countriesList = await getCountries()
