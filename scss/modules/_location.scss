@@ -53,7 +53,7 @@
         width: min(130%, 100vw);
         background-color: rgba(3, 3, 3, 0.27);
         padding: 1.3rem;
-        border-radius: 0.6rem;
+        border-radius: 0.3rem;
         line-height: 1.5rem;
         display: none;
 
@@ -74,7 +74,7 @@
         &__city {
             position: relative;
             background-color: rgba(3, 3, 3, .27);
-            border-radius: 0.5rem;
+            border-radius: 0.3rem;
             padding-left: 1rem;
             padding-right: 1rem;
             margin-bottom: 1rem;
@@ -93,26 +93,47 @@
                 outline: none;
             }
 
-            .cities-list-match {
+            .extracted-cities-list {
                 position: absolute;
-                top: 110%;
+                top: 106%;
                 padding-left: inherit;
                 padding-right: inherit;
                 font-family: sans-serif;
-                font-size: small;
+                font-size: 1.2rem;
                 background: $active-color;
                 color: $bg-second;
                 width: 100%;
+                max-height: 300px;
+                overflow: auto;
+                scrollbar-width: 2px;
+                scrollbar-color: $bg-second;
                 left: 0;
-                display: none;
+                border-bottom-left-radius: .3rem;
+                border-bottom-right-radius: .3rem;
 
-                &.list-of-cities-activated {
-                    display: initial;
+                &::-webkit-scrollbar {
+                    width: 7px;
                 }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: $bg-second;
+                    border-radius: 5px;
+                }
+
+                // display: none;
+
+                // &.list-of-cities-activated {
+                //     display: initial;
+                // }
 
                 &__city {
                     line-height: 2.7rem;
+                    padding-left: $margin-0rem5;
                     border-bottom: 1px solid $bg-second;
+
+                    &:last-child {
+                        border: none;
+                    }
 
                     &:hover {
                         background: $bg-second;

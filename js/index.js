@@ -6,11 +6,13 @@ import { prayerTimesByCity, prayerTimesByLocationCoordinates } from "./prayerTim
 import { getUserLocationCoordinates } from "./autoLocationAPI.js";
 import { getAdresse } from "./GoogleMapGeoAPI.js";
 import { getCities, getCountries } from "./countriesAndCitiesAPI.js";
+import { clearCitiesList, citySearchInput } from "./autoCompleteCitiesList.js";
 // Import an entire module for side effects only, without importing anything.
 // This runs the module's global code, but doesn't actually import any values.
 // Example: If we run autoCompleteCitiesList() here it won't work because its not defined
 
 import "./autoCompleteCitiesList.js";
+
 
 
 
@@ -125,7 +127,11 @@ locationBtn.onclick = () => {
 }
 
 window.addEventListener("keydown", e => {
-    if (e.key === "Escape") locationSearchWrapper.classList.remove("city-search-component-activated")
+    if (e.key === "Escape") {
+        locationSearchWrapper.classList.remove("city-search-component-activated")
+        clearCitiesList()
+        citySearchInput.value = ''
+    }
 })
 
 //* Activate Auto Complete service
