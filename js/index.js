@@ -98,12 +98,12 @@ const getPrayerTimesByCity = async (zone, date) => {
         sunriseTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Sunrise.slice(0, 5)
         const dhuhrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.dhuhr")
         dhuhrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Dhuhr.slice(0, 5)
-        // const fajrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.fajr")
-        // fajrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Fajr.slice(0, 5)
-        // const fajrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.fajr")
-        // fajrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Fajr.slice(0, 5)
-        // const fajrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.fajr")
-        // fajrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Fajr.slice(0, 5)
+        const asrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.asr")
+        asrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Asr.slice(0, 5)
+        const maghribTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.maghrib")
+        maghribTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Maghrib.slice(0, 5)
+        const ishaaTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.ishaa")
+        ishaaTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Isha.slice(0, 5)
     } catch (err) {
         errorHandler(err)
     }
