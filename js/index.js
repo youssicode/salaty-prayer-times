@@ -10,7 +10,6 @@ import { clearCitiesList, citySearchInput } from "./autoCompleteCitiesList.js";
 // Import an entire module for side effects only, without importing anything.
 // This runs the module's global code, but doesn't actually import any values.
 // Example: If we run autoCompleteCitiesList() here it won't work because its not defined
-
 import "./autoCompleteCitiesList.js";
 
 
@@ -23,28 +22,16 @@ const choosenZone = {
     latitude: "33.9715904",
     longitude: "-6.8498129"
 }
-// const myDate = new Date();
-// console.log(myDate)
-// console.log(myDate.toLocaleDateString())
-// console.log(myDate.toJSON())
-// console.log(myDate.toJSON().slice(0, 10))
-// console.log(myDate.getDay()) // 2 = Tuesday
-// console.log(myDate.getDate()) // 7 = day number
-// console.log(myDate.getMonth()) // 2 = month number (0 = Jan, 1= Feb)
-// console.log(myDate.getFullYear()) // 2023
 
-const toDay = new Date()
-const actualMonth = toDay.getMonth() + 1
-const actualYear = toDay.getFullYear()
-
-//* Get prayer times By specifying a city
-const getPrayerTimesByCity = async () => {
-    try {
-        console.log(await prayerTimesByCity(choosenZone, actualMonth, actualYear))
-    } catch (err) {
-        errorHandler(err)
-    }
+const date = new Date()
+const toDay = {
+    day: date.getDate(),
+    month: date.getMonth() + 1,
+    year: date.getFullYear()
 }
+
+//* Assign Year in the Footer Dinamically
+document.querySelector(".actual-year").textContent = toDay.year
 
 //*  Get prayer times By auto locate the user's position coordinates
 
@@ -54,7 +41,7 @@ const getPrayerTimesByLocationCoordinates = async () => {
         //! Ligne to remove
         document.querySelector(".temp-coords").innerText = `Lat: ${coordinates.latitude} / Long: ${coordinates.longitude}`
         //? Result to manipulate & use
-        console.log(await prayerTimesByLocationCoordinates(coordinates.latitude, coordinates.longitude, toDay))
+        console.log(await prayerTimesByLocationCoordinates(coordinates.latitude, coordinates.longitude, date))
     } catch (err) {
         errorHandler(err)
     }
@@ -62,19 +49,70 @@ const getPrayerTimesByLocationCoordinates = async () => {
 
 //* Get the ocal adresse by "Reverse Geocoding" (from user's position coordinates)
 
+let zoneInfos = {}
 const autoLocatedCity = async () => {
     try {
-        let coordinates = await getUserLocationCoordinates()
-        let cityName = await getAdresse(coordinates.latitude, coordinates.longitude)
-        console.log("G.API result:", cityName)
+        const coordinates = await getUserLocationCoordinates()
+        const zoneResult = await getAdresse(coordinates.latitude, coordinates.longitude)
+        console.log(zoneResult)//! remove
+        zoneInfos.cityLongName = zoneResult[zoneResult.length - 4].long_name
+        zoneInfos.countryLongName = zoneResult[zoneResult.length - 1].long_name
+        zoneInfos.countryShortName = zoneResult[zoneResult.length - 1].short_name
+        return zoneInfos
 
     } catch (err) {
         errorHandler(err)
     }
 }
 
+//* Display auto Located City
+const actualLocationHolder = document.querySelector(".location__actual-location-wrapper__cityName")
+const autoLocateButton = document.querySelector(".auto-locate-button")
+
+window.onload = () => {
+    autoLocate()
+}
+
+autoLocateButton.onclick = () => {
+    autoLocate()
+}
+
+const autoLocate = async () => {
+    let localZone = await autoLocatedCity()
+    if (!localZone) return
+    const cityCountryName = `${localZone.cityLongName}, ${localZone.countryShortName}`
+    actualLocationHolder.innerText = cityCountryName
+    getPrayerTimesByCity(localZone, toDay)
+}
+
+//* Get prayer times By specifying a city
+
+const getPrayerTimesByCity = async (zone, date) => {
+    try {
+        console.log(await prayerTimesByCity(zone, date.month, date.year))
+        const prayerTimingResponse = await prayerTimesByCity(zone, date.month, date.year)
+
+        const fajrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.fajr")
+        fajrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Fajr.slice(0, 5)
+        const sunriseTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.sunrise")
+        sunriseTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Sunrise.slice(0, 5)
+        const dhuhrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.dhuhr")
+        dhuhrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Dhuhr.slice(0, 5)
+        // const fajrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.fajr")
+        // fajrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Fajr.slice(0, 5)
+        // const fajrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.fajr")
+        // fajrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Fajr.slice(0, 5)
+        // const fajrTimeLabel = document.querySelector(".prayerTimeCard__prayerTime.fajr")
+        // fajrTimeLabel.innerText = prayerTimingResponse[date.day - 1].timings.Fajr.slice(0, 5)
+    } catch (err) {
+        errorHandler(err)
+    }
+}
+
+//* Errors Handler Function
 
 const errorHandler = (error) => {
+    console.log(error)
     let errorMessage = "Unknown error."
     switch (error.code) {
 
@@ -85,10 +123,15 @@ const errorHandler = (error) => {
             errorMessage = "Bad request. Unkown area or bad parameters."
             break;
         case 1:
-            errorMessage = "Permission denied. Please allow the app to access your location in your browser settings."
+            errorMessage = "Permission denied. Please allow the app to access your location or enter a city manually."
+            actualLocationHolder.innerText = 'Undetected Location'
             break;
         case 2:
             errorMessage = "Location unavailable."
+            actualLocationHolder.innerText = 'Location unavailable'
+            break;
+        case 3:
+            errorMessage = "Request timeout."
             break;
         case 3:
             errorMessage = "Request timeout."
@@ -128,12 +171,20 @@ locationBtn.onclick = () => {
 
 window.addEventListener("keydown", e => {
     if (e.key === "Escape") {
-        locationSearchWrapper.classList.remove("city-search-component-activated")
-        clearCitiesList()
-        citySearchInput.value = ''
+        hideLocationSearchWrapper()
     }
 })
+window.addEventListener("click", e => {
+    // if the element we clicked on = (e.target) is child of "locationBtn" then return, if not, then execute hideLocationSearchWrapper()
+    if (locationBtn.contains(e.target)) return
+    hideLocationSearchWrapper()
+})
 
+const hideLocationSearchWrapper = () => {
+    locationSearchWrapper.classList.remove("city-search-component-activated")
+    citySearchInput.value = ''
+    clearCitiesList()
+}
 //* Activate Auto Complete service
 
 
@@ -180,3 +231,14 @@ window.addEventListener("keydown", e => {
 // getPrayerTimesByCity()
 // getPrayerTimesByLocationCoordinates() //! window.onload = getPrayerTimesByGeolocation()
 
+
+
+// const myDate = new Date();
+// console.log(myDate)
+// console.log(myDate.toLocaleDateString())
+// console.log(myDate.toJSON())
+// console.log(myDate.toJSON().slice(0, 10))
+// console.log(myDate.getDay()) // 2 = Tuesday
+// console.log(myDate.getDate()) // 7 = day number
+// console.log(myDate.getMonth()) // 2 = month number (0 = Jan, 1= Feb)
+// console.log(myDate.getFullYear()) // 2023

@@ -29,8 +29,7 @@
         color: $text-color-primary;
 
         &__cityName {
-
-            // Typography
+            min-width: 100px;
             font-family: $carterOne;
             font-size: 1.3rem;
             letter-spacing: 0.2rem;

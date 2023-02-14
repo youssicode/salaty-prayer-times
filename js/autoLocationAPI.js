@@ -4,7 +4,8 @@ export async function getUserLocationCoordinates() {
     let position = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
             pos => resolve(pos), // Success CallBack Method's parameter
-            err => reject(err)  // Error CallBack Method's parameter
+            err => reject(err),  // Error CallBack Method's parameter
+            { timeout: 10000 }
         )
         //* OR simply:
         //* navigator.geolocation.getCurrentPosition(resolve, reject)
