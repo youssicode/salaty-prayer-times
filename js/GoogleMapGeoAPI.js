@@ -49,7 +49,15 @@ export async function getAdresse(lat, long) {
             method: "GET",
             url: latLongUrl,
         })
-        return response.data.results[2].address_components
+        console.log(response.data.results) //! Rmove
+        let tempCiticName = response.data.results.at(-4).formatted_address
+        let tempCountryShortName = tempCiticName.slice(tempCiticName.indexOf(",") + 2)
+        let zoneResult = {
+            countryLongName: response.data.results.at(-1).formatted_address,
+            cityLongName: tempCiticName.slice(0, tempCiticName.indexOf(",")),
+            countryShortName: tempCountryShortName.length == 2 ? tempCountryShortName : "" // If the response provide a country short name, save it. If not save empty value
+        }
+        return zoneResult
     } catch (err) {
         throw err
     }

@@ -29,3 +29,18 @@ export async function prayerTimesByLocationCoordinates(x, y, date) {
     }
 }
 
+//* Transforming gregorian date to Hijri date
+
+export async function getHijriCalendar(gregorian) {
+    let apiUrl = `http://api.aladhan.com/v1/gToH?date=${gregorian}`
+    let response = await axios({
+        method: "GET",
+        url: apiUrl,
+    })
+    if (response.status >= 200 && response.status < 300) {
+        return response.data.data.hijri
+    } else {
+        throw Error
+    }
+
+}

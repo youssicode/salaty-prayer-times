@@ -2,7 +2,7 @@
 // const axios = require('axios') // Work with node.js but NOT with v. javascript in front-end
 
 // Imported Functions
-import { prayerTimesByCity, prayerTimesByLocationCoordinates } from "./prayerTimesAPI.js";
+import { prayerTimesByCity, prayerTimesByLocationCoordinates, getHijriCalendar } from "./prayerTimesAPI.js";
 import { getUserLocationCoordinates } from "./autoLocationAPI.js";
 import { getAdresse } from "./GoogleMapGeoAPI.js";
 import { getCities, getCountries } from "./countriesAndCitiesAPI.js";
@@ -14,21 +14,23 @@ import "./autoCompleteCitiesList.js";
 
 
 
-
-//! Temp. data to get dynamically
-const choosenZone = {
-    city: "Meknes",
-    country: "france",
-    latitude: "33.9715904",
-    longitude: "-6.8498129"
-}
-
 const date = new Date()
 const toDay = {
     day: date.getDate(),
     month: date.getMonth() + 1,
     year: date.getFullYear()
 }
+
+//* Get and display Hijri Date
+
+const displayHijriCalendar = () => {
+    let gregorian = new Date().toLocaleDateString().replaceAll('/', '-')
+    console.log(getHijriCalendar(gregorian))
+}
+
+var todayDate = new Date().toISOString().slice(0, 10);
+console.log(todayDate);
+console.log(new Date().toLocaleDateString().replaceAll('/', '-'));
 
 //* Assign Year in the Footer Dinamically
 document.querySelector(".actual-year").textContent = toDay.year
@@ -49,16 +51,16 @@ const getPrayerTimesByLocationCoordinates = async () => {
 
 //* Get the ocal adresse by "Reverse Geocoding" (from user's position coordinates)
 
-let zoneInfos = {}
+// let zoneInfos = {}
 const autoLocatedCity = async () => {
     try {
         const coordinates = await getUserLocationCoordinates()
-        const zoneResult = await getAdresse(coordinates.latitude, coordinates.longitude)
-        console.log(zoneResult)//! remove
-        zoneInfos.cityLongName = zoneResult[zoneResult.length - 4].long_name
-        zoneInfos.countryLongName = zoneResult[zoneResult.length - 1].long_name
-        zoneInfos.countryShortName = zoneResult[zoneResult.length - 1].short_name
-        return zoneInfos
+        const zoneInfos = await getAdresse(coordinates.latitude, coordinates.longitude)
+        console.log(zoneInfos)//! remove
+        // zoneInfos.cityLongName = zoneResult[zoneResult.length - 4].long_name
+        // zoneInfos.countryLongName = zoneResult[zoneResult.length - 1].long_name
+        // zoneInfos.countryShortName = zoneResult[zoneResult.length - 1].short_name
+        // return zoneInfos
 
     } catch (err) {
         errorHandler(err)
@@ -132,6 +134,7 @@ const errorHandler = (error) => {
             break;
         case 3:
             errorMessage = "Request timeout."
+            actualLocationHolder.innerText = 'Location unavailable'
             break;
         case 3:
             errorMessage = "Request timeout."
