@@ -1,3 +1,4 @@
+import * as dom from "./domElements.js";
 
 // Geting the prayer times by specific city
 export async function prayerTimesByCity(zone, month, year) {
@@ -29,18 +30,13 @@ export async function prayerTimesByLocationCoordinates(x, y, date) {
     }
 }
 
-//* Transforming gregorian date to Hijri date
+//* Display feched prayer times data
 
-export async function getHijriCalendar(gregorian) {
-    let apiUrl = `http://api.aladhan.com/v1/gToH?date=${gregorian}`
-    let response = await axios({
-        method: "GET",
-        url: apiUrl,
-    })
-    if (response.status >= 200 && response.status < 300) {
-        return response.data.data.hijri
-    } else {
-        throw Error
-    }
-
+export const displayPrayerTiming = (prayerTimingResponse, date) => {
+    dom.fajrTimeLabel.innerText = prayerTimingResponse.timings.Fajr.slice(0, 5)
+    dom.sunriseTimeLabel.innerText = prayerTimingResponse.timings.Sunrise.slice(0, 5)
+    dom.dhuhrTimeLabel.innerText = prayerTimingResponse.timings.Dhuhr.slice(0, 5)
+    dom.asrTimeLabel.innerText = prayerTimingResponse.timings.Asr.slice(0, 5)
+    dom.maghribTimeLabel.innerText = prayerTimingResponse.timings.Maghrib.slice(0, 5)
+    dom.ishaaTimeLabel.innerText = prayerTimingResponse.timings.Isha.slice(0, 5)
 }
