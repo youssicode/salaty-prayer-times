@@ -1,6 +1,8 @@
 // The entire code is imported to index.js
 
 import { citiesOfTheWorld } from "./citiesList.js";
+import { errorHandler } from "./errorHandler.js";
+import { prayerTimesByCity, displayPrayerTiming } from "./prayerTimesAPI.js";
 import * as dom from "./domElements.js";
 
 
@@ -23,14 +25,40 @@ export function autoCompleteCitiesList() {
 
 }
 
+const addClickEventToSuggestedCity = (entry) => {
+    entry.addEventListener("mousedown", function () {
+        const chosenCity = this.textContent
+        dom.actualLocationLabel.textContent = chosenCity
+        // clearCitiesList()
+        hideLocationSearchWrapper()
+        displayPrayerTimingForChosenCity(chosenCity)
+    })
+}
+
+export const hideLocationSearchWrapper = () => {
+    dom.locationSearchWrapper.classList.remove("city-search-component-activated")
+    dom.citySearchInput.value = ''
+    clearCitiesList()
+}
+
 export const clearCitiesList = () => {
     while (dom.citiesListMatch.firstChild) {
         dom.citiesListMatch.firstChild.remove()
     }
 }
-const addClickEventToSuggestedCity = (entry) => {
-    entry.addEventListener("mousedown", function () {
-        dom.citySearchInput.value = this.textContent
-        clearCitiesList()
-    })
+
+async function displayPrayerTimingForChosenCity(chosenCity) {
+    try {
+        const city = chosenCity.slice(0, -4)
+        const country = chosenCity.slice(-2)
+        const date = new Date()
+        const day = date.getDate()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+        const fetchedPrayerTiming = await prayerTimesByCity(city, country, day, month, year)
+        displayPrayerTiming(fetchedPrayerTiming)
+
+    } catch (err) {
+        errorHandler(err)
+    }
 }

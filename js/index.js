@@ -5,7 +5,7 @@ import { displayIslamicDate, displayGregorianDate, displayTime } from "./display
 import { getUserCoordinates, getAdresse, displayLocatedAdresse } from "./autoLocation.js";
 // import { errorHandler } from "./errorHandler.js";
 import { prayerTimesByLocationCoordinates, displayPrayerTiming } from "./prayerTimesAPI.js";
-import { autoCompleteCitiesList, clearCitiesList } from "./autoCompleteCitiesList.js";
+import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoCompleteCitiesList.js";
 import * as dom from "./domElements.js";
 
 
@@ -72,11 +72,7 @@ window.addEventListener("click", e => {
     hideLocationSearchWrapper()
 })
 
-const hideLocationSearchWrapper = () => {
-    dom.locationSearchWrapper.classList.remove("city-search-component-activated")
-    dom.citySearchInput.value = ''
-    clearCitiesList()
-}
+
 dom.citySearchInput.addEventListener("input", autoCompleteCitiesList)
 dom.autoLocateButton.onclick = loadData()
 
