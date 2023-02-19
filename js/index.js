@@ -5,7 +5,8 @@ import { displayIslamicDate, displayGregorianDate, displayTime } from "./display
 import { getUserCoordinates, getAdresse, displayLocatedAdresse } from "./autoLocation.js";
 // import { errorHandler } from "./errorHandler.js";
 import { prayerTimesByLocationCoordinates, displayPrayerTiming } from "./prayerTimesAPI.js";
-// import * as dom from "./domElements.js";
+import { autoCompleteCitiesList, clearCitiesList } from "./autoCompleteCitiesList.js";
+import * as dom from "./domElements.js";
 
 
 //? Constantes & Variables
@@ -52,11 +53,32 @@ async function displayPrayerTimes(coords) {
     const prayerTiming = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude, toDay);
     displayPrayerTiming(prayerTiming, toDay)
 }
-
 loadData()
-autoLocateButton.onclick = () => {
-    loadData()
+
+//* Display city search component
+
+dom.locationBtn.onclick = () => {
+    dom.locationSearchWrapper.classList.add("city-search-component-activated")
 }
+
+window.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+        hideLocationSearchWrapper()
+    }
+})
+window.addEventListener("click", e => {
+    // if the element we clicked on = (e.target) is child of "locationBtn" then return, if not, then execute hideLocationSearchWrapper()
+    if (dom.locationBtn.contains(e.target)) return
+    hideLocationSearchWrapper()
+})
+
+const hideLocationSearchWrapper = () => {
+    dom.locationSearchWrapper.classList.remove("city-search-component-activated")
+    dom.citySearchInput.value = ''
+    clearCitiesList()
+}
+dom.citySearchInput.addEventListener("input", autoCompleteCitiesList)
+dom.autoLocateButton.onclick = loadData()
 
 
 

@@ -48,13 +48,12 @@ Thanks for checking out this front-end coding project.
 - More practice with Vanella JavaScript.
 - Improving problem solving methodology.
 - Improving searching problems solutions skill.
-- Practicing CSS BEM-Architecture
 - Handling errors
 - Dealing with Promises
+- Practicing CSS BEM-Architecture
+- SCSS: structuring modules, use of "@forward" / "@use" keywords
 
-- Dealing with nesting functions.
-- Using setTimout() and setInterval() time methods.
-- Using data attribute to store informations and filter elements.
+- 
 
 ### Continued development
 
