@@ -37,7 +37,7 @@ setInterval(() => {
 displayIslamicDate(toDay)
 displayGregorianDate(toDay)
 
-//* Get User Location Coordinates and then display the local adresse/city
+//* Get User Location Coordinates and then display the local adresse/city...
 async function loadData() {
     const coordinates = await getUserCoordinates()
     autoLocateCity(coordinates)
@@ -48,11 +48,11 @@ async function autoLocateCity(coords) {
     displayLocatedAdresse(localAdresse)
 }
 
-//* and prayer times specific for that city
-let savedPrayerTimes = []
+//* ...and prayer times specific for that city
+let fetchedPrayerTimes = []
 async function getPrayerTimes(coords) {
     const prayerTiming = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-    savedPrayerTimes = [
+    fetchedPrayerTimes = [
         { prayerName: 'Fajr', prayerTime: prayerTiming.timings.Fajr.slice(0, 5) },
         { prayerName: 'Sunrise', prayerTime: prayerTiming.timings.Sunrise.slice(0, 5) },
         { prayerName: 'Dhuhr', prayerTime: prayerTiming.timings.Dhuhr.slice(0, 5) },
@@ -60,27 +60,40 @@ async function getPrayerTimes(coords) {
         { prayerName: 'Maghrib', prayerTime: prayerTiming.timings.Maghrib.slice(0, 5) },
         { prayerName: 'Ishaa', prayerTime: prayerTiming.timings.Isha.slice(0, 5) }
     ]
-    console.log("I m here", savedPrayerTimes)
-    renderPrayerTiming(savedPrayerTimes, toDay)
-    renderUpcomingPrayerCard(savedPrayerTimes)
+    renderPrayerTiming(fetchedPrayerTimes, toDay)
+    renderUpcomingPrayerCard()
 }
-function renderUpcomingPrayerCard(savedPrayerTimes) {
-    const time = new Date()
-    const actualTimeStamp = time.getTime()
-    // const timeNow = time.toLocaleTimeString("fr") //* Time format here mater to get the expected result.
-    for (let i = 0; i < savedPrayerTimes.length; i++) {
-        const upComingPrayerTimeStamp = (new Date(`${time.toDateString()} ${savedPrayerTimes[i].prayerTime}`)).getTime()
-        // console.log("fetched time", (new Date(`${date.toDateString()} ${savedPrayerTimes[i].prayerTime}`)).getTime())//! remove
-        // console.log("time now", time.getTime()) //! remove
-        if (upComingPrayerTimeStamp > actualTimeStamp) {
-            dom.upcomingPrayerLabel.innerText = savedPrayerTimes[i].prayerName
-            let countDownValue = (upComingPrayerTimeStamp - actualTimeStamp) / (1000 * 60)
-            console.log("Count Down Value", countDownValue)//! remove
-            dom.remainingTimeLabel.innerText = countDownValue
 
+function renderUpcomingPrayerCard() {
+    const date = new Date()
+    const actualTimeStamp = date.getTime()
+    for (let i = 0; i < fetchedPrayerTimes.length; i++) {
+        const upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${fetchedPrayerTimes[i].prayerTime}`)).getTime()
+        if (upComingPrayerTimeStamp > actualTimeStamp) {
+            dom.upcomingPrayerLabel.innerText = fetchedPrayerTimes[i].prayerName
+            startCountDown(upComingPrayerTimeStamp)
             break
         }
     }
+}
+const startCountDown = (upComingPrayerTime) => {
+    let remainingTimeStamp, hours, minutes, seconds
+    let upComingPrayerCountDown = setInterval(() => {
+        let timeNow = new Date().getTime()
+        remainingTimeStamp = (upComingPrayerTime - timeNow)
+        hours = Math.floor(remainingTimeStamp / (1000 * 60 * 60))
+        minutes = Math.floor((remainingTimeStamp % (1000 * 60 * 60)) / (1000 * 60))
+        seconds = Math.floor((remainingTimeStamp % (1000 * 60)) / 1000)
+        hours = hours < 10 ? '0' + hours : hours,
+            minutes = minutes < 10 ? '0' + minutes : minutes,
+            seconds = seconds < 10 ? '0' + seconds : seconds,
+            dom.remainingTimeLabel.innerText = `${hours}:${minutes}:${seconds}`
+
+        if (remainingTimeStamp <= 0) {
+            clearInterval(upComingPrayerCountDown)
+            renderUpcomingPrayerCard()
+        }
+    }, 1000);
 }
 loadData()
 
