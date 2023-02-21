@@ -67,14 +67,25 @@ async function getPrayerTimes(coords) {
 function renderUpcomingPrayerCard() {
     const date = new Date()
     const actualTimeStamp = date.getTime()
-    for (let i = 0; i < fetchedPrayerTimes.length; i++) {
-        const upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${fetchedPrayerTimes[i].prayerTime}`)).getTime()
-        if (upComingPrayerTimeStamp > actualTimeStamp) {
-            dom.upcomingPrayerLabel.innerText = fetchedPrayerTimes[i].prayerName
-            startCountDown(upComingPrayerTimeStamp)
-            break
+    let upComingPrayerLabel
+    let upComingPrayerTimeStamp
+    const ishaaTime = new Date(`${date.toDateString()} ${fetchedPrayerTimes[5].prayerTime}`).getTime()
+    // If time passes "Isha'a" prayer
+    if (actualTimeStamp > ishaaTime) {
+        upComingPrayerLabel = "Fajrrrrr"
+        // Get timeStamp for tomorro's "Fajr" prayer
+        upComingPrayerTimeStamp = (new Date(`${date.getMonth() == 11 ? 0 : date.getMonth() + 1}-${date.getDate() + 1}-${date.getFullYear()} ${fetchedPrayerTimes[0].prayerTime}`)).getTime()
+    } else {
+        for (let i = 0; i < fetchedPrayerTimes.length; i++) {
+            upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${fetchedPrayerTimes[i].prayerTime}`)).getTime()
+            if (upComingPrayerTimeStamp > actualTimeStamp) {
+                upComingPrayerLabel = fetchedPrayerTimes[i].prayerName
+                break
+            }
         }
     }
+    dom.upcomingPrayerLabel.innerText = upComingPrayerLabel
+    startCountDown(upComingPrayerTimeStamp)
 }
 const startCountDown = (upComingPrayerTime) => {
     let remainingTimeStamp, hours, minutes, seconds
