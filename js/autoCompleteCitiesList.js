@@ -2,7 +2,7 @@
 
 import { citiesOfTheWorld } from "./citiesList.js";
 import { errorHandler } from "./errorHandler.js";
-import { prayerTimesByCity, displayPrayerTiming } from "./prayerTimesAPI.js";
+import { prayerTimesByCity, renderPrayerTiming } from "./prayerTimesAPI.js";
 import * as dom from "./domElements.js";
 
 
@@ -31,7 +31,7 @@ const addClickEventToSuggestedCity = (entry) => {
         dom.actualLocationLabel.textContent = chosenCity
         // clearCitiesList()
         hideLocationSearchWrapper()
-        displayPrayerTimingForChosenCity(chosenCity)
+        renderPrayerTimingForChosenCity(chosenCity)
     })
 }
 
@@ -47,7 +47,7 @@ export const clearCitiesList = () => {
     }
 }
 
-async function displayPrayerTimingForChosenCity(chosenCity) {
+async function renderPrayerTimingForChosenCity(chosenCity) {
     try {
         const city = chosenCity.slice(0, -4)
         const country = chosenCity.slice(-2)
@@ -56,7 +56,7 @@ async function displayPrayerTimingForChosenCity(chosenCity) {
         const month = date.getMonth() + 1
         const year = date.getFullYear()
         const fetchedPrayerTiming = await prayerTimesByCity(city, country, day, month, year)
-        displayPrayerTiming(fetchedPrayerTiming)
+        renderPrayerTiming(fetchedPrayerTiming)
 
     } catch (err) {
         errorHandler(err)
