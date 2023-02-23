@@ -1,7 +1,7 @@
 //? Imported Modules
 //==================
 
-import { displayIslamicDate, displayGregorianDate, displayTime } from "./displayCalendars.js";
+import { displayIslamicDate, displayGregorianDate } from "./displayCalendars.js";
 import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 // import { errorHandler } from "./errorHandler.js";
@@ -26,12 +26,11 @@ const toDay = {
 //? Main Functions
 //================
 
-//* Display time
+//* Display actual time
 setInterval(() => {
-    const time = new Date()
-    const timeNow = time.toLocaleTimeString("fr")
-    // timeNow: date.toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric", second: "numeric", hour12: true })
-    displayTime(timeNow)
+    const time = new Date().toLocaleTimeString("fr") // With Seconds
+    // const time = new Date().toLocaleTimeString("fr", { hour: "2-digit", minute: "2-digit" }) // Without Seconds
+    dom.mainTimeLabel.innerText = time
 }, 1000)
 
 //* Get and display Islamic & Gregorian Dates

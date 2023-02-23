@@ -4,12 +4,6 @@
 import { errorHandler } from "./errorHandler.js";
 import * as dom from "./domElements.js";
 
-//? Display the time now
-//======================
-
-export const displayTime = (time) => {
-    dom.mainTimeLabel.innerText = time
-}
 
 //? Display Gregorian Dates
 //=========================

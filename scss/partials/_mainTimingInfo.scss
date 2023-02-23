@@ -58,29 +58,31 @@
             border-radius: 50%;
             border-right: 4px solid $active-color;
             border-left: 4px solid $active-color;
-            rotate: 14deg;
+            rotate: 25deg;
 
             &::before,
             &::after {
                 content: "";
                 position: absolute;
-                width: 0;
-                height: 0;
-                border: 9px solid $active-color;
+                width: 13px;
+                height: 13px;
+                border: 7px solid $active-color;
+                border-radius: 50%;
+                rotate: 50deg;
             }
 
             &::before {
-                top: 82%;
-                left: 82%;
-                border-right-color: transparent;
-                border-top-color: transparent;
+                top: 84%;
+                left: 80%;
+                // border-right-color: transparent;
+                // border-top-color: transparent;
             }
 
             &::after {
-                top: 10%;
-                left: 10%;
-                border-left-color: transparent;
-                border-bottom-color: transparent;
+                top: 9%;
+                left: 11%;
+                // border-left-color: transparent;
+                // border-bottom-color: transparent;
             }
         }
     }

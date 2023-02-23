@@ -9,7 +9,7 @@ export const savePrayerTiming = (apiResponse) => {
         { prayerName: 'Dhuhr', prayerTime: apiResponse.timings.Dhuhr.slice(0, 5) },
         { prayerName: 'Asr', prayerTime: apiResponse.timings.Asr.slice(0, 5) },
         { prayerName: 'Maghrib', prayerTime: apiResponse.timings.Maghrib.slice(0, 5) },
-        { prayerName: 'Ishaa', prayerTime: apiResponse.timings.Isha.slice(0, 5) }
+        { prayerName: "Isha'a", prayerTime: apiResponse.timings.Isha.slice(0, 5) }
     ]
     return fetchedPrayerTimesArray
 }
@@ -48,9 +48,7 @@ export async function prayerTimesByLocationCoordinates(x, y) {
 //* Display feched prayer times data
 
 export const renderPrayerTiming = (prayerTimingArray) => {
-
-    const prayerTimeLabels = document.querySelectorAll(".prayerTimeCard__prayerTime")
-    for (let i = 0; i < prayerTimeLabels.length; i++) {
-        prayerTimeLabels[i].innerText = prayerTimingArray[i].prayerTime
+    for (let i = 0; i < dom.prayerTimeLabels.length; i++) {
+        dom.prayerTimeLabels[i].innerText = prayerTimingArray[i].prayerTime
     }
 }

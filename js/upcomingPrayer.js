@@ -12,21 +12,38 @@ export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
     const actualTimeStamp = date.getTime()
     let upcomingPrayerLabelContent
     let upComingPrayerTimeStamp
-    const ishaaTime = new Date(`${date.toDateString()} ${savedPrayerTimes[5].prayerTime}`).getTime()
+    let prayerTimeCard__index
+    const ishaaTime = new Date(`${date.toDateString()} ${savedPrayerTimes[5].prayerTime}:00`).getTime()
     // If actual time passes "Isha'a" prayer's time => render "Fajr" as upcoming prayer
     if (actualTimeStamp > ishaaTime) {
-        upcomingPrayerLabelContent = "Assobh!"
+        upcomingPrayerLabelContent = "Fajr"
         //* Get timeStamp for tomorro's "Fajr" prayer: need to check if today is the last day of the month
-        upComingPrayerTimeStamp = (new Date(`${date.getMonth()}-${date.getDate() + 1}-${date.getFullYear()} ${savedPrayerTimes[0].prayerTime}`)).getTime()
+        // The ISO 8601 syntax (YYYY-MM-DD) is also the preferred JavaScript date format
+        // ISO dates can be written with added hours, minutes, and seconds (YYYY-MM-DDTHH:MM:SSZ) // 'Z' will return the time depending on local time-zone (expl: 21:36 instead of 20:36) 
+        // If you want to modify the time relative to UTC, remove the Z and add +HH:MM or -HH:MM instead
+        let dateTemplateMonth = date.getMonth() + 1
+        dateTemplateMonth = dateTemplateMonth < 9 ? '0' + dateTemplateMonth : date.getMonth()
+        const dateTemplateDay = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + 1
+        const dateTemplateYear = date.getFullYear()
+        const timeTemplate = savedPrayerTimes[0].prayerTime
+        const dateTemplate = `${dateTemplateYear}-${dateTemplateMonth}-${dateTemplateDay}T${timeTemplate}:00` // :00 is optional
+        upComingPrayerTimeStamp = new Date(dateTemplate).getTime()
+        prayerTimeCard__index = 0
     } else {
         for (let i = 0; i < savedPrayerTimes.length; i++) {
-            upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${savedPrayerTimes[i].prayerTime}`)).getTime()
-            if (upComingPrayerTimeStamp > actualTimeStamp) {
+            upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${savedPrayerTimes[i].prayerTime}:00`)).getTime()
+
+            if (upComingPrayerTimeStamp > actualTimeStamp && i != 1) { // '&& i != 1' To avoid displaying 'Sunrise' as upcoming prayer
                 upcomingPrayerLabelContent = savedPrayerTimes[i].prayerName
+                prayerTimeCard__index = i
                 break
             }
         }
     }
+    dom.prayerTimeCards.forEach(card => {
+        card.classList.remove("prayerTimeCard--nextPrayer")
+    })
+    dom.prayerTimeCards[prayerTimeCard__index].classList.add("prayerTimeCard--nextPrayer")
     dom.upcomingPrayerLabel.innerText = upcomingPrayerLabelContent
     startCountDown(upComingPrayerTimeStamp)
 }
