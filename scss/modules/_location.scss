@@ -109,6 +109,7 @@
                 left: 0;
                 border-bottom-left-radius: .3rem;
                 border-bottom-right-radius: .3rem;
+                z-index: 55;
 
                 &::-webkit-scrollbar {
                     width: 7px;
@@ -118,12 +119,6 @@
                     background-color: $bg-second;
                     border-radius: 5px;
                 }
-
-                // display: none;
-
-                // &.list-of-cities-activated {
-                //     display: initial;
-                // }
 
                 &__city {
                     line-height: 2.7rem;

@@ -2,7 +2,7 @@
 //=========================
 
 export const actualLocationLabel = document.querySelector(".location__actual-location-wrapper__cityName")
-export const autoLocateButton = document.querySelector(".auto-locate-button")
+export const autoLocateButton = document.querySelector(".location__search-wrapper__auto-locate-button")
 export const islamicDateLabel = document.querySelector(".islamic_date")
 export const gregorianDateLabel = document.querySelector(".gregorian_date")
 export const footerYearLabel = document.querySelector(".actual-year")
@@ -18,4 +18,4 @@ export const mainTimeLabel = document.querySelector(".timingContainer__timeDua__
 export const citySearchInput = document.querySelector(".search-for-city-input")
 export const citiesListMatch = document.querySelector(".extracted-cities-list")
 export const upcomingPrayerLabel = document.querySelector(".timingContainer__upcomingPrayer__prayerName")
-export const remainingTimeLabel = document.querySelector(".timingContainer__upcomingPrayer__remainingTime")
+export const countDownLabel = document.querySelector(".timingContainer__upcomingPrayer__remainingTime")

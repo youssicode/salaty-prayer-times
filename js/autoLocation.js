@@ -51,6 +51,10 @@ export async function getAdresse(lat, long) {
     }
 }
 
+export async function autoLocateCity(coords) {
+    const localAdresse = await getAdresse(coords.latitude, coords.longitude);
+    displayLocatedAdresse(localAdresse)
+}
 //* Display Located Adresse
 export const displayLocatedAdresse = (adresse) => {
     let cityCountryName

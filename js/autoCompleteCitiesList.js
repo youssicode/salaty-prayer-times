@@ -2,7 +2,7 @@
 
 import { citiesOfTheWorld } from "./citiesList.js";
 import { errorHandler } from "./errorHandler.js";
-import { prayerTimesByCity, renderPrayerTiming } from "./prayerTimesAPI.js";
+import { prayerTimesByCity, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import * as dom from "./domElements.js";
 
 
@@ -27,9 +27,8 @@ export function autoCompleteCitiesList() {
 
 const addClickEventToSuggestedCity = (entry) => {
     entry.addEventListener("mousedown", function () {
-        const chosenCity = this.textContent
+        const chosenCity = this.textContent // this won't refer to th clicked "li" if we use arrow function syntax
         dom.actualLocationLabel.textContent = chosenCity
-        // clearCitiesList()
         hideLocationSearchWrapper()
         renderPrayerTimingForChosenCity(chosenCity)
     })
@@ -55,8 +54,9 @@ async function renderPrayerTimingForChosenCity(chosenCity) {
         const day = date.getDate()
         const month = date.getMonth() + 1
         const year = date.getFullYear()
-        const fetchedPrayerTiming = await prayerTimesByCity(city, country, day, month, year)
-        renderPrayerTiming(fetchedPrayerTiming)
+        const prayerTimesByCityResponse = await prayerTimesByCity(city, country, day, month, year)
+        const fetchedPrayerTimes = savePrayerTiming(prayerTimesByCityResponse)
+        renderPrayerTiming(fetchedPrayerTimes)
 
     } catch (err) {
         errorHandler(err)

@@ -1,6 +1,20 @@
 import * as dom from "./domElements.js";
 
-// Geting the prayer times by specific city
+//* Save fetched prayer times data in an array
+
+export const savePrayerTiming = (apiResponse) => {
+    const fetchedPrayerTimesArray = [
+        { prayerName: 'Fajr', prayerTime: apiResponse.timings.Fajr.slice(0, 5) },
+        { prayerName: 'Sunrise', prayerTime: apiResponse.timings.Sunrise.slice(0, 5) },
+        { prayerName: 'Dhuhr', prayerTime: apiResponse.timings.Dhuhr.slice(0, 5) },
+        { prayerName: 'Asr', prayerTime: apiResponse.timings.Asr.slice(0, 5) },
+        { prayerName: 'Maghrib', prayerTime: apiResponse.timings.Maghrib.slice(0, 5) },
+        { prayerName: 'Ishaa', prayerTime: apiResponse.timings.Isha.slice(0, 5) }
+    ]
+    return fetchedPrayerTimesArray
+}
+
+//* Geting the prayer times by specific city
 
 export async function prayerTimesByCity(city, country, day, month, year) {
     try {
@@ -34,8 +48,9 @@ export async function prayerTimesByLocationCoordinates(x, y) {
 //* Display feched prayer times data
 
 export const renderPrayerTiming = (prayerTimingArray) => {
-    const prayerTimecards = document.querySelectorAll(".prayerTimeCard__prayerTime")
-    for (let i = 0; i < prayerTimecards.length; i++) {
-        prayerTimecards[i].innerText = prayerTimingArray[i].prayerTime
+
+    const prayerTimeLabels = document.querySelectorAll(".prayerTimeCard__prayerTime")
+    for (let i = 0; i < prayerTimeLabels.length; i++) {
+        prayerTimeLabels[i].innerText = prayerTimingArray[i].prayerTime
     }
 }
