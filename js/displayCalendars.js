@@ -33,7 +33,7 @@ export const displayIslamicDate = async (date) => {
 //==========================================
 
 async function getIslamicCalendar(gregorian) {
-    let apiUrl = `http://api.aladhan.com/v1/gToH?date=${gregorian}`
+    let apiUrl = `https://api.aladhan.com/v1/gToH?date=${gregorian}`
     let response = await axios({
         method: "GET",
         url: apiUrl,

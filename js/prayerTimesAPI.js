@@ -18,7 +18,7 @@ export const savePrayerTiming = (apiResponse) => {
 
 export async function prayerTimesByCity(city, country, day, month, year) {
     try {
-        let apiUrl = `http://api.aladhan.com/v1/calendarByCity?city=${city}&country=${country}&method=3&month=${month}&year=${year}`
+        let apiUrl = `https://api.aladhan.com/v1/calendarByCity?city=${city}&country=${country}&method=3&month=${month}&year=${year}`
         let response = await axios({
             method: "GET",
             url: apiUrl,
@@ -33,7 +33,7 @@ export async function prayerTimesByCity(city, country, day, month, year) {
 
 export async function prayerTimesByLocationCoordinates(x, y) {
     const dateTimeStamp = Math.floor(Date.now() / 1000)
-    let apiUrl = `http://api.aladhan.com/v1/timings/${dateTimeStamp}?timezone=America/Toronto&latitude=${x}&longitude=${y}&method=3`
+    let apiUrl = `https://api.aladhan.com/v1/timings/${dateTimeStamp}?timezone=America/Toronto&latitude=${x}&longitude=${y}&method=3`
     let response = await axios({
         method: "GET",
         url: apiUrl,
