@@ -43,7 +43,7 @@ export async function getAdresse(lat, long) {
         console.log(adressedata)
 
         const localAdresse = {
-            cityName: adressedata.city,
+            cityName: adressedata.city || "Unknown city",
             countryName: adressedata.countryName,
             countryShortName: adressedata.countryCode
         }

@@ -25,7 +25,7 @@ export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
         dateTemplateMonth = dateTemplateMonth < 9 ? '0' + dateTemplateMonth : date.getMonth()
         const dateTemplateDay = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + 1
         const dateTemplateYear = date.getFullYear()
-        const timeTemplate = savedPrayerTimes[0].prayerTime
+        const timeTemplate = (savedPrayerTimes[0].prayerTime).length < 5 ? "0" + savedPrayerTimes[0].prayerTime : savedPrayerTimes[0].prayerTime
         const dateTemplate = `${dateTemplateYear}-${dateTemplateMonth}-${dateTemplateDay}T${timeTemplate}:00` // :00 is optional
         upComingPrayerTimeStamp = new Date(dateTemplate).getTime()
         prayerTimeCard__index = 0
@@ -45,15 +45,23 @@ export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
     })
     dom.prayerTimeCards[prayerTimeCard__index].classList.add("prayerTimeCard--nextPrayer")
     dom.upcomingPrayerLabel.innerText = upcomingPrayerLabelContent
-    startCountDown(upComingPrayerTimeStamp)
+    startCountDown(upComingPrayerTimeStamp, prayerTimeCard__index, savedPrayerTimes)
 }
 
 // Count-down time until next prayer
-const startCountDown = (upComingPrayerTime) => {
+const startCountDown = (upComingPrayerTime, index, savedPrayerTimes) => {
     let remainingTimeStamp, hours, minutes, seconds
     let upComingPrayerCountDown = setInterval(() => {
         let timeNow = new Date().getTime()
         remainingTimeStamp = (upComingPrayerTime - timeNow)
+
+        if (remainingTimeStamp <= 0) {
+            clearInterval(upComingPrayerCountDown)
+            startAthen(index)
+            renderUpcomingPrayerCard(savedPrayerTimes)
+            return
+        }
+
         hours = Math.floor(remainingTimeStamp / (1000 * 60 * 60))
         minutes = Math.floor((remainingTimeStamp % (1000 * 60 * 60)) / (1000 * 60))
         seconds = Math.floor((remainingTimeStamp % (1000 * 60)) / 1000)
@@ -61,10 +69,10 @@ const startCountDown = (upComingPrayerTime) => {
         minutes = minutes < 10 ? '0' + minutes : minutes
         seconds = seconds < 10 ? '0' + seconds : seconds
         dom.countDownLabel.innerText = `${hours}:${minutes}:${seconds}`
-
-        if (remainingTimeStamp <= 0) {
-            clearInterval(upComingPrayerCountDown)
-            renderUpcomingPrayerCard()
-        }
     }, 1000);
+}
+
+const startAthen = (index) => {
+    if (dom.athanBell[index].classList.contains("prayerTimeCard__athan--disabled")) return
+    //! play adan
 }
