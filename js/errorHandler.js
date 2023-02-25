@@ -1,3 +1,5 @@
+import { actualLocationLabel } from "./domElements.js";
+
 export const errorHandler = (error) => {
     let errorMessage = "Unknown error."
     switch (error.code) {

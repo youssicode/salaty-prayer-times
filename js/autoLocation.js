@@ -24,7 +24,7 @@ export async function getUserCoordinates() {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         }
-    } catch (error) {
+    } catch (err) {
         errorHandler(err)
     }
 }
@@ -40,6 +40,8 @@ export async function getAdresse(lat, long) {
             url: latLongUrl,
         })
         const adressedata = await response.data
+        console.log(adressedata)
+
         const localAdresse = {
             cityName: adressedata.city,
             countryName: adressedata.countryName,
@@ -52,13 +54,20 @@ export async function getAdresse(lat, long) {
 }
 
 export async function autoLocateCity(coords) {
-    const localAdresse = await getAdresse(coords.latitude, coords.longitude);
-    displayLocatedAdresse(localAdresse)
+    try {
+        const localAdresse = await getAdresse(coords.latitude, coords.longitude);
+        displayLocatedAdresse(localAdresse)
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 //* Display Located Adresse
 export const displayLocatedAdresse = (adresse) => {
     let cityCountryName
-    if (!adresse) cityCountryName = "Location Undetectable"
-    cityCountryName = `${adresse.cityName}, ${adresse.countryShortName}`
+    if (adresse) {
+        cityCountryName = `${adresse.cityName}, ${adresse.countryShortName}`
+    } else {
+        cityCountryName = "Location Undetectable"
+    }
     dom.actualLocationLabel.innerText = cityCountryName
 }

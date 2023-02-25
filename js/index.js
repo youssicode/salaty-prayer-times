@@ -4,7 +4,7 @@
 import { displayIslamicDate, displayGregorianDate } from "./displayCalendars.js";
 import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-// import { errorHandler } from "./errorHandler.js";
+import { errorHandler } from "./errorHandler.js";
 import { prayerTimesByLocationCoordinates, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoCompleteCitiesList.js";
 import * as dom from "./domElements.js";
@@ -40,16 +40,22 @@ displayGregorianDate(toDay)
 //* Get User Location Coordinates and then display the local adresse/city...
 async function renderFetchedData() {
     const coordinates = await getUserCoordinates()
-    autoLocateCity(coordinates)
-    getPrayerTimes(coordinates)
+    if (coordinates) {
+        autoLocateCity(coordinates)
+        getPrayerTimes(coordinates)
+    }
 }
 
 //* ...and prayer times specific for that city
 async function getPrayerTimes(coords) {
-    const prayerTimingApiResponse = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-    const fetchedPrayerTimes = savePrayerTiming(prayerTimingApiResponse)
-    renderPrayerTiming(fetchedPrayerTimes, toDay)
-    renderUpcomingPrayerCard(fetchedPrayerTimes)
+    try {
+        const prayerTimingApiResponse = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
+        const fetchedPrayerTimes = savePrayerTiming(prayerTimingApiResponse)
+        renderPrayerTiming(fetchedPrayerTimes, toDay)
+        renderUpcomingPrayerCard(fetchedPrayerTimes)
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 renderFetchedData()

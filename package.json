@@ -1,7 +1,7 @@
 {
   "name": "salaty_prayer_times",
   "version": "1.0.0",
-  "description": "Thanks for checking out this front-end coding project.",
+  "description": "An application that display islamic prayer times and other infos depending on user location.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/youssicode/salaty-prayer-times.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "salaty",
+    "prayer",
+    "times",
+    "auto-location",
+    "clock",
+    "mosque"
+  ],
+  "author": "Youssef El-Hrouzi",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/youssicode/salaty-prayer-times/issues"
