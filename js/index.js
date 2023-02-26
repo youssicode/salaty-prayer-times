@@ -21,7 +21,7 @@ const toDay = {
     monthName: date.toLocaleString("default", { month: "short" }),
     year: date.getFullYear(),
 }
-
+export let fetchedPrayerTimes = []
 
 //? Main Functions
 //================
@@ -50,9 +50,9 @@ async function renderFetchedData() {
 async function getPrayerTimes(coords) {
     try {
         const prayerTimingApiResponse = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-        const fetchedPrayerTimes = savePrayerTiming(prayerTimingApiResponse)
-        renderPrayerTiming(fetchedPrayerTimes, toDay)
-        renderUpcomingPrayerCard(fetchedPrayerTimes)
+        fetchedPrayerTimes = savePrayerTiming(prayerTimingApiResponse)
+        renderPrayerTiming()
+        renderUpcomingPrayerCard()
     } catch (err) {
         errorHandler(err)
     }
@@ -79,11 +79,11 @@ window.addEventListener("click", e => {
 dom.citySearchInput.addEventListener("input", autoCompleteCitiesList)
 dom.autoLocateButton.addEventListener("click", renderFetchedData)
 dom.adhanBell.forEach(el => {
-    el.addEventListener("click", activeadhan)
+    el.addEventListener("click", () => {
+        this.classList.toggle("prayerTimeCard__adhan--disabled")
+    })
 });
-function activeadhan() {
-    this.classList.toggle("prayerTimeCard__adhan--disabled")
-}
+
 
 
 

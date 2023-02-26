@@ -1,13 +1,19 @@
+//? Imported Modules
+//==================
+import { fetchedPrayerTimes } from "./index.js";
 import * as dom from "./domElements.js";
+
+//? Functions
+//================
 
 //* Save fetched prayer times data in an array
 
 export const savePrayerTiming = (apiResponse) => {
     const fetchedPrayerTimesArray = [
-        { prayerName: 'Fajr', prayerTime: apiResponse.timings.Fajr.slice(0, 5) },
+        { prayerName: 'sob7', prayerTime: "00:24" },
+        // { prayerName: 'Fajr', prayerTime: apiResponse.timings.Fajr.slice(0, 5) },
         { prayerName: 'Sunrise', prayerTime: apiResponse.timings.Sunrise.slice(0, 5) },
         { prayerName: 'Dhuhr', prayerTime: apiResponse.timings.Dhuhr.slice(0, 5) },
-        // { prayerName: 'Asr', prayerTime: "18:42" },
         { prayerName: 'Asr', prayerTime: apiResponse.timings.Asr.slice(0, 5) },
         { prayerName: 'Maghrib', prayerTime: apiResponse.timings.Maghrib.slice(0, 5) },
         { prayerName: "Isha'a", prayerTime: apiResponse.timings.Isha.slice(0, 5) }
@@ -48,8 +54,8 @@ export async function prayerTimesByLocationCoordinates(x, y) {
 
 //* Display feched prayer times data
 
-export const renderPrayerTiming = (prayerTimingArray) => {
+export const renderPrayerTiming = () => {
     for (let i = 0; i < dom.prayerTimeLabels.length; i++) {
-        dom.prayerTimeLabels[i].innerText = prayerTimingArray[i].prayerTime
+        dom.prayerTimeLabels[i].innerText = fetchedPrayerTimes[i].prayerTime
     }
 }

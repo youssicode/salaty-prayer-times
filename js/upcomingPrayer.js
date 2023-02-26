@@ -1,19 +1,20 @@
 //? Imported Modules
 //==================
+import { fetchedPrayerTimes } from "./index.js";
 import * as dom from "./domElements.js";
 
 
-//? Main Functions
+//? Functions
 //================
 
 //* Check witch prayer is next & display it
-export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
+export const renderUpcomingPrayerCard = () => {
     const date = new Date()
     const actualTimeStamp = date.getTime()
     let upcomingPrayerLabelContent
     let upComingPrayerTimeStamp
     let prayerTimeCard__index
-    const ishaaTime = new Date(`${date.toDateString()} ${savedPrayerTimes[5].prayerTime}:00`).getTime()
+    const ishaaTime = new Date(`${date.toDateString()} ${fetchedPrayerTimes[5].prayerTime}:00`).getTime()
     // If actual time passes "Isha'a" prayer's time => render "Fajr" as upcoming prayer
     if (actualTimeStamp > ishaaTime) {
         upcomingPrayerLabelContent = "Fajr"
@@ -25,16 +26,16 @@ export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
         dateTemplateMonth = dateTemplateMonth < 9 ? '0' + dateTemplateMonth : date.getMonth()
         const dateTemplateDay = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + 1
         const dateTemplateYear = date.getFullYear()
-        const timeTemplate = (savedPrayerTimes[0].prayerTime).length < 5 ? '0' + savedPrayerTimes[0].prayerTime : savedPrayerTimes[0].prayerTime // if prayerTime's hour is 1-digit add "0" to it.
+        const timeTemplate = (fetchedPrayerTimes[0].prayerTime).length < 5 ? '0' + fetchedPrayerTimes[0].prayerTime : fetchedPrayerTimes[0].prayerTime // if prayerTime's hour is 1-digit add "0" to it.
         const dateTemplate = `${dateTemplateYear}-${dateTemplateMonth}-${dateTemplateDay}T${timeTemplate}:00` // :00 is optional
         upComingPrayerTimeStamp = new Date(dateTemplate).getTime()
         prayerTimeCard__index = 0
     } else {
-        for (let i = 0; i < savedPrayerTimes.length; i++) {
-            upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${savedPrayerTimes[i].prayerTime}:00`)).getTime()
+        for (let i = 0; i < fetchedPrayerTimes.length; i++) {
+            upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${fetchedPrayerTimes[i].prayerTime}:00`)).getTime()
 
             if (upComingPrayerTimeStamp > actualTimeStamp && i != 1) { // '&& i != 1' To avoid displaying 'Sunrise' as upcoming prayer
-                upcomingPrayerLabelContent = savedPrayerTimes[i].prayerName
+                upcomingPrayerLabelContent = fetchedPrayerTimes[i].prayerName
                 prayerTimeCard__index = i
                 break
             }
@@ -45,11 +46,11 @@ export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
     })
     dom.prayerTimeCards[prayerTimeCard__index].classList.add("prayerTimeCard--nextPrayer")
     dom.upcomingPrayerLabel.innerText = upcomingPrayerLabelContent
-    startCountDown(upComingPrayerTimeStamp, prayerTimeCard__index, savedPrayerTimes)
+    startCountDown(upComingPrayerTimeStamp, prayerTimeCard__index)
 }
 
 //* Count-down time until next prayer
-const startCountDown = (upComingPrayerTime, index, savedPrayerTimes) => {
+const startCountDown = (upComingPrayerTime, index) => {
     let remainingTimeStamp, hours, minutes, seconds
     let upComingPrayerCountDown = setInterval(() => {
         let timeNow = new Date().getTime()
@@ -58,7 +59,7 @@ const startCountDown = (upComingPrayerTime, index, savedPrayerTimes) => {
         if (remainingTimeStamp <= 0) {
             clearInterval(upComingPrayerCountDown)
             startCallToPrayer(index)
-            renderUpcomingPrayerCard(savedPrayerTimes)
+            renderUpcomingPrayerCard()
             return
         }
 
@@ -75,7 +76,13 @@ const startCountDown = (upComingPrayerTime, index, savedPrayerTimes) => {
 const startCallToPrayer = (index) => {
     if (dom.adhanBell[index].classList.contains("prayerTimeCard__adhan--disabled")) return
     // play 'Call-To_Prayer' audio file
-    let adhan = document.createElement('audio')
-    adhan.setAttribute("src", "../src/audio/Adhan_Alaqsa.mp3")
-    adhan.play()
+    let adhanSound = document.createElement('audio')
+    adhanSound.setAttribute("src", "../src/audio/Adhan_Alaqsa.mp3")
+    adhanSound.play()
+    // display Adhan overlay
+    dom.adhanOverlay.classList.remove("adhan-overlay--hidden")
+    dom.muteAdhanButton.addEventListener("click", () => {
+        dom.adhanOverlay.classList.add("adhan-overlay--hidden")
+        adhanSound.pause()
+    })
 }

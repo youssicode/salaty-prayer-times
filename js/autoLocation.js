@@ -40,10 +40,8 @@ export async function getAdresse(lat, long) {
             url: latLongUrl,
         })
         const adressedata = await response.data
-        console.log(adressedata)
-
         const localAdresse = {
-            cityName: adressedata.city || "Unknown city",
+            cityName: adressedata.city ? adressedata.city : adressedata.locality ? adressedata.locality : "Unknown area",
             countryName: adressedata.countryName,
             countryShortName: adressedata.countryCode
         }
