@@ -16,6 +16,11 @@
     </head>
     <body>
         <main>
+            <div class="adhan-overlay">
+                <img src="./src/images/adhan-overlay-background.jpg" class="adhan-overlay-background-image" alt="adhan overlay main image">
+                <p class= "mute-adhan-button" >Tap to mute and return</p>
+            </div>
+            
             <section class="heroSection">
                 <header class="heroSection__header">
                     <div class="appLogo">salaty: prayer times</div>
@@ -82,16 +87,18 @@
                                 </div>
                                     <div class="time-icon-wrapper">
                                     <p class="prayerTimeCard__prayerTime fajr">- - : - -</p>
-                                <i class="fa-solid fa-bell prayerTimeCard__athan" ></i>
-                                </div>
-                            </li>
-                            <li class="prayerTimeCard">
-                                <div class="name-icon-wrapper">
-                                    <img class="prayerTimeCard__sky-icon" src="./src/images/sunrise-icon.png" alt="sunrise icon">
-                                    <h2 class="prayerTimeCard__prayerName">sunrise</h2>
-                                </div>
-                                <div class="time-icon-wrapper">
-                                    <p class="prayerTimeCard__prayerTime sunrise">- - : - -</p>
+                                <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
+                            </div>
+                        </li>
+                        <li class="prayerTimeCard">
+                            <div class="name-icon-wrapper">
+                                <img class="prayerTimeCard__sky-icon" src="./src/images/sunrise-icon.png" alt="sunrise icon">
+                                <h2 class="prayerTimeCard__prayerName">sunrise</h2>
+                            </div>
+                            <div class="time-icon-wrapper">
+                                <p class="prayerTimeCard__prayerTime sunrise">- - : - -</p>
+                                <!-- Element added for purpose that each "adhan-icon" have the same index as its parent card -->
+                                <i class="prayerTimeCard__adhan" ></i> 
                                 </div>
                             </li>
                             <li class="prayerTimeCard">
@@ -101,7 +108,7 @@
                                 </div>
                                 <div class="time-icon-wrapper">
                                     <p class="prayerTimeCard__prayerTime dhuhr">- - : - -</p>
-                                    <i class="fa-solid fa-bell prayerTimeCard__athan" ></i>
+                                    <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
                                 </div>
                             </li>      
                             <li class="prayerTimeCard">
@@ -111,7 +118,7 @@
                                 </div>
                                 <div class="time-icon-wrapper">
                                     <p class="prayerTimeCard__prayerTime asr">- - : - -</p>
-                                    <i class="fa-solid fa-bell prayerTimeCard__athan" ></i>
+                                    <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
                                 </div>
                             </li>
                             <li class="prayerTimeCard">
@@ -121,7 +128,7 @@
                                 </div>
                                 <div class="time-icon-wrapper">
                                     <p class="prayerTimeCard__prayerTime maghrib">- - : - -</p>
-                                    <i class="fa-solid fa-bell prayerTimeCard__athan prayerTimeCard__athan--disabled" ></i>
+                                    <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
                                 </div>
                             </li>
                             <li class="prayerTimeCard">
@@ -131,7 +138,7 @@
                                 </div>
                                 <div class="time-icon-wrapper">
                                     <p class="prayerTimeCard__prayerTime ishaa">- - : - -</p>
-                                    <i class="fa-solid fa-bell prayerTimeCard__athan" ></i>
+                                    <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
                                 </div>
                             </li>
                     </ul>
@@ -196,6 +203,7 @@
                 </div>
             </footer>
         </main>
+        
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <!-- OR -->
         <!-- <script src="./node_modules/axios/dist/axios.min.js"></script> -->

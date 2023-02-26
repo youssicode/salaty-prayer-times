@@ -32,7 +32,7 @@
     }
 }
 
-//List of prayer times and Athan notification
+//List of prayer times and adhan notification
 .prayerTimesContainer {
     width: 100%;
     background-color: $bg-primary;
@@ -119,13 +119,13 @@
         @extend .text-black-shadow;
     }
 
-    &__athan {
+    &__adhan {
         color: $active-color;
         font-size: 1.7rem;
         cursor: pointer;
     }
 
-    &__athan--disabled {
+    &__adhan--disabled {
         color: $disabled-color;
     }
 

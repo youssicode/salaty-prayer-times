@@ -6,7 +6,7 @@ import * as dom from "./domElements.js";
 //? Main Functions
 //================
 
-// Check & display witch prayer is next
+//* Check witch prayer is next & display it
 export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
     const date = new Date()
     const actualTimeStamp = date.getTime()
@@ -25,7 +25,7 @@ export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
         dateTemplateMonth = dateTemplateMonth < 9 ? '0' + dateTemplateMonth : date.getMonth()
         const dateTemplateDay = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + 1
         const dateTemplateYear = date.getFullYear()
-        const timeTemplate = (savedPrayerTimes[0].prayerTime).length < 5 ? "0" + savedPrayerTimes[0].prayerTime : savedPrayerTimes[0].prayerTime
+        const timeTemplate = (savedPrayerTimes[0].prayerTime).length < 5 ? '0' + savedPrayerTimes[0].prayerTime : savedPrayerTimes[0].prayerTime // if prayerTime's hour is 1-digit add "0" to it.
         const dateTemplate = `${dateTemplateYear}-${dateTemplateMonth}-${dateTemplateDay}T${timeTemplate}:00` // :00 is optional
         upComingPrayerTimeStamp = new Date(dateTemplate).getTime()
         prayerTimeCard__index = 0
@@ -48,7 +48,7 @@ export const renderUpcomingPrayerCard = (savedPrayerTimes) => {
     startCountDown(upComingPrayerTimeStamp, prayerTimeCard__index, savedPrayerTimes)
 }
 
-// Count-down time until next prayer
+//* Count-down time until next prayer
 const startCountDown = (upComingPrayerTime, index, savedPrayerTimes) => {
     let remainingTimeStamp, hours, minutes, seconds
     let upComingPrayerCountDown = setInterval(() => {
@@ -57,7 +57,7 @@ const startCountDown = (upComingPrayerTime, index, savedPrayerTimes) => {
 
         if (remainingTimeStamp <= 0) {
             clearInterval(upComingPrayerCountDown)
-            startAthen(index)
+            startCallToPrayer(index)
             renderUpcomingPrayerCard(savedPrayerTimes)
             return
         }
@@ -72,7 +72,10 @@ const startCountDown = (upComingPrayerTime, index, savedPrayerTimes) => {
     }, 1000);
 }
 
-const startAthen = (index) => {
-    if (dom.athanBell[index].classList.contains("prayerTimeCard__athan--disabled")) return
-    //! play adan
+const startCallToPrayer = (index) => {
+    if (dom.adhanBell[index].classList.contains("prayerTimeCard__adhan--disabled")) return
+    // play 'Call-To_Prayer' audio file
+    let adhan = document.createElement('audio')
+    adhan.setAttribute("src", "../src/audio/Adhan_Alaqsa.mp3")
+    adhan.play()
 }

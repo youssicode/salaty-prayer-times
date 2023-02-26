@@ -1,0 +1,53 @@
+@use "../utilities" as *;
+
+.adhan-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // width: 100vw;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 99;
+
+    .adhan-overlay-background-image {
+        width: clamp(10rem, 50%, 25rem);
+        aspect-ratio: 1 / 1;
+        position: fixed;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%, -65%);
+        border-radius: 50%;
+        box-sizing: content-box; // allow the border to strech outside the image
+        border: 15px solid rgba(255, 199, 0, 0.3);
+        outline: 15px solid rgba(255, 199, 0);
+        animation-name: strech;
+        animation-name: 2s;
+    }
+
+    .mute-adhan-button {
+        position: fixed;
+        bottom: 5vh;
+        left: 50vw;
+        transform: translateX(-50%);
+        font-family: $Comfortaa;
+        font-size: 1.2rem;
+        text-align: center;
+        color: $active-color;
+        text-transform: initial;
+        cursor: pointer;
+    }
+}
+
+@keyframes strech {
+    from {
+        border-width: 15px;
+        border-color: rgba(255, 199, 0, 0.3);
+    }
+
+    to {
+        border-width: 100px;
+        border-color: rgba(255, 199, 0, 0.05);
+    }
+
+}

@@ -78,11 +78,11 @@ window.addEventListener("click", e => {
 })
 dom.citySearchInput.addEventListener("input", autoCompleteCitiesList)
 dom.autoLocateButton.addEventListener("click", renderFetchedData)
-dom.athanBell.forEach(el => {
-    el.addEventListener("click", activeAthan)
+dom.adhanBell.forEach(el => {
+    el.addEventListener("click", activeadhan)
 });
-function activeAthan() {
-    this.classList.toggle("prayerTimeCard__athan--disabled")
+function activeadhan() {
+    this.classList.toggle("prayerTimeCard__adhan--disabled")
 }
 
 
