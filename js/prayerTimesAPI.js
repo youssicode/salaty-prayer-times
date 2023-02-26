@@ -7,8 +7,8 @@ export const savePrayerTiming = (apiResponse) => {
         { prayerName: 'Fajr', prayerTime: apiResponse.timings.Fajr.slice(0, 5) },
         { prayerName: 'Sunrise', prayerTime: apiResponse.timings.Sunrise.slice(0, 5) },
         { prayerName: 'Dhuhr', prayerTime: apiResponse.timings.Dhuhr.slice(0, 5) },
-        { prayerName: 'Asr', prayerTime: "18:42" },
-        // { prayerName: 'Asr', prayerTime: apiResponse.timings.Asr.slice(0, 5) },
+        // { prayerName: 'Asr', prayerTime: "18:42" },
+        { prayerName: 'Asr', prayerTime: apiResponse.timings.Asr.slice(0, 5) },
         { prayerName: 'Maghrib', prayerTime: apiResponse.timings.Maghrib.slice(0, 5) },
         { prayerName: "Isha'a", prayerTime: apiResponse.timings.Isha.slice(0, 5) }
     ]

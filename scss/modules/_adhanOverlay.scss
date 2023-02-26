@@ -6,30 +6,79 @@
     bottom: 0;
     left: 0;
     right: 0;
-    // width: 100vw;
     background-color: rgba(0, 0, 0, .7);
     z-index: 99;
+    transition: all 300ms;
 
-    .adhan-overlay-background-image {
+    &.hide {
+        display: none;
+    }
+
+    .adhan-overlay__main-div {
         width: clamp(10rem, 50%, 25rem);
         aspect-ratio: 1 / 1;
         position: fixed;
         top: 50vh;
         left: 50vw;
-        transform: translate(-50%, -65%);
+        translate: -50% -50%;
         border-radius: 50%;
-        box-sizing: content-box; // allow the border to strech outside the image
-        border: 15px solid rgba(255, 199, 0, 0.3);
-        outline: 15px solid rgba(255, 199, 0);
-        animation-name: strech;
-        animation-name: 2s;
+        outline: 3px solid rgba(255, 199, 0);
+
+        .adhan-overlay-background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            z-index: 33;
+        }
+
+        .adhan-overlay__main-div__circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: inherit;
+            outline: 3px solid rgba(255, 199, 0);
+            animation: infinite;
+            animation-name: strech;
+            animation-duration: 3s;
+        }
+
+        .adhan-overlay__main-div__circle--circle1 {
+            animation-delay: 1000ms;
+        }
+
+        .adhan-overlay__main-div__circle--circle2 {
+            animation-delay: 2000ms;
+        }
+
+        .adhan-overlay__main-div__circle--circle3 {
+            animation-delay: 3000ms;
+        }
+    }
+
+    @keyframes strech {
+        from {
+            width: 100%;
+            background-color: rgba(255, 199, 0, 0.3);
+            outline-color: rgba(255, 199, 0);
+        }
+
+        to {
+            width: 180%;
+            background-color: transparent;
+            outline-color: transparent;
+        }
+
     }
 
     .mute-adhan-button {
         position: fixed;
         bottom: 5vh;
         left: 50vw;
-        transform: translateX(-50%);
+        translate: -50%;
         font-family: $Comfortaa;
         font-size: 1.2rem;
         text-align: center;
@@ -37,17 +86,4 @@
         text-transform: initial;
         cursor: pointer;
     }
-}
-
-@keyframes strech {
-    from {
-        border-width: 15px;
-        border-color: rgba(255, 199, 0, 0.3);
-    }
-
-    to {
-        border-width: 100px;
-        border-color: rgba(255, 199, 0, 0.05);
-    }
-
 }
