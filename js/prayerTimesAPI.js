@@ -10,8 +10,7 @@ import * as dom from "./domElements.js";
 
 export const savePrayerTiming = (apiResponse) => {
     const fetchedPrayerTimesArray = [
-        { prayerName: 'sob7', prayerTime: "00:24" },
-        // { prayerName: 'Fajr', prayerTime: apiResponse.timings.Fajr.slice(0, 5) },
+        { prayerName: 'Fajr', prayerTime: apiResponse.timings.Fajr.slice(0, 5) },
         { prayerName: 'Sunrise', prayerTime: apiResponse.timings.Sunrise.slice(0, 5) },
         { prayerName: 'Dhuhr', prayerTime: apiResponse.timings.Dhuhr.slice(0, 5) },
         { prayerName: 'Asr', prayerTime: apiResponse.timings.Asr.slice(0, 5) },

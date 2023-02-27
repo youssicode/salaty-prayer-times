@@ -21,6 +21,6 @@ export const upcomingPrayerLabel = document.querySelector(".timingContainer__upc
 export const countDownLabel = document.querySelector(".timingContainer__upcomingPrayer__remainingTime")
 export const prayerTimeCards = document.querySelectorAll(".prayerTimeCard")
 export const prayerTimeLabels = document.querySelectorAll(".prayerTimeCard__prayerTime")
-export const adhanBell = document.querySelectorAll(".prayerTimeCard__adhan")
+export const adhanBells = document.querySelectorAll(".prayerTimeCard__adhan")
 export const adhanOverlay = document.querySelector(".adhan-overlay")
 export const muteAdhanButton = document.querySelector(".mute-adhan-button")

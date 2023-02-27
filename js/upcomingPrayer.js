@@ -74,15 +74,17 @@ const startCountDown = (upComingPrayerTime, index) => {
 }
 
 const startCallToPrayer = (index) => {
-    if (dom.adhanBell[index].classList.contains("prayerTimeCard__adhan--disabled")) return
-    // play 'Call-To_Prayer' audio file
+    if (dom.adhanBells[index].classList.contains("prayerTimeCard__adhan--disabled")) return
+    // play 'Call-To_Prayer' sound track
     let adhanSound = document.createElement('audio')
     adhanSound.setAttribute("src", "../src/audio/Adhan_Alaqsa.mp3")
     adhanSound.play()
-    // display Adhan overlay
+    // Start/Stop Adhan + Show/Hide overlay
     dom.adhanOverlay.classList.remove("adhan-overlay--hidden")
-    dom.muteAdhanButton.addEventListener("click", () => {
+    dom.muteAdhanButton.addEventListener("click", stopAdhan)
+    window.addEventListener("keydown", e => e.key == "Escape" ? stopAdhan() : null)
+    function stopAdhan() {
         dom.adhanOverlay.classList.add("adhan-overlay--hidden")
         adhanSound.pause()
-    })
+    }
 }

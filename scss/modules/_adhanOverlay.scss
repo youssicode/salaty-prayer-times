@@ -41,9 +41,9 @@
             aspect-ratio: 1;
             border-radius: inherit;
             outline: 3px solid rgba(255, 199, 0);
-            animation: infinite;
             animation-name: strech;
             animation-duration: 3s;
+            animation-iteration-count: infinite;
         }
 
         .adhan-overlay__main-div__circle--circle1 {

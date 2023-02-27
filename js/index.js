@@ -78,8 +78,8 @@ window.addEventListener("click", e => {
 })
 dom.citySearchInput.addEventListener("input", autoCompleteCitiesList)
 dom.autoLocateButton.addEventListener("click", renderFetchedData)
-dom.adhanBell.forEach(el => {
-    el.addEventListener("click", () => {
+dom.adhanBells.forEach(el => {
+    el.addEventListener("click", function () {
         this.classList.toggle("prayerTimeCard__adhan--disabled")
     })
 });

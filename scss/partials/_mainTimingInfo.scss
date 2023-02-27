@@ -1,11 +1,8 @@
 @use "../utilities" as *;
 
 .timingContainer {
-    // margin-bottom: 4rem; to remove if not necessairly
-
     @include responsive_medium {
-        width: clamp(450px, 65%, 750px); // clamp (min-width, width, max-width)
-        // width: min(75%, 750px);
+        width: clamp(450px, 65%, 750px);
         @include auto-margin-center;
         @include center-content-with-flex;
         gap: 50px;
@@ -16,7 +13,6 @@
         height: 17rem;
         @include auto-margin-center;
         background-color: rgba(3, 3, 3, 0.27);
-        // border: .5rem dashed $active-color;
         border-radius: 50%;
         @include center-content-with-flex;
         flex-direction: column;
@@ -43,7 +39,6 @@
         &__remainingTime {
             font-family: $ibm-mono;
             font-size: 1.8rem;
-            // font-weight: 700;
         }
 
         position: relative;
@@ -58,7 +53,20 @@
             border-radius: 50%;
             border-right: 4px solid $active-color;
             border-left: 4px solid $active-color;
-            rotate: 25deg;
+            animation-name: rotation;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+
+            @keyframes rotation {
+                from {
+                    rotate: 0;
+                }
+
+                to {
+                    rotate: 360deg;
+                }
+            }
 
             &::before,
             &::after {
@@ -68,22 +76,19 @@
                 height: 13px;
                 border: 7px solid $active-color;
                 border-radius: 50%;
-                rotate: 50deg;
             }
 
             &::before {
-                top: 84%;
-                left: 80%;
-                // border-right-color: transparent;
-                // border-top-color: transparent;
+                bottom: 1.4rem;
+                right: 2rem;
             }
 
             &::after {
-                top: 9%;
-                left: 11%;
-                // border-left-color: transparent;
-                // border-bottom-color: transparent;
+                top: 1.4rem;
+                left: 2rem;
             }
+
         }
+
     }
 }
