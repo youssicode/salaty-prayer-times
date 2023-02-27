@@ -24,3 +24,14 @@ export const prayerTimeLabels = document.querySelectorAll(".prayerTimeCard__pray
 export const adhanBells = document.querySelectorAll(".prayerTimeCard__adhan")
 export const adhanOverlay = document.querySelector(".adhan-overlay")
 export const muteAdhanButton = document.querySelector(".mute-adhan-button")
+
+// const dom = {
+//     actualLocationLabel : document.querySelector(".location__actual-location-wrapper__cityName"),
+//     autoLocateButton : document.querySelector(".location__search-wrapper__auto-locate-button"),
+//     .
+//     .
+//     .
+//     .
+//   };
+  
+//   export { dom };

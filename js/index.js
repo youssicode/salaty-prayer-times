@@ -21,7 +21,6 @@ const toDay = {
     monthName: date.toLocaleString("default", { month: "short" }),
     year: date.getFullYear(),
 }
-export let fetchedPrayerTimes = []
 
 //? Main Functions
 //================
@@ -50,9 +49,9 @@ async function renderFetchedData() {
 async function getPrayerTimes(coords) {
     try {
         const prayerTimingApiResponse = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-        fetchedPrayerTimes = savePrayerTiming(prayerTimingApiResponse)
-        renderPrayerTiming()
-        renderUpcomingPrayerCard()
+        const fetchedPrayerTimes = savePrayerTiming(prayerTimingApiResponse)
+        renderPrayerTiming(fetchedPrayerTimes)
+        renderUpcomingPrayerCard(fetchedPrayerTimes)
     } catch (err) {
         errorHandler(err)
     }

@@ -1,6 +1,5 @@
 //? Imported Modules
 //==================
-import { fetchedPrayerTimes } from "./index.js";
 import * as dom from "./domElements.js";
 
 //? Functions
@@ -9,7 +8,7 @@ import * as dom from "./domElements.js";
 //* Save fetched prayer times data in an array
 
 export const savePrayerTiming = (apiResponse) => {
-    const fetchedPrayerTimesArray = [
+    return [
         { prayerName: 'Fajr', prayerTime: apiResponse.timings.Fajr.slice(0, 5) },
         { prayerName: 'Sunrise', prayerTime: apiResponse.timings.Sunrise.slice(0, 5) },
         { prayerName: 'Dhuhr', prayerTime: apiResponse.timings.Dhuhr.slice(0, 5) },
@@ -17,7 +16,6 @@ export const savePrayerTiming = (apiResponse) => {
         { prayerName: 'Maghrib', prayerTime: apiResponse.timings.Maghrib.slice(0, 5) },
         { prayerName: "Isha'a", prayerTime: apiResponse.timings.Isha.slice(0, 5) }
     ]
-    return fetchedPrayerTimesArray
 }
 
 //* Geting the prayer times by specific city
@@ -53,8 +51,8 @@ export async function prayerTimesByLocationCoordinates(x, y) {
 
 //* Display feched prayer times data
 
-export const renderPrayerTiming = () => {
+export const renderPrayerTiming = (timesArray) => {
     for (let i = 0; i < dom.prayerTimeLabels.length; i++) {
-        dom.prayerTimeLabels[i].innerText = fetchedPrayerTimes[i].prayerTime
+        dom.prayerTimeLabels[i].innerText = timesArray[i].prayerTime
     }
 }

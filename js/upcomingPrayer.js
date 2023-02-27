@@ -1,20 +1,29 @@
 //? Imported Modules
 //==================
-import { fetchedPrayerTimes } from "./index.js";
 import * as dom from "./domElements.js";
 
 
+//? Constantes and Variables
+//==========================
+let setIntervalStatus = false
+let upComingPrayerCountDown
+
 //? Functions
-//================
+//===========
 
 //* Check witch prayer is next & display it
-export const renderUpcomingPrayerCard = () => {
+export const renderUpcomingPrayerCard = (timesArray) => {
+    if (setIntervalStatus == true) {
+        clearInterval(upComingPrayerCountDown)
+        setIntervalStatus = false
+    }
+
     const date = new Date()
     const actualTimeStamp = date.getTime()
     let upcomingPrayerLabelContent
     let upComingPrayerTimeStamp
     let prayerTimeCard__index
-    const ishaaTime = new Date(`${date.toDateString()} ${fetchedPrayerTimes[5].prayerTime}:00`).getTime()
+    const ishaaTime = new Date(`${date.toDateString()} ${timesArray[5].prayerTime}:00`).getTime()
     // If actual time passes "Isha'a" prayer's time => render "Fajr" as upcoming prayer
     if (actualTimeStamp > ishaaTime) {
         upcomingPrayerLabelContent = "Fajr"
@@ -26,16 +35,17 @@ export const renderUpcomingPrayerCard = () => {
         dateTemplateMonth = dateTemplateMonth < 9 ? '0' + dateTemplateMonth : date.getMonth()
         const dateTemplateDay = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + 1
         const dateTemplateYear = date.getFullYear()
-        const timeTemplate = (fetchedPrayerTimes[0].prayerTime).length < 5 ? '0' + fetchedPrayerTimes[0].prayerTime : fetchedPrayerTimes[0].prayerTime // if prayerTime's hour is 1-digit add "0" to it.
-        const dateTemplate = `${dateTemplateYear}-${dateTemplateMonth}-${dateTemplateDay}T${timeTemplate}:00` // :00 is optional
+        const fajrTime = timesArray[0].prayerTime
+        const timeTemplate = fajrTime.length < 5 ? '0' + fajrTime : fajrTime // if prayerTime's hour is 1-digit add "0" to it.
+        const dateTemplate = `${dateTemplateYear}, ${dateTemplateMonth}, ${dateTemplateDay}, ${timeTemplate}`
         upComingPrayerTimeStamp = new Date(dateTemplate).getTime()
         prayerTimeCard__index = 0
     } else {
-        for (let i = 0; i < fetchedPrayerTimes.length; i++) {
-            upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${fetchedPrayerTimes[i].prayerTime}:00`)).getTime()
+        for (let i = 0; i < timesArray.length; i++) {
+            upComingPrayerTimeStamp = (new Date(`${date.toDateString()} ${timesArray[i].prayerTime}:00`)).getTime()
 
             if (upComingPrayerTimeStamp > actualTimeStamp && i != 1) { // '&& i != 1' To avoid displaying 'Sunrise' as upcoming prayer
-                upcomingPrayerLabelContent = fetchedPrayerTimes[i].prayerName
+                upcomingPrayerLabelContent = timesArray[i].prayerName
                 prayerTimeCard__index = i
                 break
             }
@@ -46,20 +56,22 @@ export const renderUpcomingPrayerCard = () => {
     })
     dom.prayerTimeCards[prayerTimeCard__index].classList.add("prayerTimeCard--nextPrayer")
     dom.upcomingPrayerLabel.innerText = upcomingPrayerLabelContent
-    startCountDown(upComingPrayerTimeStamp, prayerTimeCard__index)
+    startCountDown(upComingPrayerTimeStamp, prayerTimeCard__index, timesArray)
 }
 
 //* Count-down time until next prayer
-const startCountDown = (upComingPrayerTime, index) => {
+const startCountDown = (upComingPrayerTime, index, timesArray) => {
     let remainingTimeStamp, hours, minutes, seconds
-    let upComingPrayerCountDown = setInterval(() => {
+    upComingPrayerCountDown = setInterval(() => {
+        setIntervalStatus = true
         let timeNow = new Date().getTime()
         remainingTimeStamp = (upComingPrayerTime - timeNow)
 
         if (remainingTimeStamp <= 0) {
             clearInterval(upComingPrayerCountDown)
+            setIntervalStatus = false
             startCallToPrayer(index)
-            renderUpcomingPrayerCard()
+            renderUpcomingPrayerCard(timesArray)
             return
         }
 
