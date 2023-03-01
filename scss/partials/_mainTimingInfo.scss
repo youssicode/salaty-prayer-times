@@ -58,13 +58,20 @@
             animation-iteration-count: infinite;
             animation-timing-function: linear;
 
+            &.animation-paused {
+                animation-play-state: paused;
+            }
+
             @keyframes rotation {
                 from {
-                    rotate: 0;
+                    transform: rotate(0);
+                    // rotate: 0;
+
                 }
 
                 to {
-                    rotate: 360deg;
+                    transform: rotate(360deg);
+                    // rotate: 360deg;
                 }
             }
 

@@ -95,9 +95,11 @@ const startCallToPrayer = () => {
     adhanSound.play()
     // Show/Hide overlay + Start/Stop Adhan
     dom.adhanOverlay.classList.remove("adhan-overlay--hidden")
+    dom.upcomingPrayerCustomBorder.classList.add("animation-paused")
     dom.muteAdhanButton.addEventListener("click", stopAdhan)
     window.addEventListener("keydown", e => e.key == "Escape" ? stopAdhan() : null)
     function stopAdhan() {
+        dom.upcomingPrayerCustomBorder.classList.remove("animation-paused")
         dom.adhanOverlay.classList.add("adhan-overlay--hidden")
         adhanSound.pause()
     }

@@ -19,6 +19,7 @@ const dom = {
     citySearchInput: document.querySelector(".search-for-city-input"),
     citiesListMatch: document.querySelector(".extracted-cities-list"),
     upcomingPrayerLabel: document.querySelector(".timingContainer__upcomingPrayer__prayerName"),
+    upcomingPrayerCustomBorder: document.querySelector(".custom-border"),
     countDownLabel: document.querySelector(".timingContainer__upcomingPrayer__remainingTime"),
     prayerTimeCards: document.querySelectorAll(".prayerTimeCard"),
     prayerTimeLabels: document.querySelectorAll(".prayerTimeCard__prayerTime"),
