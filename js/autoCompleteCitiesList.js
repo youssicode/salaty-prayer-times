@@ -1,15 +1,17 @@
-// The entire code is imported to index.js
+//? Imported Modules
+//==================
 
 import { citiesOfTheWorld } from "./citiesList.js";
 import { prayerTimesByCity, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { errorHandler } from "./errorHandler.js";
+import dom from "./domElements.js";
 
-import * as dom from "./domElements.js";
 
+//? Functions
+//===========
 
 export function autoCompleteCitiesList() {
-
     clearCitiesList()
     const userEntry = dom.citySearchInput.value.trim()
     if (userEntry.length < 2) return // Auto-Complete function began after the user enter 2 characters or more
@@ -24,15 +26,14 @@ export function autoCompleteCitiesList() {
             addClickEventToSuggestedCity(cityCountryName, citiesOfTheWorld[i])
         }
     }
-
 }
 
-const addClickEventToSuggestedCity = (element, content) => {
+const addClickEventToSuggestedCity = (element, city) => {
     element.addEventListener("mousedown", function () {
         // const chosenCity = this.textContent // this won't refer to th clicked "li" if we use arrow function syntax
-        dom.actualLocationLabel.textContent = content
+        dom.actualLocationLabel.textContent = city
         hideLocationSearchWrapper()
-        renderPrayerTimingForChosenCity(content)
+        renderPrayerTimingForChosenCity(city)
     })
 }
 

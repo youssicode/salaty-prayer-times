@@ -2,19 +2,18 @@
 //==================
 
 import { errorHandler } from "./errorHandler.js";
-import * as dom from "./domElements.js";
+import dom from "./domElements.js";
 
 
-//? Display Gregorian Dates
-//=========================
+//? Functions
+//===========
 
+//* Display Gregorian Dates
 export const displayGregorianDate = (date) => {
     dom.gregorianDateLabel.innerText = `${date.weekday}, ${date.monthName} ${date.day}, ${date.year}`
 }
 
-//? Get and display Islamic dates
-//===============================
-
+//* Get and display Islamic dates
 export const displayIslamicDate = async (date) => {
 
     const grego_date = `${date.day}-${date.month}-${date.year}`
@@ -29,9 +28,7 @@ export const displayIslamicDate = async (date) => {
     }
 }
 
-//? Converting Gregorian date to Islamic date
-//==========================================
-
+//* Converting Gregorian date to Islamic date
 async function getIslamicCalendar(gregorian) {
     let apiUrl = `https://api.aladhan.com/v1/gToH?date=${gregorian}`
     let response = await axios({

@@ -7,11 +7,11 @@ import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { errorHandler } from "./errorHandler.js";
 import { prayerTimesByLocationCoordinates, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoCompleteCitiesList.js";
-import * as dom from "./domElements.js";
+import dom from "./domElements.js";
 
 
-//? Constantes & Variables
-//========================
+//? Global Constantes & Variables
+//===============================
 
 const date = new Date()
 const toDay = {
@@ -59,7 +59,7 @@ async function getPrayerTimes(coords) {
 
 renderFetchedData()
 
-//* Display city search component
+//* Display/Hide city search component
 
 dom.locationBtn.addEventListener("click", () => {
     dom.locationSearchWrapper.classList.add("city-search-component-activated")
@@ -75,16 +75,19 @@ window.addEventListener("click", e => {
     if (dom.locationBtn.contains(e.target)) return
     hideLocationSearchWrapper()
 })
+
+//* Auto-complete user entry with matched cities in Search component
 dom.citySearchInput.addEventListener("input", autoCompleteCitiesList)
+
+//* Manualy tirgger Auto-Location & Rendering Prayer Times functions
 dom.autoLocateButton.addEventListener("click", renderFetchedData)
+
+//* Activate / Di-activate Call-To-Prayer feature
 dom.adhanBells.forEach(el => {
     el.addEventListener("click", function () {
         this.classList.toggle("prayerTimeCard__adhan--disabled")
     })
 });
-
-
-
 
 //* Assign Year in the Footer Dinamically
 document.querySelector(".actual-year").textContent = toDay.year

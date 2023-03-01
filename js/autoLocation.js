@@ -2,11 +2,11 @@
 //==================
 
 import { errorHandler } from "./errorHandler.js";
-import * as dom from "./domElements.js";
+import dom from "./domElements.js";
 
 
-//? Main Functions
-//================
+//? Functions
+//===========
 
 //* Get the User's geolocation coordinates
 export async function getUserCoordinates() {
@@ -54,18 +54,27 @@ export async function getAdresse(lat, long) {
 export async function autoLocateCity(coords) {
     try {
         const localAdresse = await getAdresse(coords.latitude, coords.longitude);
-        displayLocatedAdresse(localAdresse)
+        //* Display Located Adresse
+        let cityCountryName
+        if (localAdresse) {
+            cityCountryName = `${localAdresse.cityName}, ${localAdresse.countryShortName}`
+        } else {
+            cityCountryName = "Location Undetectable"
+        }
+        dom.actualLocationLabel.innerText = cityCountryName
+
+        //! displayLocatedAdresse(localAdresse)
     } catch (err) {
         errorHandler(err)
     }
 }
-//* Display Located Adresse
-export const displayLocatedAdresse = (adresse) => {
-    let cityCountryName
-    if (adresse) {
-        cityCountryName = `${adresse.cityName}, ${adresse.countryShortName}`
-    } else {
-        cityCountryName = "Location Undetectable"
-    }
-    dom.actualLocationLabel.innerText = cityCountryName
-}
+// //*! Display Located Adresse
+// export const displayLocatedAdresse = (adresse) => {
+//     let cityCountryName
+//     if (adresse) {
+//         cityCountryName = `${adresse.cityName}, ${adresse.countryShortName}`
+//     } else {
+//         cityCountryName = "Location Undetectable"
+//     }
+//     dom.actualLocationLabel.innerText = cityCountryName
+// }

@@ -1,4 +1,5 @@
-import { actualLocationLabel } from "./domElements.js";
+import dom from "./domElements.js";
+
 
 export const errorHandler = (error) => {
     let errorMessage = "Unknown error."

@@ -1,9 +1,9 @@
 //? Imported Modules
 //==================
-import * as dom from "./domElements.js";
+import dom from "./domElements.js";
 
 //? Functions
-//================
+//===========
 
 //* Save fetched prayer times data in an array
 

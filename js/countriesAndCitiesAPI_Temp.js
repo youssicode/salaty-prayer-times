@@ -1,3 +1,23 @@
+//? Functions
+//===========
+
+//* Get Countries List
+
+const getCountriesList = async () => {
+    let countriesList = await getCountries()
+    //List of Countries in Array Object
+    console.log(countriesList)
+}
+
+//* Get Cities List From specifyed Country Name
+
+const getCitiesFromCountryName = async (countryName) => {
+    let citiesList = await getCities(countryName)
+    //List of cities in Array Object
+    console.log(citiesList)
+}
+
+
 //* Get Cities
 
 export async function getCities(countryName) {
@@ -29,4 +49,19 @@ export async function getCountries() {
     } catch (err) {
         throw err
     }
+}
+
+//* Create an array of all Cities with country name
+
+const saveCitiesTable = async () => {
+    let countriesList = await getCountries()
+    let citiesTable = []
+    console.log(countriesList)
+    countriesList.forEach(el => {
+        for (let i = 0; i < el.cities.length; i++) {
+            const entry = `${el.cities[i]}, ${el.iso2}=${el.country}`
+            citiesTable.push(entry)
+        }
+    });
+    return citiesTable
 }

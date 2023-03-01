@@ -1,19 +1,22 @@
 //? Imported Modules
 //==================
-import * as dom from "./domElements.js";
+import dom from "./domElements.js";
 
 
-//? Constantes and Variables
-//==========================
+//? Global Constantes and Variables
+//=================================
 let setIntervalStatus = false
 let upComingPrayerCountDown
+let prayerTimeCard__index
+let timesArray = []
 
 //? Functions
 //===========
 
 //* Check witch prayer is next & display it
-export const renderUpcomingPrayerCard = (timesArray) => {
-    if (setIntervalStatus == true) {
+export const renderUpcomingPrayerCard = (passedArray) => {
+    if (passedArray) timesArray = passedArray
+    if (setIntervalStatus) {
         clearInterval(upComingPrayerCountDown)
         setIntervalStatus = false
     }
@@ -22,7 +25,6 @@ export const renderUpcomingPrayerCard = (timesArray) => {
     const actualTimeStamp = date.getTime()
     let upcomingPrayerLabelContent
     let upComingPrayerTimeStamp
-    let prayerTimeCard__index
     const ishaaTime = new Date(`${date.toDateString()} ${timesArray[5].prayerTime}:00`).getTime()
     // If actual time passes "Isha'a" prayer's time => render "Fajr" as upcoming prayer
     if (actualTimeStamp > ishaaTime) {
@@ -56,21 +58,21 @@ export const renderUpcomingPrayerCard = (timesArray) => {
     })
     dom.prayerTimeCards[prayerTimeCard__index].classList.add("prayerTimeCard--nextPrayer")
     dom.upcomingPrayerLabel.innerText = upcomingPrayerLabelContent
-    startCountDown(upComingPrayerTimeStamp, prayerTimeCard__index, timesArray)
+    startCountDown(upComingPrayerTimeStamp)
 }
 
 //* Count-down time until next prayer
-const startCountDown = (upComingPrayerTime, index, timesArray) => {
+const startCountDown = (upComingPrayerTime) => {
     let remainingTimeStamp, hours, minutes, seconds
+    setIntervalStatus = true
     upComingPrayerCountDown = setInterval(() => {
-        setIntervalStatus = true
         let timeNow = new Date().getTime()
         remainingTimeStamp = (upComingPrayerTime - timeNow)
 
         if (remainingTimeStamp <= 0) {
             clearInterval(upComingPrayerCountDown)
             setIntervalStatus = false
-            startCallToPrayer(index)
+            startCallToPrayer(prayerTimeCard__index)
             renderUpcomingPrayerCard(timesArray)
             return
         }
@@ -85,13 +87,13 @@ const startCountDown = (upComingPrayerTime, index, timesArray) => {
     }, 1000);
 }
 
-const startCallToPrayer = (index) => {
-    if (dom.adhanBells[index].classList.contains("prayerTimeCard__adhan--disabled")) return
+const startCallToPrayer = () => {
+    if (dom.adhanBells[prayerTimeCard__index].classList.contains("prayerTimeCard__adhan--disabled")) return
     // play 'Call-To_Prayer' sound track
     let adhanSound = document.createElement('audio')
     adhanSound.setAttribute("src", "../src/audio/Adhan_Alaqsa.mp3")
     adhanSound.play()
-    // Start/Stop Adhan + Show/Hide overlay
+    // Show/Hide overlay + Start/Stop Adhan
     dom.adhanOverlay.classList.remove("adhan-overlay--hidden")
     dom.muteAdhanButton.addEventListener("click", stopAdhan)
     window.addEventListener("keydown", e => e.key == "Escape" ? stopAdhan() : null)
