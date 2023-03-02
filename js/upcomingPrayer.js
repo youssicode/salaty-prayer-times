@@ -29,13 +29,9 @@ export const renderUpcomingPrayerCard = (passedArray) => {
     // If actual time passes "Isha'a" prayer's time => render "Fajr" as upcoming prayer
     if (actualTimeStamp > ishaaTime) {
         upcomingPrayerLabelContent = "Fajr"
-        //* Get timeStamp for tomorro's "Fajr" prayer: need to check if today is the last day of the month
-        // The ISO 8601 syntax (YYYY-MM-DD) is also the preferred JavaScript date format
-        // ISO dates can be written with added hours, minutes, and seconds (YYYY-MM-DDTHH:MM:SSZ) // 'Z' will return the time depending on local time-zone (expl: 21:36 instead of 20:36) 
-        // If you want to modify the time relative to UTC, remove the Z and add +HH:MM or -HH:MM instead
-        let dateTemplateMonth = date.getMonth() + 1
-        dateTemplateMonth = dateTemplateMonth < 9 ? '0' + dateTemplateMonth : date.getMonth()
-        const dateTemplateDay = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + 1
+        //* Get timeStamp for tomorro's "Fajr" prayer:
+        const dateTemplateMonth = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 // get ACTUAL month in 2-digit number
+        const dateTemplateDay = (date.getDate() + 1 < 10 ? '0' + (date.getDate() + 1) : (date.getDate() + 1)) // get Tomorro's day in 2-digit number
         const dateTemplateYear = date.getFullYear()
         const fajrTime = timesArray[0].prayerTime
         const timeTemplate = fajrTime.length < 5 ? '0' + fajrTime : fajrTime // if prayerTime's hour is 1-digit add "0" to it.

@@ -8,6 +8,7 @@ Thanks for checking out this front-end coding project.
 
 - [The Project](#the-project)
 - [Project's Links](#links)
+- [Project's Main Features](#Project's-Main-Features)
 - [My process](#my-process)
 - [Built with](#built-with)
 - [What I learned](#what-i-learned)
@@ -22,6 +23,13 @@ Thanks for checking out this front-end coding project.
 
 - The Project Repo URL: (https://github.com/youssicode/salaty-prayer-times)
 - Live Site URL: (https://youssicode.github.io/salaty-prayer-times/)
+
+### Project's Main Features
+
+- Place autocomplete  can be used to automatically fill in the name and/or address of a place as you type.
+- 
+- 
+- 
 
 ## My process
 
@@ -44,16 +52,19 @@ Thanks for checking out this front-end coding project.
 
 ### What I learned
 
-- Fetching API data (using Axios)
+- Fetching APIs data (using Axios)
 - More practice with Vanella JavaScript.
 - Improving problem solving methodology.
 - Improving searching problems solutions skill.
 - Handling errors
 - Dealing with Promises
+- Modular Javascript (Import/Export functions and variables)
+- Using date constructors and methods
 - Practicing CSS BEM-Architecture
 - SCSS: structuring modules, use of "@forward" / "@use" keywords
 
-- 
+
+
 
 ### Continued development
 
