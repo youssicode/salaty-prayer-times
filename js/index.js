@@ -7,9 +7,30 @@ import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { errorHandler } from "./errorHandler.js";
 import { prayerTimesByLocationCoordinates, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoCompleteCitiesList.js";
+import { getNearbyMosques } from "./nearbyMosques.js";
 import dom from "./domElements.js";
 
+//!
+// const options = {
+//     method: 'GET',
+//     headers: {
+//         'X-RapidAPI-Key': '919f482060msh52877e8996de734p164da0jsnd987d3386bcb',
+//         'X-RapidAPI-Host': 'nearby-places.p.rapidapi.com'
+//     }
+// };
 
+// fetch('https://nearby-places.p.rapidapi.com/nearby?lat=34.2591485&lng=-5.9221253&type=cafe&radius=200', options)
+//     .then(response => response.json())
+//     .then(response => console.log(response))
+//     .catch(err => console.error(err));
+//!
+
+
+
+getNearbyMosques()
+
+
+//!
 //? Global Constantes & Variables
 //===============================
 
