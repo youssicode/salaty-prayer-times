@@ -4,27 +4,45 @@
 
 .nearbyMosquesSection {
     @include card-style($shadow-color);
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+
+    @include responsive_medium2 {
+        width: 40%;
+        @include auto-margin-center;
+    }
+
+    &:not(.nearbyMosquesBtnClicked):hover {
+        background-color: $active-color;
+
+        & .displayNearbyMosques__show__text {
+            color: $bg-second;
+            text-shadow: none;
+        }
+    }
+
+    &.nearbyMosquesBtnClicked .displayNearbyMosquesHeader {
+        justify-content: space-between;
+    }
+
+    &.nearbyMosquesBtnClicked .displayNearbyMosques__hide {
+        display: initial;
+    }
+
+    &.nearbyMosquesBtnClicked {
+        width: 100%;
+
+        & .displayNearbyMosquesHeader {
+            margin-top: .5rem;
+            margin-bottom: 1.5rem
+        }
+    }
 }
 
 .displayNearbyMosquesHeader {
     @include center-content-with-flex;
-    margin-bottom: $margin-2rem5;
+    // margin-bottom: $margin-2rem5;
 
-    &.nearbyMosquesBtnClicked {
-        justify-content: space-between;
-    }
 }
 
-.nearbyMosquesSection:hover .displayNearbyMosquesHeader:not(.nearbyMosquesBtnClicked) {
-    background-color: $active-color;
-
-    & .displayNearbyMosques__show__text {
-        color: $bg-second;
-        text-shadow: none;
-    }
-}
 
 .displayNearbyMosques__hide {
     color: $active-color;
@@ -34,10 +52,6 @@
     font-weight: 400;
     text-decoration: underline;
     display: none;
-
-    &.nearbyMosquesBtnClicked {
-        display: initial;
-    }
 }
 
 .displayNearbyMosques__show__text {

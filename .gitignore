@@ -1,2 +1,5 @@
 node_modules/
 js/apiKeys.js
+js/1nearbyMosquesAPIresult_temp.js
+js/countriesAndCitiesAPI_temp.js
+js/cities-List-temp.js
