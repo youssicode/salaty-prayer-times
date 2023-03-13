@@ -1,7 +1,7 @@
 //? Imported Modules
 //==================
 
-import { errorHandler } from "./errorHandler.js";
+import errorHandler from "./errorHandler.js";
 import dom from "./domElements.js";
 
 

@@ -28,7 +28,8 @@ const dom = {
     muteAdhanButton: document.querySelector(".mute-adhan-button"),
     nearbyMosquesSection: document.querySelector(".nearbyMosquesSection"),
     nearbyMosquesShowBtn: document.querySelector(".displayNearbyMosques__show"),
-    nearbyMosquesHideBtn: document.querySelector(".displayNearbyMosques__hide")
+    nearbyMosquesHideBtn: document.querySelector(".displayNearbyMosques__hide"),
+    nearbyMosquesListWrapper: document.querySelector(".mosquesList")
 };
 
 export default dom;

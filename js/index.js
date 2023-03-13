@@ -4,11 +4,12 @@
 import { displayIslamicDate, displayGregorianDate } from "./displayCalendars.js";
 import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-import { errorHandler } from "./errorHandler.js";
+import errorHandler from "./errorHandler.js"; // default function
 import { prayerTimesByLocationCoordinates, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoCompleteCitiesList.js";
-import { getNearbyMosques } from "./nearbyMosques.js";
-import dom from "./domElements.js";
+import renderNearbyMosquesList from "./nearbyMosques.js"; // default function
+import { clearChildren } from "./reuse.js";
+import dom from "./domElements.js"; // default object
 
 
 //? Global Constantes & Variables
@@ -62,7 +63,6 @@ async function getPrayerTimes(coords) {
 renderFetchedData()
 
 //* Display/Hide city search component
-
 dom.locationBtn.addEventListener("click", () => {
     dom.locationSearchWrapper.classList.add("city-search-component-activated")
 })
@@ -94,19 +94,14 @@ dom.adhanBells.forEach(el => {
 //* Assign Year in the Footer Dinamically
 document.querySelector(".actual-year").textContent = toDay.year
 
-//* Show Nearby Mosques according to current location
-
+//* Render Nearby Mosques List according to current location
 dom.nearbyMosquesShowBtn.addEventListener("click", () => {
-    if (!currentLocationCoordinates) {
-        const locationError = new Error("Location shoud be defined first.")
-        locationError.code = 88
-        errorHandler(locationError)
-        return
-    }
-    dom.nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked")
-    getNearbyMosques(currentLocationCoordinates)
+    renderNearbyMosquesList(currentLocationCoordinates)
 })
+
+//* Remove Mosques List wrapper's content 
 dom.nearbyMosquesHideBtn.addEventListener("click", () => {
+    clearChildren(dom.nearbyMosquesListWrapper)
     dom.nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
 })
 

@@ -1,12 +1,12 @@
 import dom from "./domElements.js";
 
 
-export const errorHandler = (error) => {
+const errorHandler = (error) => {
     let errorMessage = "Unknown error."
     switch (error.code) {
 
         case 'ERR_NETWORK':
-            errorMessage = "Network Error."
+            alert("Oups! Network Error.")
             break;
         case 'ERR_BAD_REQUEST':
             errorMessage = "Bad request. Unkown area or bad parameters."
@@ -32,7 +32,6 @@ export const errorHandler = (error) => {
             showErrorMessge(errorMessage, dom.gregorianDateLabel)
             break;
     }
-    // alert("Oups! " + errorMessage)
 }
 
 const showErrorMessge = (message, position) => {
@@ -40,3 +39,5 @@ const showErrorMessge = (message, position) => {
     <div class="error-label">${message}</div>
     `
 }
+
+export default errorHandler

@@ -1,4 +1,4 @@
-import { GoogleMapGeoAPIkey } from "./apiKeys.js";
+import GoogleMapGeoAPIkey from "./apiKeys.js";
 
 //* Deal With The Result
 

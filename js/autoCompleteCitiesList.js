@@ -4,7 +4,8 @@
 import { citiesOfTheWorld } from "./citiesList.js";
 import { prayerTimesByCity, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-import { errorHandler } from "./errorHandler.js";
+import errorHandler from "./errorHandler.js";
+import { clearChildren } from "./reuse.js";
 import dom from "./domElements.js";
 
 
@@ -12,7 +13,7 @@ import dom from "./domElements.js";
 //===========
 
 export function autoCompleteCitiesList() {
-    clearCitiesList()
+    clearChildren(dom.citiesListMatch)
     const userEntry = dom.citySearchInput.value.trim()
     if (userEntry.length < 2) return // Auto-Complete function began after the user enter 2 characters or more
     // citiesListMatch.classList.add("list-of-cities-activated")
@@ -40,14 +41,14 @@ const addClickEventToSuggestedCity = (element, city) => {
 export const hideLocationSearchWrapper = () => {
     dom.locationSearchWrapper.classList.remove("city-search-component-activated")
     dom.citySearchInput.value = ''
-    clearCitiesList()
+    clearChildren(dom.citiesListMatch)
 }
 
-export const clearCitiesList = () => {
-    while (dom.citiesListMatch.firstChild) {
-        dom.citiesListMatch.firstChild.remove()
-    }
-}
+// const clearCitiesList = () => {
+//     while (dom.citiesListMatch.firstChild) {
+//         dom.citiesListMatch.firstChild.remove()
+//     }
+// }
 
 async function renderPrayerTimingForChosenCity(chosenCity) {
     try {
