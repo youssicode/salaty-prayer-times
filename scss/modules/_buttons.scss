@@ -3,6 +3,7 @@
 // Nearby Mosques Button
 
 .nearbyMosquesSection {
+    position: relative;
     @include card-style($shadow-color);
 
     @include responsive_medium2 {
@@ -10,12 +11,16 @@
         @include auto-margin-center;
     }
 
-    &:not(.nearbyMosquesBtnClicked):hover {
-        background-color: $active-color;
+    &:not(.nearbyMosquesBtnClicked) {
+        cursor: pointer;
 
-        & .displayNearbyMosques__show__text {
-            color: $bg-second;
-            text-shadow: none;
+        &:hover {
+            background-color: $active-color;
+
+            & .displayNearbyMosques__show__text {
+                color: $bg-second;
+                text-shadow: none;
+            }
         }
     }
 
@@ -67,4 +72,16 @@
 
 .displayNearbyMosques__show__icon {
     display: inline-block;
+}
+
+// Ana error's message holder
+.error-label {
+    position: absolute;
+    top: 115%;
+    left: 0;
+    color: #770000;
+    font-size: 1.1rem;
+    font-family: sans-serif;
+    text-transform: initial;
+    padding-left: inherit;
 }

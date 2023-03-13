@@ -13,22 +13,30 @@ export const errorHandler = (error) => {
             break;
         case 1:
             errorMessage = "Permission denied. Please check location access permission or enter a city manually."
-            actualLocationLabel.innerText = 'Undetected Location'
+            showErrorMessge(errorMessage, dom.locationBtn)
             break;
         case 2:
             errorMessage = "Location unavailable."
-            actualLocationLabel.innerText = 'Location unavailable'
+            showErrorMessge(errorMessage, dom.locationBtn)
             break;
         case 3:
             errorMessage = "Request timeout."
-            actualLocationLabel.innerText = 'Location unavailable'
+            showErrorMessge(errorMessage, dom.locationBtn)
             break;
-        case 3:
-            errorMessage = "Request timeout."
+        case 88:
+            errorMessage = error.message
+            showErrorMessge(errorMessage, dom.nearbyMosquesSection)
             break;
         case 99:
             errorMessage = "Islamic calendar unavailable."
+            showErrorMessge(errorMessage, dom.gregorianDateLabel)
             break;
     }
-    alert("Oups! " + errorMessage)
+    // alert("Oups! " + errorMessage)
+}
+
+const showErrorMessge = (message, position) => {
+    position.innerHTML += `
+    <div class="error-label">${message}</div>
+    `
 }

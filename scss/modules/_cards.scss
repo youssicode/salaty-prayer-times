@@ -38,6 +38,7 @@
     background-color: $bg-primary;
     border-radius: .3rem;
     padding: inherit;
+    padding-bottom: 2rem; // a space for error's message
     margin-bottom: 2rem;
 
     .prayerTimesWrapper {

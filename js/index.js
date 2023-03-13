@@ -10,27 +10,7 @@ import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoComplet
 import { getNearbyMosques } from "./nearbyMosques.js";
 import dom from "./domElements.js";
 
-//!
-// const options = {
-//     method: 'GET',
-//     headers: {
-//         'X-RapidAPI-Key': '919f482060msh52877e8996de734p164da0jsnd987d3386bcb',
-//         'X-RapidAPI-Host': 'nearby-places.p.rapidapi.com'
-//     }
-// };
 
-// fetch('https://nearby-places.p.rapidapi.com/nearby?lat=34.2591485&lng=-5.9221253&type=cafe&radius=200', options)
-//     .then(response => response.json())
-//     .then(response => console.log(response))
-//     .catch(err => console.error(err));
-//!
-
-
-
-getNearbyMosques()
-
-
-//!
 //? Global Constantes & Variables
 //===============================
 
@@ -42,6 +22,7 @@ const toDay = {
     monthName: date.toLocaleString("default", { month: "short" }),
     year: date.getFullYear(),
 }
+let currentLocationCoordinates
 
 //? Main Functions
 //================
@@ -59,10 +40,10 @@ displayGregorianDate(toDay)
 
 //* Get User Location Coordinates and then display the local adresse/city...
 async function renderFetchedData() {
-    const coordinates = await getUserCoordinates()
-    if (coordinates) {
-        autoLocateCity(coordinates)
-        getPrayerTimes(coordinates)
+    currentLocationCoordinates = await getUserCoordinates()
+    if (currentLocationCoordinates) {
+        autoLocateCity(currentLocationCoordinates)
+        getPrayerTimes(currentLocationCoordinates)
     }
 }
 
@@ -112,3 +93,20 @@ dom.adhanBells.forEach(el => {
 
 //* Assign Year in the Footer Dinamically
 document.querySelector(".actual-year").textContent = toDay.year
+
+//* Show Nearby Mosques according to current location
+
+dom.nearbyMosquesShowBtn.addEventListener("click", () => {
+    if (!currentLocationCoordinates) {
+        const locationError = new Error("Location shoud be defined first.")
+        locationError.code = 88
+        errorHandler(locationError)
+        return
+    }
+    dom.nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked")
+    getNearbyMosques(currentLocationCoordinates)
+})
+dom.nearbyMosquesHideBtn.addEventListener("click", () => {
+    dom.nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
+})
+

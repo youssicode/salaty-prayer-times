@@ -25,7 +25,10 @@ const dom = {
     prayerTimeLabels: document.querySelectorAll(".prayerTimeCard__prayerTime"),
     adhanBells: document.querySelectorAll(".prayerTimeCard__adhan"),
     adhanOverlay: document.querySelector(".adhan-overlay"),
-    muteAdhanButton: document.querySelector(".mute-adhan-button")
+    muteAdhanButton: document.querySelector(".mute-adhan-button"),
+    nearbyMosquesSection: document.querySelector(".nearbyMosquesSection"),
+    nearbyMosquesShowBtn: document.querySelector(".displayNearbyMosques__show"),
+    nearbyMosquesHideBtn: document.querySelector(".displayNearbyMosques__hide")
 };
 
 export default dom;
