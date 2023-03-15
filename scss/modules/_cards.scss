@@ -140,52 +140,55 @@
     background-color: $bg-primary;
     border-radius: 3px;
     margin-bottom: $margin-0rem5;
-    padding: 1rem 1.6rem;
-    letter-spacing: 2px;
-    font-family: $Catamaran;
-    font-weight: 600;
+    padding: 0.5rem 1.5rem;
     @include box-shadow($bg-main);
+    display: flex;
+    align-items: center;
+    font-family: $Catamaran;
 
-    &__header {
-        display: flex;
-        align-items: center;
+    .mosqueInformationsCard__mosque-icon {
+        width: 4.5rem;
+        height: 4.5rem;
+        border: 3px solid $bg-second;
+        border-radius: 50%;
+        font-size: 2rem;
+        color: $bg-second;
+        @include center-content-with-flex
+    }
 
-        &__mosqueName {
-            color: $text-color-primary;
-            font-size: 1.8rem;
+    .mosqueInformationsCard__title {
+        margin-right: 1.5rem;
+        margin-left: 1.5rem;
+        flex-grow: 1;
+        color: $text-color-primary;
+        letter-spacing: 2px;
+
+        &__mosque-name {
+            font-size: 1.6rem;
             font-weight: 400;
             text-transform: capitalize;
             @extend .text-black-shadow;
-            margin-right: $margin-2rem5;
         }
 
-        &__miles {
-            background-color: $bg-second;
-            border-radius: 0.4rem;
-            width: max-content;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-            height: min-content;
-            text-align: center;
-            line-height: 1.8rem;
+        &__city {
+            font-size: 1.3rem;
         }
     }
 
-    &__adresse {
-        font-size: 1.4rem;
-        color: $bg-second;
+    .mosqueInformationsCard__distanceWrapper {
+        width: 5.5rem;
+        height: 5.5rem;
+        display: grid;
+        place-items: center;
 
-        &__fullAdresse {
-            display: inline-block;
+        &__direction-icon {
+            color: $bg-second;
+            font-size: 2rem;
         }
-    }
 
-    &__phone {
-        font-size: 1.4rem;
-        color: $bg-second;
-
-        &__phoneNumber {
-            display: inline-block;
+        &__distance {
+            color: $text-color-primary;
+            font-size: 1.4rem;
         }
     }
 }
