@@ -60,6 +60,7 @@ Thanks for checking out this front-end coding project.
 - Dealing with Promises
 - Modular Javascript (Import/Export functions and variables)
 - Using date constructors and methods
+- Debugging code with Chrome DevTools
 - Practicing CSS BEM-Architecture
 - SCSS: structuring modules, use of "@forward" / "@use" keywords
 

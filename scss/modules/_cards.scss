@@ -147,7 +147,7 @@
     font-family: $Catamaran;
 
     .mosqueInformationsCard__mosque-icon {
-        width: 4.5rem;
+        flex: 0 0 4.5rem; // grow=0, shrink=0, basis=4.5rem
         height: 4.5rem;
         border: 3px solid $bg-second;
         border-radius: 50%;
@@ -176,8 +176,7 @@
     }
 
     .mosqueInformationsCard__distanceWrapper {
-        width: max-content;
-        height: 5.5rem;
+        flex: 0 0 auto; // grow=0, shrink=0, basis=auto (distance number changes)
         display: grid;
         place-items: center;
 
@@ -203,7 +202,7 @@
     }
 }
 
-.mosquesMap {
+#map {
     background-color: $text-color-primary;
     aspect-ratio: 1/1;
     border-radius: 3px;

@@ -345,7 +345,7 @@ const renderNearbyMosquesList = async (coords) => {
         return
     }
     // const mosquesList = await getNearbyMosques(coords)
-    const mosquesList = jsonResult.slice(0, 10) //!
+    const mosquesList = jsonResult.slice(0, 5) //!
     if (mosquesList) {
         dom.nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked")
         displayMosquesList(mosquesList, coords)
@@ -356,11 +356,12 @@ async function getNearbyMosques(coords) {
     try {
         const options = {
             method: 'GET',
+            // if browser returns "429 to many requests" error, just clear cache files befor using "https://cors-anywhere.herokuapp.com/corsdemo"
             url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&type=mosque&key=${google_key}&rankby=distance`,
         };
-        const response = await axios.request(options)
+        // const response = await axios.request(options)
         // return the first 10 results as an array of 10 elements
-        console.log("Google API Response:", response.data.results.slice(0, 10))
+        console.log("Google API Response:", response.data.results.slice(0, 5))
         return response.data.results.slice(0, 10)
     } catch (err) {
         errorHandler(err)
@@ -368,29 +369,35 @@ async function getNearbyMosques(coords) {
 }
 
 const displayMosquesList = (mosquesList, currentCoordinates) => {
-    const mosquesWrapper = `
+    let mosquesMarkers = []
+    const mosquesWrapperTemplate = `
     <div class="mosquesWrapper">
         <ul class="mosquesList">
         </ul>
     </div>
     `
-    dom.nearbyMosquesSection.innerHTML += mosquesWrapper
+    dom.nearbyMosquesSection.innerHTML += mosquesWrapperTemplate
     dom.nearbyMosquesListWrapper = document.querySelector(".mosquesList") // nearbyMosquesListWrapper will be undefined befor we add it to DOM tree
+
+    let currentLocation = { lat: "", lng: "" }
     for (let i = 0; i < mosquesList.length; i++) {
         // Calculate mosque's distance
         const currentLat = currentCoordinates.latitude
         const currentLong = currentCoordinates.longitude
         const mosqueLat = mosquesList[i].geometry.location.lat
         const mosqueLong = mosquesList[i].geometry.location.lng
+        currentLocation.lat = currentLat
+        currentLocation.lng = currentLong
+        mosquesMarkers.push([mosqueLat, mosqueLong])
         const distance = haversineCalcDistance([currentLat, currentLong], [mosqueLat, mosqueLong])
         //! const distance = haversineCalcDistance([34.2591485, -5.9221253], [mosqueLat, mosqueLong])
         // Render mosques' Cards
-        const mosqueCard = `
+        const mosqueCardTemplate = `
         <li class="mosqueInformationsCard">
         <div class="mosqueInformationsCard__mosque-icon fa-solid fa-mosque"></div>
         <div class="mosqueInformationsCard__title">
             <h4 class="mosqueInformationsCard__title__mosque-name">${mosquesList[i].name}</h4>
-            <p class="mosqueInformationsCard__title__city">Sidi Slimane</p>
+            <p class="mosqueInformationsCard__title__city">${dom.actualLocationLabel.textContent.slice(0, -4)}</p>
         </div>
         <div class="mosqueInformationsCard__distanceWrapper">
             <div class="mosqueInformationsCard__distanceWrapper__direction-icon fa-solid fa-diamond-turn-right"></div>
@@ -398,15 +405,43 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
         </div>
         </li>
         `
-        dom.nearbyMosquesListWrapper.innerHTML += mosqueCard
+        dom.nearbyMosquesListWrapper.innerHTML += mosqueCardTemplate
     }
-    const mosquesMap = `
-    <aside class="mosquesMap">
-        <img class="mosquesLocatedOnMap" src="./src/images/mosque-agdal-location.png" alt="listed-mosques-located-on-map">
+    const mosquesMapTemplate = `
+    <aside id ="map">
     </aside>
     `
+    // <img class="mosquesLocatedOnMap" src="./src/images/mosque-agdal-location.png" alt="listed-mosques-located-on-map">
     dom.mosquesWrapper = document.querySelector(".mosquesWrapper") // mosquesWrapper will be undefined befor we add it to DOM tree
-    dom.mosquesWrapper.innerHTML += mosquesMap
+    dom.mosquesWrapper.innerHTML += mosquesMapTemplate
+
+    // Rendring Google Map and Mosques Markers on it
+    displayMosquesMarkersOnMap(currentLocation, mosquesMarkers)
+}
+
+const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers) => {
+    renderMap(currentLocation)
+    // displayMapMarker()
+}
+
+const renderMap = (currentLocation) => {
+    // This example adds a marker to indicate the position of Bondi Beach in Sydney,
+    // Australia.
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 4,
+            center: currentLocation,
+        });
+        const image =
+            "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+        const beachMarker = new google.maps.Marker({
+            position: currentLocation,
+            map,
+            icon: image,
+        });
+    }
+    initMap();
+    // window.initMap = initMap;
 }
 
 // Calculate the distance between to positions using "Heversine Formula"
@@ -429,5 +464,7 @@ const haversineCalcDistance = ([lat1, long1], [lat2, long2]) => {
 
     return Math.round(finalDistance * 1000); // in meters
 };
+
+
 
 export default renderNearbyMosquesList
