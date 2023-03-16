@@ -29,7 +29,8 @@ const dom = {
     nearbyMosquesSection: document.querySelector(".nearbyMosquesSection"),
     nearbyMosquesShowBtn: document.querySelector(".displayNearbyMosques__show"),
     nearbyMosquesHideBtn: document.querySelector(".displayNearbyMosques__hide"),
-    nearbyMosquesListWrapper: document.querySelector(".mosquesList")
+    // nearbyMosquesListWrapper: document.querySelector(".mosquesList"),
+    nearbyMosquesMap: document.querySelector(".mosquesMap")
 };
 
 export default dom;

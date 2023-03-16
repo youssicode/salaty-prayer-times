@@ -344,11 +344,11 @@ const renderNearbyMosquesList = async (coords) => {
         errorHandler(locationError)
         return
     }
-    dom.nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked")
     // const mosquesList = await getNearbyMosques(coords)
     const mosquesList = jsonResult.slice(0, 10) //!
     if (mosquesList) {
-        displayMosquesList(mosquesList)
+        dom.nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked")
+        displayMosquesList(mosquesList, coords)
     }
 }
 
@@ -367,18 +367,67 @@ async function getNearbyMosques(coords) {
     }
 }
 
-const displayMosquesList = (mosquesList) => {
+const displayMosquesList = (mosquesList, currentCoordinates) => {
+    const mosquesWrapper = `
+    <div class="mosquesWrapper">
+        <ul class="mosquesList">
+        </ul>
+    </div>
+    `
+    dom.nearbyMosquesSection.innerHTML += mosquesWrapper
+    dom.nearbyMosquesListWrapper = document.querySelector(".mosquesList") // nearbyMosquesListWrapper will be undefined befor we add it to DOM tree
     for (let i = 0; i < mosquesList.length; i++) {
+        // Calculate mosque's distance
+        const currentLat = currentCoordinates.latitude
+        const currentLong = currentCoordinates.longitude
+        const mosqueLat = mosquesList[i].geometry.location.lat
+        const mosqueLong = mosquesList[i].geometry.location.lng
+        const distance = haversineCalcDistance([currentLat, currentLong], [mosqueLat, mosqueLong])
+        //! const distance = haversineCalcDistance([34.2591485, -5.9221253], [mosqueLat, mosqueLong])
+        // Render mosques' Cards
         const mosqueCard = `
         <li class="mosqueInformationsCard">
-            <div class="mosqueInformationsCard__header">
-                <h4 class="mosqueInformationsCard__header__mosqueName">${mosquesList[i].name}</h4>
-                <p class="mosqueInformationsCard__header__miles">Distance!</p>
-            </div>
+        <div class="mosqueInformationsCard__mosque-icon fa-solid fa-mosque"></div>
+        <div class="mosqueInformationsCard__title">
+            <h4 class="mosqueInformationsCard__title__mosque-name">${mosquesList[i].name}</h4>
+            <p class="mosqueInformationsCard__title__city">Sidi Slimane</p>
+        </div>
+        <div class="mosqueInformationsCard__distanceWrapper">
+            <div class="mosqueInformationsCard__distanceWrapper__direction-icon fa-solid fa-diamond-turn-right"></div>
+            <p class="mosqueInformationsCard__distanceWrapper__distance">${distance} meters</p>
+        </div>
         </li>
         `
         dom.nearbyMosquesListWrapper.innerHTML += mosqueCard
     }
+    const mosquesMap = `
+    <aside class="mosquesMap">
+        <img class="mosquesLocatedOnMap" src="./src/images/mosque-agdal-location.png" alt="listed-mosques-located-on-map">
+    </aside>
+    `
+    dom.mosquesWrapper = document.querySelector(".mosquesWrapper") // mosquesWrapper will be undefined befor we add it to DOM tree
+    dom.mosquesWrapper.innerHTML += mosquesMap
 }
+
+// Calculate the distance between to positions using "Heversine Formula"
+const haversineCalcDistance = ([lat1, long1], [lat2, long2]) => {
+    const toRadian = angle => angle * (Math.PI / 180);
+    const distanceAB = (a, b) => (a - b) * (Math.PI / 180);
+    const earth_radius_km = 6371;
+
+    const dLat = distanceAB(lat2, lat1);
+    const dLon = distanceAB(long2, long1);
+    // convert latitudes to Radian
+    lat1 = toRadian(lat1);
+    lat2 = toRadian(lat2);
+
+    // Haversine Formula
+    const a = Math.pow(Math.sin(dLat / 2), 2) + Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
+    const c = 2 * Math.asin(Math.sqrt(a));
+
+    let finalDistance = earth_radius_km * c;
+
+    return Math.round(finalDistance * 1000); // in meters
+};
 
 export default renderNearbyMosquesList

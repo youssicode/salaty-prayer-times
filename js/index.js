@@ -102,6 +102,7 @@ dom.nearbyMosquesShowBtn.addEventListener("click", () => {
 //* Remove Mosques List wrapper's content 
 dom.nearbyMosquesHideBtn.addEventListener("click", () => {
     clearChildren(dom.nearbyMosquesListWrapper)
+    clearChildren(dom.nearbyMosquesMap)
     dom.nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
 })
 

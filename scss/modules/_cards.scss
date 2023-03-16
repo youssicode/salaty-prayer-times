@@ -176,19 +176,21 @@
     }
 
     .mosqueInformationsCard__distanceWrapper {
-        width: 5.5rem;
+        width: max-content;
         height: 5.5rem;
         display: grid;
         place-items: center;
 
         &__direction-icon {
             color: $bg-second;
-            font-size: 2rem;
+            font-size: 2.3rem;
         }
 
         &__distance {
             color: $text-color-primary;
             font-size: 1.4rem;
+            text-transform: initial;
+            text-align: center;
         }
     }
 }
