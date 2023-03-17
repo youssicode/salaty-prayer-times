@@ -1,4 +1,4 @@
-//!
+//! remove
 const jsonResult = [
     {
         business_status: "OPERATIONAL",
@@ -357,7 +357,7 @@ async function getNearbyMosques(coords) {
         const options = {
             method: 'GET',
             // if browser returns "429 to many requests" error, try to clear cache files befor using "https://cors-anywhere.herokuapp.com/corsdemo"
-            url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&type=mosque&key=${google_key}&rankby=distance`,
+            url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&type=mosque&key=${google_key}&rankby=distance`,
         };
         const response = await axios.request(options)
         return response.data.results.slice(0, 6)
@@ -375,7 +375,8 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
     </div>
     `
     dom.nearbyMosquesSection.innerHTML += mosquesWrapperTemplate
-    dom.nearbyMosquesListWrapper = document.querySelector(".mosquesList") // nearbyMosquesListWrapper will be undefined befor we add it to DOM tree
+    // nearbyMosquesUlList will be undefined befor we add it to DOM tree
+    dom.nearbyMosquesUlList = document.querySelector(".mosquesList")
 
     let currentLocation = { lat: "", lng: "" }
     for (let i = 0; i < mosquesList.length; i++) {
@@ -402,7 +403,7 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
         </div>
         </li>
         `
-        dom.nearbyMosquesListWrapper.innerHTML += mosqueCardTemplate
+        dom.nearbyMosquesUlList.innerHTML += mosqueCardTemplate
     }
     const mosquesMapTemplate = `
     <aside id ="map">
@@ -418,7 +419,7 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
 const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers) => {
     function initMap() {
         // Defining tha map and its params
-        const map = new google.maps.Map(document.getElementById("map"), {
+        const map = new google.maps.Map(document.querySelector("#map"), {
             zoom: 14,
             center: currentLocation,
         });
