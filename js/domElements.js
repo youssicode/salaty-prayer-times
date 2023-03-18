@@ -27,8 +27,8 @@ const dom = {
     adhanOverlay: document.querySelector(".adhan-overlay"),
     muteAdhanButton: document.querySelector(".mute-adhan-button"),
     nearbyMosquesSection: document.querySelector(".nearbyMosquesSection"),
+    mosquesWrapper: document.querySelector(".mosquesWrapper"),
     nearbyMosquesShowBtn: document.querySelector(".displayNearbyMosques__show"),
-    nearbyMosquesHideBtn: document.querySelector(".displayNearbyMosques__hide"),
 };
 
 export default dom;

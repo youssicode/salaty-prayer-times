@@ -36,17 +36,17 @@ setInterval(() => {
 }, 1000)
 
 //* Get and display Islamic & Gregorian Dates
-displayIslamicDate(toDay)
-displayGregorianDate(toDay)
+displayIslamicDate(toDay);
+displayGregorianDate(toDay);
 
 //* Get User Location Coordinates and then display the local adresse/city...
-async function renderFetchedData() {
+(async function renderFetchedData() {
     currentLocationCoordinates = await getUserCoordinates()
     if (currentLocationCoordinates) {
         autoLocateCity(currentLocationCoordinates)
         getPrayerTimes(currentLocationCoordinates)
     }
-}
+})();
 
 //* ...and prayer times specific for that city
 async function getPrayerTimes(coords) {
@@ -59,8 +59,6 @@ async function getPrayerTimes(coords) {
         errorHandler(err)
     }
 }
-
-renderFetchedData()
 
 //* Display/Hide city search component
 dom.locationBtn.addEventListener("click", () => {
@@ -98,10 +96,3 @@ document.querySelector(".actual-year").textContent = toDay.year
 dom.nearbyMosquesShowBtn.addEventListener("click", () => {
     renderNearbyMosquesList(currentLocationCoordinates)
 })
-
-//* Remove Nearby Mosques List 
-dom.nearbyMosquesHideBtn.addEventListener("click", () => {
-    dom.nearbyMosquesSection.lastChild.remove()
-    dom.nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
-})
-
