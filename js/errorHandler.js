@@ -12,7 +12,7 @@ const errorHandler = (error) => {
             errorMessage = "Bad request. Unkown area or bad parameters."
             break;
         case 1:
-            errorMessage = "Permission denied. Please check location access permission or enter a city manually."
+            errorMessage = "Please turn on location, or enter a city manually."
             showErrorMessge(errorMessage, dom.locationBtn)
             break;
         case 2:

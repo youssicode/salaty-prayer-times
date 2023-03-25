@@ -8,7 +8,6 @@ import errorHandler from "./errorHandler.js"; // default function
 import { prayerTimesByLocationCoordinates, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoCompleteCitiesList.js";
 import renderNearbyMosquesList from "./nearbyMosques.js"; // default function
-import { clearChildren } from "./reuse.js";
 import dom from "./domElements.js"; // default object
 
 
@@ -31,22 +30,23 @@ let currentLocationCoordinates
 //* Display actual time
 setInterval(() => {
     const time = new Date().toLocaleTimeString("fr") // With Seconds
-    // const time = new Date().toLocaleTimeString("fr", { hour: "2-digit", minute: "2-digit" }) // Without Seconds
+    //* const time = new Date().toLocaleTimeString("fr", { hour: "2-digit", minute: "2-digit" }) // Without Seconds
     dom.mainTimeLabel.innerText = time
 }, 1000)
 
 //* Get and display Islamic & Gregorian Dates
-displayIslamicDate(toDay);
-displayGregorianDate(toDay);
+displayIslamicDate(toDay)
+displayGregorianDate(toDay)
 
 //* Get User Location Coordinates and then display the local adresse/city...
-(async function renderFetchedData() {
+async function renderFetchedData() {
     currentLocationCoordinates = await getUserCoordinates()
     if (currentLocationCoordinates) {
         autoLocateCity(currentLocationCoordinates)
         getPrayerTimes(currentLocationCoordinates)
     }
-})();
+}
+renderFetchedData()
 
 //* ...and prayer times specific for that city
 async function getPrayerTimes(coords) {
@@ -61,7 +61,7 @@ async function getPrayerTimes(coords) {
 }
 
 //* Display/Hide city search component
-dom.locationBtn.addEventListener("click", () => {
+dom.locationBtn.addEventListener("mousedown", () => {
     dom.locationSearchWrapper.classList.add("city-search-component-activated")
 })
 
@@ -71,8 +71,8 @@ window.addEventListener("keydown", e => {
     }
 })
 window.addEventListener("click", e => {
-    // if the element we clicked on = (e.target) is child of "locationBtn" then return, if not, then execute hideLocationSearchWrapper()
-    if (dom.locationBtn.contains(e.target)) return
+    // if the search component is hidden or the element we clicked on = (e.target) is child of "locationBtn" then return, if not, then execute hideLocationSearchWrapper()
+    if (!dom.locationSearchWrapper.classList.contains("city-search-component-activated") || dom.locationWrapper.contains(e.target)) return
     hideLocationSearchWrapper()
 })
 

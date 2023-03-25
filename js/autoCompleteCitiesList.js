@@ -22,17 +22,17 @@ export function autoCompleteCitiesList() {
         if (arrayTextMatch === userEntry.toLowerCase()) {
             const cityCountryName = document.createElement("LI")
             cityCountryName.classList.add("extracted-cities-list__city")
-            cityCountryName.textContent = citiesOfTheWorld[i]
+            cityCountryName.innerText = citiesOfTheWorld[i]
             dom.citiesListMatch.appendChild(cityCountryName)
             addClickEventToSuggestedCity(cityCountryName, citiesOfTheWorld[i])
         }
     }
 }
 
-const addClickEventToSuggestedCity = (element, city) => {
-    element.addEventListener("mousedown", function () {
-        // const chosenCity = this.textContent // this won't refer to th clicked "li" if we use arrow function syntax
-        dom.actualLocationLabel.textContent = city
+const addClickEventToSuggestedCity = (liElement, city) => {
+    liElement.addEventListener("click", () => {
+        // dom.actualLocationLabel.innerText = city // didn't work
+        document.querySelector(".location__actual-location-wrapper__cityName").innerText = city
         hideLocationSearchWrapper()
         renderPrayerTimingForChosenCity(city)
     })
@@ -42,6 +42,8 @@ export const hideLocationSearchWrapper = () => {
     dom.locationSearchWrapper.classList.remove("city-search-component-activated")
     dom.citySearchInput.value = ''
     clearChildren(dom.citiesListMatch)
+    const errorLAbel = document.querySelector(".error-label")
+    errorLAbel ? errorLAbel.remove() : null // Hide error message if it exist
 }
 
 // const clearCitiesList = () => {

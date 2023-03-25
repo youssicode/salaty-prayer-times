@@ -29,7 +29,7 @@
         color: $text-color-primary;
 
         &__cityName {
-            min-width: 100px;
+            min-width: 10rem;
             font-family: $carterOne;
             font-size: 1.3rem;
             letter-spacing: 0.2rem;
@@ -61,7 +61,7 @@
         }
 
         &.city-search-component-activated {
-            display: initial;
+            display: block;
         }
 
         .search-for-city-icon,

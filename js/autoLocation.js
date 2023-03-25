@@ -29,6 +29,21 @@ export async function getUserCoordinates() {
     }
 }
 
+export async function autoLocateCity(coords) {
+    try {
+        const localAdresse = await getAdresse(coords.latitude, coords.longitude);
+        //* Display Located Adresse
+        let cityCountryName
+        if (localAdresse) {
+            cityCountryName = `${localAdresse.cityName}, ${localAdresse.countryShortName}`
+        } else {
+            cityCountryName = "Location Undetectable"
+        }
+        dom.actualLocationLabel.innerText = cityCountryName
+    } catch (err) {
+        errorHandler(err)
+    }
+}
 
 //* Reverse Geocoding API
 
@@ -50,31 +65,3 @@ export async function getAdresse(lat, long) {
         errorHandler(err)
     }
 }
-
-export async function autoLocateCity(coords) {
-    try {
-        const localAdresse = await getAdresse(coords.latitude, coords.longitude);
-        //* Display Located Adresse
-        let cityCountryName
-        if (localAdresse) {
-            cityCountryName = `${localAdresse.cityName}, ${localAdresse.countryShortName}`
-        } else {
-            cityCountryName = "Location Undetectable"
-        }
-        dom.actualLocationLabel.innerText = cityCountryName
-
-        //! displayLocatedAdresse(localAdresse)
-    } catch (err) {
-        errorHandler(err)
-    }
-}
-// //*! Display Located Adresse
-// export const displayLocatedAdresse = (adresse) => {
-//     let cityCountryName
-//     if (adresse) {
-//         cityCountryName = `${adresse.cityName}, ${adresse.countryShortName}`
-//     } else {
-//         cityCountryName = "Location Undetectable"
-//     }
-//     dom.actualLocationLabel.innerText = cityCountryName
-// }
