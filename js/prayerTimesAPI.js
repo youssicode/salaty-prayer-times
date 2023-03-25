@@ -52,7 +52,7 @@ export async function prayerTimesByLocationCoordinates(x, y) {
 //* Display feched prayer times data
 
 export const renderPrayerTiming = (timesArray) => {
-    for (let i = 0; i < dom.prayerTimeLabels.length; i++) {
-        dom.prayerTimeLabels[i].innerText = timesArray[i].prayerTime
+    for (let i = 0; i < dom().prayerTimeLabels.length; i++) {
+        dom().prayerTimeLabels[i].innerText = timesArray[i].prayerTime
     }
 }

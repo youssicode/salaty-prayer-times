@@ -13,23 +13,23 @@ const errorHandler = (error) => {
             break;
         case 1:
             errorMessage = "Please turn on location, or enter a city manually."
-            showErrorMessge(errorMessage, dom.locationBtn)
+            showErrorMessge(errorMessage, dom().locationBtn)
             break;
         case 2:
             errorMessage = "Location unavailable."
-            showErrorMessge(errorMessage, dom.locationBtn)
+            showErrorMessge(errorMessage, dom().locationBtn)
             break;
         case 3:
             errorMessage = "Request timeout."
-            showErrorMessge(errorMessage, dom.locationBtn)
+            showErrorMessge(errorMessage, dom().locationBtn)
             break;
         case 88:
             errorMessage = error.message
-            showErrorMessge(errorMessage, dom.nearbyMosquesSection)
+            showErrorMessge(errorMessage, dom().nearbyMosquesSection)
             break;
         case 99:
             errorMessage = "Islamic calendar unavailable."
-            showErrorMessge(errorMessage, dom.gregorianDateLabel)
+            showErrorMessge(errorMessage, dom().gregorianDateLabel)
             break;
     }
 }

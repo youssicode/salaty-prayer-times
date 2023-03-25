@@ -39,7 +39,7 @@ export async function autoLocateCity(coords) {
         } else {
             cityCountryName = "Location Undetectable"
         }
-        dom.actualLocationLabel.innerText = cityCountryName
+        dom().actualLocationLabel.innerText = cityCountryName
     } catch (err) {
         errorHandler(err)
     }

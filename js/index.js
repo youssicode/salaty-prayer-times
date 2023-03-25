@@ -31,7 +31,7 @@ let currentLocationCoordinates
 setInterval(() => {
     const time = new Date().toLocaleTimeString("fr") // With Seconds
     //* const time = new Date().toLocaleTimeString("fr", { hour: "2-digit", minute: "2-digit" }) // Without Seconds
-    dom.mainTimeLabel.innerText = time
+    dom().mainTimeLabel.innerText = time
 }, 1000)
 
 //* Get and display Islamic & Gregorian Dates
@@ -61,8 +61,8 @@ async function getPrayerTimes(coords) {
 }
 
 //* Display/Hide city search component
-dom.locationBtn.addEventListener("mousedown", () => {
-    dom.locationSearchWrapper.classList.add("city-search-component-activated")
+dom().locationBtn.addEventListener("mousedown", () => {
+    dom().locationSearchWrapper.classList.add("city-search-component-activated")
 })
 
 window.addEventListener("keydown", e => {
@@ -72,18 +72,18 @@ window.addEventListener("keydown", e => {
 })
 window.addEventListener("click", e => {
     // if the search component is hidden or the element we clicked on = (e.target) is child of "locationBtn" then return, if not, then execute hideLocationSearchWrapper()
-    if (!dom.locationSearchWrapper.classList.contains("city-search-component-activated") || dom.locationWrapper.contains(e.target)) return
+    if (!dom().locationSearchWrapper.classList.contains("city-search-component-activated") || dom().locationWrapper.contains(e.target)) return
     hideLocationSearchWrapper()
 })
 
 //* Auto-complete user entry with matched cities in Search component
-dom.citySearchInput.addEventListener("input", autoCompleteCitiesList)
+dom().citySearchInput.addEventListener("input", autoCompleteCitiesList)
 
 //* Manualy tirgger Auto-Location & Rendering Prayer Times functions
-dom.autoLocateButton.addEventListener("click", renderFetchedData)
+dom().autoLocateButton.addEventListener("click", renderFetchedData)
 
 //* Activate / Di-activate Call-To-Prayer feature
-dom.adhanBells.forEach(el => {
+dom().adhanBells.forEach(el => {
     el.addEventListener("click", function () {
         this.classList.toggle("prayerTimeCard__adhan--disabled")
     })
@@ -93,6 +93,6 @@ dom.adhanBells.forEach(el => {
 document.querySelector(".actual-year").textContent = toDay.year
 
 //* Render Nearby Mosques List according to current location
-dom.nearbyMosquesShowBtn.addEventListener("click", () => {
+dom().nearbyMosquesShowBtn.addEventListener("click", () => {
     renderNearbyMosquesList(currentLocationCoordinates)
 })

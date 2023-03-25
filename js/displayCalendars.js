@@ -10,7 +10,7 @@ import dom from "./domElements.js";
 
 //* Display Gregorian Dates
 export const displayGregorianDate = (date) => {
-    dom.gregorianDateLabel.innerText = `${date.weekday}, ${date.monthName} ${date.day}, ${date.year}`
+    dom().gregorianDateLabel.innerText = `${date.weekday}, ${date.monthName} ${date.day}, ${date.year}`
 }
 
 //* Get and display Islamic dates
@@ -20,7 +20,7 @@ export const displayIslamicDate = async (date) => {
     const islamicCalendarResult = await getIslamicCalendar(grego_date)
     if (islamicCalendarResult) {
         const islamicDate = `${islamicCalendarResult.month.en} ${islamicCalendarResult.day}, ${islamicCalendarResult.year}`
-        dom.islamicDateLabel.innerText = islamicDate
+        dom().islamicDateLabel.innerText = islamicDate
     } else {
         let err = new Error("Islamic calendar unavailable") // Create custom error object
         err.code = 99

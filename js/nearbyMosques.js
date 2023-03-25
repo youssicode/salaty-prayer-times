@@ -348,13 +348,13 @@ const renderNearbyMosquesList = async (coords) => {
     // const mosquesList = jsonResult.slice(0, 6) //! remove
 
     if (mosquesList) {
-        dom.nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked") //show area that will contain list of mosques and the map
+        dom().nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked") //show area that will contain list of mosques and the map
         displayMosquesList(mosquesList, coords)
         const nearbyMosquesHideBtn = document.querySelector(".displayNearbyMosques__hide")
         //* add EventListener to Remove Nearby Mosques List 
         nearbyMosquesHideBtn.addEventListener("click", () => {
-            dom.mosquesWrapper.innerHTML = ""
-            dom.nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
+            dom().mosquesWrapper.innerHTML = ""
+            dom().nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
         })
     }
 }
@@ -381,9 +381,9 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
         <ul class="mosquesList">
         </ul>
     `
-    dom.mosquesWrapper.innerHTML += mosquesCardsWrapperTemplate
+    dom().mosquesWrapper.innerHTML += mosquesCardsWrapperTemplate
     // mosquesCardsWrap will be undefined befor we add it to DOM tree
-    dom.mosquesCardsWrap = document.querySelector(".mosquesList")
+    dom().mosquesCardsWrap = document.querySelector(".mosquesList")
 
     let currentLocation = { lat: currentCoordinates.latitude, lng: currentCoordinates.longitude }
 
@@ -399,7 +399,7 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
         <div class="mosqueInformationsCard__mosque-icon fa-solid fa-mosque"></div>
         <div class="mosqueInformationsCard__title">
             <h4 class="mosqueInformationsCard__title__mosque-name">${mosquesList[i].name}</h4>
-            <p class="mosqueInformationsCard__title__city">${dom.actualLocationLabel.textContent.slice(0, -4)}</p>
+            <p class="mosqueInformationsCard__title__city">${dom().actualLocationLabel.textContent.slice(0, -4)}</p>
         </div>
         <div class="mosqueInformationsCard__distanceWrapper">
             <div class="mosqueInformationsCard__distanceWrapper__direction-icon fa-solid fa-diamond-turn-right"></div>
@@ -407,13 +407,13 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
         </div>
         </li>
         `
-        dom.mosquesCardsWrap.innerHTML += mosqueCardTemplate
+        dom().mosquesCardsWrap.innerHTML += mosqueCardTemplate
     }
     const mosquesMapTemplate = `
     <aside id ="map">
     </aside>
     `
-    dom.mosquesWrapper.innerHTML += mosquesMapTemplate
+    dom().mosquesWrapper.innerHTML += mosquesMapTemplate
 
     // Rendring Google Map and Mosques Markers on it
     displayMosquesMarkersOnMap(currentLocation, mosquesMarkers)
