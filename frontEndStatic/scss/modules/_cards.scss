@@ -1,0 +1,216 @@
+@use "../utilities" as *; // ... as *; to use just the variables names.
+
+.timingContainer__timeDua__timeNow {
+    color: $text-color-primary;
+    font-family: $ibm-mono;
+    font-size: 3.5rem;
+    font-weight: normal;
+    letter-spacing: .16rem;
+    @extend .text-black-shadow;
+    text-align: center;
+    margin-bottom: $margin-2rem5 * 2;
+}
+
+.timingContainer__timeDua__dua {
+    color: $text-color-primary;
+    text-transform: none;
+    font-family: $Comfortaa;
+    text-align: center;
+    display: none;
+
+    @include responsive_medium() {
+        display: block;
+    }
+
+    .timingContainer__timeDua__dua__quote {
+        font-size: 1.2rem;
+        margin-bottom: $margin-0rem5;
+    }
+
+    .timingContainer__timeDua__dua__source {
+        font-size: .9rem;
+    }
+}
+
+//List of prayer times and adhan notification
+.prayerTimesContainer {
+    width: 100%;
+    background-color: $bg-primary;
+    border-radius: .3rem;
+    padding: inherit;
+    padding-bottom: 2rem; // a space for error's message
+    margin-bottom: 2rem;
+
+    .prayerTimesWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        border-radius: inherit;
+        margin-bottom: $margin-2rem5;
+
+        @include responsive_medium {
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+.prayerTimeCard {
+    @include card-style($shadow-color);
+    @include center-content-with-flex;
+    justify-content: space-between;
+
+    @include responsive_medium {
+        display: block;
+        padding: 1.5rem .8rem;
+        width: 31%;
+    }
+
+    @include responsive_Large {
+        width: 15%;
+    }
+
+    .name-icon-wrapper,
+    .time-icon-wrapper {
+        @include center-content-with-flex;
+
+        @include responsive_medium {
+            flex-direction: column;
+        }
+    }
+
+    .name-icon-wrapper {
+        justify-content: flex-start;
+
+    }
+
+    .time-icon-wrapper {
+        justify-content: space-between;
+        width: 37vw;
+
+        @include responsive_medium {
+            width: initial;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+
+    &__sky-icon {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 3vw;
+
+        @include responsive_medium {
+            display: none;
+        }
+    }
+
+    &__prayerName {
+        font-family: $Catamaran;
+        font-size: 1.8rem;
+        letter-spacing: .1rem;
+        @extend .text-black-shadow;
+    }
+
+    &__prayerTime {
+        font-family: $Catamaran;
+        font-size: 1.8rem;
+        letter-spacing: .2rem;
+        @extend .text-black-shadow;
+    }
+
+    &__adhan {
+        color: $active-color;
+        font-size: 1.7rem;
+        cursor: pointer;
+    }
+
+    &__adhan--disabled {
+        color: $disabled-color;
+    }
+
+    &--nextPrayer {
+        color: $active-color;
+        @include box-shadow ($active-color);
+    }
+}
+
+.mosqueInformationsCard {
+    background-color: $bg-primary;
+    border-radius: 3px;
+    margin-bottom: $margin-0rem5;
+    padding: 0.5rem 1.5rem;
+    @include box-shadow($bg-main);
+    display: flex;
+    align-items: center;
+    font-family: $Catamaran;
+
+    .mosqueInformationsCard__mosque-icon {
+        flex: 0 0 4.5rem; // grow=0, shrink=0, basis=4.5rem
+        height: 4.5rem;
+        border: 3px solid $bg-second;
+        border-radius: 50%;
+        font-size: 2rem;
+        color: $bg-second;
+        @include center-content-with-flex
+    }
+
+    .mosqueInformationsCard__title {
+        margin-right: 1.5rem;
+        margin-left: 1.5rem;
+        flex-grow: 1;
+        color: $text-color-primary;
+        letter-spacing: 2px;
+
+        &__mosque-name {
+            font-size: 1.6rem;
+            font-weight: 400;
+            text-transform: capitalize;
+            @extend .text-black-shadow;
+        }
+
+        &__city {
+            font-size: 1.3rem;
+        }
+    }
+
+    .mosqueInformationsCard__distanceWrapper {
+        flex: 0 0 auto; // grow=0, shrink=0, basis=auto (distance number changes)
+        display: grid;
+        place-items: center;
+
+        &__direction-icon {
+            color: $bg-second;
+            font-size: 2.3rem;
+        }
+
+        &__distance {
+            color: $text-color-primary;
+            font-size: 1.4rem;
+            text-transform: initial;
+            text-align: center;
+        }
+    }
+}
+
+.mosquesWrapper {
+    @include responsive_medium2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2%;
+    }
+}
+
+#map {
+    background-color: $text-color-primary;
+    aspect-ratio: 1/1;
+    border-radius: 3px;
+    overflow: hidden;
+    @include box-shadow ($bg-main);
+
+    .mosquesLocatedOnMap {
+        width: 100%;
+        height: 100%;
+    }
+}

@@ -1,0 +1,152 @@
+@use "../utilities" as *; // ... as *; to use just the variables names.
+
+// Display Auto Located OR Searched City
+.location {
+    width: max-content;
+    height: 3.5rem;
+    border: 1px solid $text-color-primary;
+    border-radius: 3.3rem;
+    cursor: pointer;
+    @include auto-margin-center;
+    margin-bottom: 8.5rem;
+    @include center-content-with-flex;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    color: $text-color-primary;
+    position: relative;
+
+    @include responsive_Large {
+        margin-bottom: $margin-2rem5 * 3;
+    }
+
+    &__actual-location-wrapper {
+        @include center-content-with-flex;
+        height: 100%;
+        border-radius: inherit;
+        border: none;
+        background-color: transparent;
+        padding-left: .5rem;
+        color: $text-color-primary;
+
+        &__cityName {
+            min-width: 10rem;
+            font-family: $carterOne;
+            font-size: 1.3rem;
+            letter-spacing: 0.2rem;
+            margin-left: 0.7rem;
+            margin-right: 1.8rem;
+        }
+    }
+
+    &__icon {
+        font-size: 1.5rem;
+    }
+
+    @include responsive_Large() {
+        margin-left: 0;
+    }
+
+    &__search-wrapper {
+        position: absolute;
+        top: 105%;
+        width: max(100%, 23rem);
+        background-color: rgba(3, 3, 3, 0.27);
+        padding: 1.3rem;
+        border-radius: 0.3rem;
+        line-height: 1.5rem;
+        display: none;
+
+        @include responsive_Large {
+            left: 0;
+        }
+
+        &.city-search-component-activated {
+            display: block;
+        }
+
+        .search-for-city-icon,
+        .auto-locate__icon {
+            font-size: 1.3rem;
+        }
+
+
+        &__city {
+            position: relative;
+            background-color: rgba(3, 3, 3, .27);
+            border-radius: 0.3rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            margin-bottom: 1rem;
+            @include center-content-with-flex;
+            justify-content: flex-start;
+
+            .search-for-city-input {
+                flex-grow: 1;
+                background-color: transparent;
+                color: $text-color-primary;
+                font-family: sans-serif;
+                font-size: 1.5rem;
+                line-height: 3rem;
+                margin-left: 1rem;
+                border: none;
+                outline: none;
+                overflow: hidden;
+            }
+
+            .extracted-cities-list {
+                position: absolute;
+                top: 106%;
+                padding-left: inherit;
+                padding-right: inherit;
+                font-family: sans-serif;
+                font-size: 1.2rem;
+                background: $active-color;
+                color: $bg-second;
+                width: 100%;
+                max-height: 300px;
+                overflow: auto;
+                scrollbar-width: 2px;
+                scrollbar-color: $bg-second;
+                left: 0;
+                border-bottom-left-radius: .3rem;
+                border-bottom-right-radius: .3rem;
+                z-index: 55;
+
+                &::-webkit-scrollbar {
+                    width: 7px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: $bg-second;
+                    border-radius: 5px;
+                }
+
+                &__city {
+                    line-height: 2.7rem;
+                    padding-left: $margin-0rem5;
+                    border-bottom: 1px solid $bg-second;
+
+                    &:last-child {
+                        border: none;
+                    }
+
+                    &:hover {
+                        background: $bg-second;
+                        color: $active-color;
+                    }
+                }
+            }
+        }
+
+        &__auto-locate-button {
+            padding-left: 1rem;
+
+            .auto-locate-button {
+                margin-left: 1rem;
+                color: $text-color-primary;
+                font-family: $Comfortaa;
+                font-size: 1.3rem;
+            }
+        }
+    }
+}

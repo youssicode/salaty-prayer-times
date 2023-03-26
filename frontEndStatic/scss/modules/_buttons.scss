@@ -1,0 +1,87 @@
+@use "../utilities" as *; // ... as *; to use just the variables names.
+
+// Nearby Mosques Button
+
+.nearbyMosquesSection {
+    position: relative;
+    @include card-style($shadow-color);
+
+    @include responsive_medium2 {
+        width: 40%;
+        @include auto-margin-center;
+    }
+
+    &:not(.nearbyMosquesBtnClicked) {
+        cursor: pointer;
+
+        &:hover {
+            background-color: $active-color;
+
+            & .displayNearbyMosques__show__text {
+                color: $bg-second;
+                text-shadow: none;
+            }
+        }
+    }
+
+    &.nearbyMosquesBtnClicked .displayNearbyMosquesHeader {
+        justify-content: space-between;
+    }
+
+    &.nearbyMosquesBtnClicked .displayNearbyMosques__hide {
+        display: initial;
+    }
+
+    &.nearbyMosquesBtnClicked {
+        width: 100%;
+
+        & .displayNearbyMosquesHeader {
+            margin-top: .5rem;
+            margin-bottom: 1.5rem
+        }
+    }
+}
+
+.displayNearbyMosquesHeader {
+    @include center-content-with-flex;
+    // margin-bottom: $margin-2rem5;
+
+}
+
+
+.displayNearbyMosques__hide {
+    color: $active-color;
+    text-transform: capitalize;
+    font-family: $Catamaran;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-decoration: underline;
+    display: none;
+}
+
+.displayNearbyMosques__show__text {
+    display: inline-block;
+    margin-right: $margin-0rem5;
+    color: $text-color-primary;
+    font-family: $Catamaran;
+    text-transform: capitalize;
+    font-size: 1.8rem;
+    letter-spacing: .1rem;
+    @extend .text-black-shadow;
+}
+
+.displayNearbyMosques__show__icon {
+    display: inline-block;
+}
+
+// Ana error's message holder
+.error-label {
+    position: absolute;
+    top: 115%;
+    left: 0;
+    color: #770000;
+    font-size: 1.1rem;
+    font-family: sans-serif;
+    text-transform: initial;
+    padding-left: inherit;
+}

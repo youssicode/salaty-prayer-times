@@ -1,0 +1,34 @@
+@use "../utilities" as *; // ... as *; to use just the variables names.
+
+.heroSection__header {
+    margin-bottom: $margin-2rem5;
+
+    @include responsive_medium() {
+        @include center-content-with-flex;
+        justify-content: space-between;
+
+    }
+}
+
+
+.appLogo {
+    font-family: $carattere;
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+    text-align: center;
+    margin-bottom: $margin-2rem5;
+}
+
+.islamic_date {
+    font-family: $Comfortaa;
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: $margin-0rem5;
+}
+
+.gregorian_date {
+    font-family: $Comfortaa;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: $margin-0rem5;
+}

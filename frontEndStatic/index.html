@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Carattere&family=Carter+One&family=Catamaran:wght@100;200;400;700&family=Comfortaa:wght@400;700&family=Didact+Gothic&family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+        <!-- fontawesome icons Kit's Code -->
+        <script src="https://kit.fontawesome.com/5313277c87.js" crossorigin="anonymous"></script>
+        <!-- Costum style file -->
+        <link rel="stylesheet" href="./css/main.css">
+        <title>Salaty Prayer Times</title>
+    </head>
+    <body>
+        <main>
+            
+            <section class="heroSection">
+                <header class="heroSection__header">
+                    <div class="appLogo">salaty: prayer times</div>
+                    <div class="date">
+                        <div class="gregorian_date"></div>
+                        <div class="islamic_date"></div>
+                    </div>
+                </header>
+                <div class="location" role="button">
+                    <div class="location__actual-location-wrapper">
+                        <i class="actual-location__icon fa-solid fa-location-dot"></i>
+                        <div class="location__actual-location-wrapper__cityName">
+                            
+                        </div>
+                        <i class="actual-location__icon fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="location__search-wrapper">
+                        <div class="location__search-wrapper__city">
+                            <i class="search-for-city-icon fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="search-for-city-input" placeholder="Please enter your city">
+                            <!-- List of cities suggestions == To Add Dinamically with JS == -->
+                            <ul class="extracted-cities-list">
+                                
+                            </ul>
+                        </div>
+                        <div class="location__search-wrapper__auto-locate-button">
+                            <i class="auto-locate__icon fa-solid fa-location-arrow"></i>
+                            <button class="auto-locate-button">Auto Locate</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="timingContainer">
+                    <div class="timingContainer__timeDua">
+                        <h1 class="timingContainer__timeDua__timeNow"></h1>
+                        <div class="timingContainer__timeDua__dua">
+                            <p class="timingContainer__timeDua__dua__quote">
+                                "Peace be upon the Messenger of
+                                Allah. O Allah, Open for me the
+                                gates of Your Mercy."
+                            </p>
+                            <p class="timingContainer__timeDua__dua__source">
+                                "Recource: Abu Dawud N #465"
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timingContainer__upcomingPrayer">
+                        <label class="timingContainer__upcomingPrayer__label">upcoming prayer</label>
+                        <p class="timingContainer__upcomingPrayer__prayerName">------</p>
+                        <label class="timingContainer__upcomingPrayer__remainingTimeLabel">remaining time</label>
+                        <p class="timingContainer__upcomingPrayer__remainingTime">--:--:--</p>
+                        <div class="custom-border"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="prayerTimesSection">
+                <div class="prayerTimesContainer">
+                    <ul class="prayerTimesWrapper">
+                            <li class="prayerTimeCard">
+                                <div class="name-icon-wrapper">
+                                    <img class="prayerTimeCard__sky-icon" src="./src/images/dawn-icon.png" alt="dawn icon">
+                                    <h2 class="prayerTimeCard__prayerName">fajr</h2>
+                                </div>
+                                    <div class="time-icon-wrapper">
+                                    <p class="prayerTimeCard__prayerTime fajr">- - : - -</p>
+                                <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
+                            </div>
+                        </li>
+                        <li class="prayerTimeCard">
+                            <div class="name-icon-wrapper">
+                                <img class="prayerTimeCard__sky-icon" src="./src/images/sunrise-icon.png" alt="sunrise icon">
+                                <h2 class="prayerTimeCard__prayerName">sunrise</h2>
+                            </div>
+                            <div class="time-icon-wrapper">
+                                <p class="prayerTimeCard__prayerTime sunrise">- - : - -</p>
+                                <!-- Element added for purpose that each "adhan-icon" have the same index as its parent card -->
+                                <i class="prayerTimeCard__adhan" ></i> 
+                                </div>
+                            </li>
+                            <li class="prayerTimeCard">
+                                <div class="name-icon-wrapper">
+                                    <img class="prayerTimeCard__sky-icon" src="./src/images/sun-icon.png" alt="sun icon">
+                                    <h2 class="prayerTimeCard__prayerName">dhuhr</h2>
+                                </div>
+                                <div class="time-icon-wrapper">
+                                    <p class="prayerTimeCard__prayerTime dhuhr">- - : - -</p>
+                                    <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
+                                </div>
+                            </li>      
+                            <li class="prayerTimeCard">
+                                <div class="name-icon-wrapper">
+                                    <img class="prayerTimeCard__sky-icon" src="./src/images/cloudy-icon.png" alt="cloud icon">
+                                    <h2 class="prayerTimeCard__prayerName">asr</h2>
+                                </div>
+                                <div class="time-icon-wrapper">
+                                    <p class="prayerTimeCard__prayerTime asr">- - : - -</p>
+                                    <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
+                                </div>
+                            </li>
+                            <li class="prayerTimeCard">
+                                <div class="name-icon-wrapper">
+                                    <img class="prayerTimeCard__sky-icon" src="./src/images/sunset-icon.png" alt="sunset icon">
+                                    <h2 class="prayerTimeCard__prayerName">maghrib</h2>
+                                </div>
+                                <div class="time-icon-wrapper">
+                                    <p class="prayerTimeCard__prayerTime maghrib">- - : - -</p>
+                                    <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
+                                </div>
+                            </li>
+                            <li class="prayerTimeCard">
+                                <div class="name-icon-wrapper">
+                                    <img class="prayerTimeCard__sky-icon" src="./src/images/night-icon.png" alt="night icon">
+                                    <h2 class="prayerTimeCard__prayerName">isha'a</h2>
+                                </div>
+                                <div class="time-icon-wrapper">
+                                    <p class="prayerTimeCard__prayerTime ishaa">- - : - -</p>
+                                    <i class="fa-solid fa-bell prayerTimeCard__adhan" ></i>
+                                </div>
+                            </li>
+                    </ul>
+                    
+                    <div class="nearbyMosquesSection">
+                        <header class="displayNearbyMosquesHeader"> 
+                            <button class="displayNearbyMosques__show">
+                                <h3 class="displayNearbyMosques__show__text">nearby mosques</h3>
+                                <img class="displayNearbyMosques__show__icon" src="./src/images/map-location-icon.png" alt="location-on-map-icon">
+                            </button>
+                            <button class="displayNearbyMosques__hide">hide</button>
+                        </header>
+                        <div class="mosquesWrapper">
+                                <!-- <ul class="mosquesList">
+                                    <li class="mosqueInformationsCard"></li>
+                                    <li class="mosqueInformationsCard"></li>
+                                    ....
+                                </ul>
+                                <aside class="mosquesMap">
+                                </aside> -->
+                            </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="pageFooter">
+                <div class="footerWrapper">
+                    <p class="developerInfos">
+                        designed & coded by youssef el-hrouzi - <span class="actual-year"></span> 
+                    </p>
+                    <ul class="contactIcons">
+                        <li><a href="mailto:youssef.elhrouzi@yahoo.com" target="_blank" class="contactIcons__socialIcon fa-solid fa-envelope"></a></li>
+                        <li><a href="https://www.linkedin.com/in/youssef-el-hrouzi/" target="_blank" class="contactIcons__socialIcon fa-brands fa-linkedin"></a></li>
+                        <li><a href="https://www.facebook.com/youssef.elhrouzi" target="_blank" class="contactIcons__socialIcon fa-brands fa-square-facebook"></a></i></li>
+                        <li><a href="https://github.com/youssicode" target="_blank" class="contactIcons__socialIcon fa-brands fa-square-github"></a></li>
+                    </ul>
+                </div>
+            </footer>
+
+            <div class="adhan-overlay adhan-overlay--hidden">
+                <div class="adhan-overlay__main-div">
+                    <img src="./src/images/adhan-overlay-background.jpg" class="adhan-overlay-background-image" alt="adhan overlay main image">
+                    <div class="adhan-overlay__main-div__circle circle1"></div>
+                    <div class="adhan-overlay__main-div__circle circle2"></div>
+                    <div class="adhan-overlay__main-div__circle circle3"></div>
+                </div>
+                <p class= "mute-adhan-button" >Click (Or press 'Escp') to stop</p>
+            </div>
+        </main>
+        <!-- Importing Axios Librery from CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <!-- Google Map API script -->
+      <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhf7kC_ayFc99YrKDhJLl_xlzeuOBFfxI&callback=initMap">
+</script>
+      <!-- Main App Script File -->
+        <script type="module" src="./js/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+@use "./variables" as var;
+
+// Medium Screens
+@mixin responsive_medium() {
+    @media only screen and (min-width : var.$min-width-medium) {
+        @content;
+    }
+}
+
+// Post-Medium Screens
+@mixin responsive_medium2() {
+    @media only screen and (min-width : var.$min-width-medium2) {
+        @content;
+    }
+}
+
+// Large Screens
+@mixin responsive_Large() {
+    @media only screen and (min-width : var.$min-width-large) {
+        @content;
+    }
+}
