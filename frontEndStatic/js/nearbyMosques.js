@@ -363,8 +363,12 @@ async function getNearbyMosques(coords) {
     try {
         const options = {
             method: 'GET',
-            // if browser returns "429 to many requests" error, try to clear cache files befor using "https://cors-anywhere.herokuapp.com/corsdemo"
-            url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&type=mosque&key=${google_key}&rankby=distance`,
+            url: '/places',
+            params: {
+                lat: coords.latitude,
+                lng: coords.longitude,
+                apiKey: google_key,
+            }
         };
         const response = await axios.request(options)
         return response.data.results.slice(0, 6)
@@ -374,8 +378,6 @@ async function getNearbyMosques(coords) {
 }
 
 const displayMosquesList = (mosquesList, currentCoordinates) => {
-    console.log("currentLocation =", currentCoordinates) //!
-
     let mosquesMarkers = []
     const mosquesCardsWrapperTemplate = `
         <ul class="mosquesList">
@@ -383,8 +385,7 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
     `
     dom().mosquesWrapper.innerHTML += mosquesCardsWrapperTemplate
     // mosquesCardsWrap will be undefined befor we add it to DOM tree
-    dom().mosquesCardsWrap = document.querySelector(".mosquesList")
-
+    const domMosquesCardsWrap = document.querySelector(".mosquesList")
     let currentLocation = { lat: currentCoordinates.latitude, lng: currentCoordinates.longitude }
 
     for (let i = 0; i < mosquesList.length; i++) {
@@ -407,7 +408,7 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
         </div>
         </li>
         `
-        dom().mosquesCardsWrap.innerHTML += mosqueCardTemplate
+        domMosquesCardsWrap.innerHTML += mosqueCardTemplate
     }
     const mosquesMapTemplate = `
     <aside id ="map">
@@ -420,7 +421,7 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
 }
 
 const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers) => {
-    (function initMap() {
+    function initMap() {
         // Defining tha map and its params
         const map = new google.maps.Map(document.querySelector("#map"), {
             zoom: 14,
@@ -436,7 +437,8 @@ const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers) => {
                 icon: image,
             });
         });
-    })(); // Execute the function
+    }
+    initMap(); // Execute the function
 }
 
 // Calculate the distance between to positions using "Heversine Formula"
