@@ -2,3 +2,6 @@
 /frontEndStatic/js/countriesAndCitiesAPI_temp.js
 /frontEndStatic/js/cities-List-temp.js
 /node_modules
+npm-debug.log
+.DS_Store
+/*.env

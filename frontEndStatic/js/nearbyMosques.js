@@ -329,7 +329,6 @@ const jsonResult = [
 //? Imported Modules
 //==================
 
-import google_key from "./apiKeys.js"
 import errorHandler from "./errorHandler.js"
 import dom from "./domElements.js"
 
@@ -366,8 +365,7 @@ async function getNearbyMosques(coords) {
             url: '/places',
             params: {
                 lat: coords.latitude,
-                lng: coords.longitude,
-                apiKey: google_key,
+                lng: coords.longitude
             }
         };
         const response = await axios.request(options)

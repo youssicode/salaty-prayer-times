@@ -13,11 +13,19 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/frontEndStatic/index.html")
 })
 
+// Set the API key
+const googleMapApiKey = 'AIzaSyBmpG54I9-eYib9_21wPdmEkV7ylrjN2KA'
+// You can set an environment variable using the following command(Terminal):
+//? heroku config:set G_API_KEY='AIzaSyBmpG54I9-eYib9_21wPdmEkV7ylrjN2KA'
+// This will set an environment variable named API_KEY to the value of your API key.
+// In your server-side script, you can access the value of the API_KEY environment variable using the process.env object:
+//? const googleMapApiKey = process.env.G_API_KEY;
+
 // Define API endpoint
 app.get('/places', async (req, res) => {
-    const { lat, lng, apiKey } = req.query; // must have the same name as the passed parameters
+    const { lat, lng } = req.query; // must have the same name as the passed parameters
     try {
-        const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&type=mosque&rankby=distance&key=${apiKey}`;
+        const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&type=mosque&rankby=distance&key=${googleMapApiKey}`;
         const response = await axios.get(url);
 
         res.setHeader('Access-Control-Allow-Origin', '*');

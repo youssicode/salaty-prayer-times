@@ -42,23 +42,23 @@ import GoogleMapGeoAPIkey from "./apiKeys.js";
 
 //* Geocoding API
 
-export async function getAdresse(lat, long) {
-    try {
-        let latLongUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${GoogleMapGeoAPIkey}&sensor=false`;
-        let response = await axios({
-            method: "GET",
-            url: latLongUrl,
-        })
-        console.log(response.data.results) //! Rmove
-        let tempCiticName = response.data.results.at(-4).formatted_address
-        let tempCountryShortName = tempCiticName.slice(tempCiticName.indexOf(",") + 2)
-        let zoneResult = {
-            countryLongName: response.data.results.at(-1).formatted_address,
-            cityLongName: tempCiticName.slice(0, tempCiticName.indexOf(",")),
-            countryShortName: tempCountryShortName.length == 2 ? tempCountryShortName : "" // If the response provide a country short name, save it. If not save empty value
-        }
-        return zoneResult
-    } catch (err) {
-        throw err
-    }
-}
+// export async function getAdresse(lat, long) {
+//     try {
+//         let latLongUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${GoogleMapGeoAPIkey}&sensor=false`;
+//         let response = await axios({
+//             method: "GET",
+//             url: latLongUrl,
+//         })
+//         console.log(response.data.results) //! Rmove
+//         let tempCiticName = response.data.results.at(-4).formatted_address
+//         let tempCountryShortName = tempCiticName.slice(tempCiticName.indexOf(",") + 2)
+//         let zoneResult = {
+//             countryLongName: response.data.results.at(-1).formatted_address,
+//             cityLongName: tempCiticName.slice(0, tempCiticName.indexOf(",")),
+//             countryShortName: tempCountryShortName.length == 2 ? tempCountryShortName : "" // If the response provide a country short name, save it. If not save empty value
+//         }
+//         return zoneResult
+//     } catch (err) {
+//         throw err
+//     }
+// }
