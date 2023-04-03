@@ -8,6 +8,7 @@ import errorHandler from "./errorHandler.js"; // default function
 import { prayerTimesByLocationCoordinates, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoCompleteCitiesList.js";
 import renderNearbyMosquesList from "./nearbyMosques.js"; // default function
+import saveToLocalStorage from "./saveToLocalStorage.js";
 import dom from "./domElements.js"; // default object
 
 

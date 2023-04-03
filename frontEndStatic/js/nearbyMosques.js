@@ -347,9 +347,10 @@ const renderNearbyMosquesList = async (coords) => {
     // const mosquesList = jsonResult.slice(0, 6) //! remove
 
     if (mosquesList) {
+        const nearbyMosquesHideBtn = document.querySelector(".displayNearbyMosques__hide")
+
         dom().nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked") //show area that will contain list of mosques and the map
         displayMosquesList(mosquesList, coords)
-        const nearbyMosquesHideBtn = document.querySelector(".displayNearbyMosques__hide")
         //* add EventListener to Remove Nearby Mosques List 
         nearbyMosquesHideBtn.addEventListener("click", () => {
             dom().mosquesWrapper.innerHTML = ""
@@ -368,60 +369,59 @@ async function getNearbyMosques(coords) {
                 lng: coords.longitude
             }
         };
-        const response = await axios.request(options)
-        return response.data.results.slice(0, 6)
+        const { data: { results } } = await axios.request(options)
+        return results.slice(0, 6)
+        // const response = await axios.request(options)
+        // return response.data.results.slice(0, 6)
     } catch (err) {
         errorHandler(err)
     }
 }
 
-const displayMosquesList = (mosquesList, currentCoordinates) => {
-    let mosquesMarkers = []
-    const mosquesCardsWrapperTemplate = `
-        <ul class="mosquesList">
-        </ul>
-    `
-    dom().mosquesWrapper.innerHTML += mosquesCardsWrapperTemplate
-    // mosquesCardsWrap will be undefined befor we add it to DOM tree
-    const domMosquesCardsWrap = document.querySelector(".mosquesList")
-    let currentLocation = { lat: currentCoordinates.latitude, lng: currentCoordinates.longitude }
 
-    for (let i = 0; i < mosquesList.length; i++) {
-        const mosqueLat = mosquesList[i].geometry.location.lat
-        const mosqueLong = mosquesList[i].geometry.location.lng
-        mosquesMarkers.push({ lat: mosqueLat, lng: mosqueLong })
-        // Calculate mosque's distance
-        const distance = haversineCalcDistance([currentLocation.lat, currentLocation.lng], [mosqueLat, mosqueLong])
-        // Render mosques' Cards
+const displayMosquesList = (mosquesList, currentCoordinates) => {
+    const mosquesMarkers = []
+    const domMosquesCardsWrap = document.createElement("ul")
+    domMosquesCardsWrap.className = "mosquesList"
+    dom().mosquesWrapper.appendChild(domMosquesCardsWrap)
+
+    const { latitude: lat, longitude: lng } = currentCoordinates
+    const currentLocation = { lat, lng }
+
+    mosquesList.forEach(({ geometry: { location }, name }) => {
+        const { lat: mosqueLat, lng: mosqueLng } = location
+        mosquesMarkers.push({ lat: mosqueLat, lng: mosqueLng })
+
+        const distance = haversineCalcDistance([lat, lng], [mosqueLat, mosqueLng])
+
         const mosqueCardTemplate = `
         <li class="mosqueInformationsCard">
-        <div class="mosqueInformationsCard__mosque-icon fa-solid fa-mosque"></div>
-        <div class="mosqueInformationsCard__title">
-            <h4 class="mosqueInformationsCard__title__mosque-name">${mosquesList[i].name}</h4>
+          <div class="mosqueInformationsCard__mosque-icon fa-solid fa-mosque"></div>
+          <div class="mosqueInformationsCard__title">
+            <h4 class="mosqueInformationsCard__title__mosque-name">${name}</h4>
             <p class="mosqueInformationsCard__title__city">${dom().actualLocationLabel.textContent.slice(0, -4)}</p>
-        </div>
-        <div class="mosqueInformationsCard__distanceWrapper">
+          </div>
+          <div class="mosqueInformationsCard__distanceWrapper">
             <div class="mosqueInformationsCard__distanceWrapper__direction-icon fa-solid fa-diamond-turn-right"></div>
             <p class="mosqueInformationsCard__distanceWrapper__distance">${distance} meters</p>
-        </div>
+          </div>
         </li>
-        `
+      `
         domMosquesCardsWrap.innerHTML += mosqueCardTemplate
-    }
-    const mosquesMapTemplate = `
-    <aside id ="map">
-    </aside>
-    `
-    dom().mosquesWrapper.innerHTML += mosquesMapTemplate
+    })
 
-    // Rendring Google Map and Mosques Markers on it
-    displayMosquesMarkersOnMap(currentLocation, mosquesMarkers)
+    const mapContainer = document.createElement("aside")
+    mapContainer.id = "map"
+    dom().mosquesWrapper.appendChild(mapContainer)
+
+    displayMosquesMarkersOnMap(currentLocation, mosquesMarkers, mapContainer)
 }
 
-const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers) => {
+
+const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers, mapContainer) => {
     function initMap() {
         // Defining tha map and its params
-        const map = new google.maps.Map(document.querySelector("#map"), {
+        const map = new google.maps.Map(mapContainer, {
             zoom: 14,
             center: currentLocation,
         });
