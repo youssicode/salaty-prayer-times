@@ -2,7 +2,8 @@
 //==================
 
 import { citiesOfTheWorld } from "./citiesList.js";
-import { prayerTimesByCity, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
+import { prayerTimesByCity, extractMainPrayerTimes } from "./prayerTimesAPI.js";
+import { renderPrayerTiming } from "./dataRendering.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import errorHandler from "./errorHandler.js";
 import { clearChildren } from "./reuse.js";
@@ -32,6 +33,7 @@ export function autoCompleteCitiesList() {
 const addClickEventToSuggestedCity = (liElement, city) => {
     liElement.addEventListener("click", () => {
         dom().actualLocationLabel.innerText = city
+        hideErrorMessage()
         hideLocationSearchWrapper()
         renderPrayerTimingForChosenCity(city)
     })
@@ -41,15 +43,12 @@ export const hideLocationSearchWrapper = () => {
     dom().locationSearchWrapper.classList.remove("city-search-component-activated")
     dom().citySearchInput.value = ''
     clearChildren(dom().citiesListMatch)
+}
+
+export const hideErrorMessage = () => {
     const errorLAbel = document.querySelector(".error-label")
     errorLAbel ? errorLAbel.remove() : null // Hide error message if it exist
 }
-
-// const clearCitiesList = () => {
-//     while (dom().citiesListMatch.firstChild) {
-//         dom().citiesListMatch.firstChild.remove()
-//     }
-// }
 
 async function renderPrayerTimingForChosenCity(chosenCity) {
     try {
@@ -60,7 +59,7 @@ async function renderPrayerTimingForChosenCity(chosenCity) {
         const month = date.getMonth() + 1
         const year = date.getFullYear()
         const prayerTimesByCityResponse = await prayerTimesByCity(city, country, day, month, year)
-        const fetchedPrayerTimesByCity = savePrayerTiming(prayerTimesByCityResponse)
+        const fetchedPrayerTimesByCity = extractMainPrayerTimes(prayerTimesByCityResponse)
         renderPrayerTiming(fetchedPrayerTimesByCity)
         renderUpcomingPrayerCard(fetchedPrayerTimesByCity)
     } catch (err) {

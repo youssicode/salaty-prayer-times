@@ -1,14 +1,15 @@
 //? Imported Modules
 //==================
 
-import { displayIslamicDate, displayGregorianDate } from "./displayCalendars.js";
+import { getIslamicDate } from "./displayCalendars.js";
 import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import errorHandler from "./errorHandler.js"; // default function
-import { prayerTimesByLocationCoordinates, renderPrayerTiming, savePrayerTiming } from "./prayerTimesAPI.js";
-import { autoCompleteCitiesList, hideLocationSearchWrapper } from "./autoCompleteCitiesList.js";
+import { prayerTimesByLocationCoordinates, extractMainPrayerTimes } from "./prayerTimesAPI.js";
+import { autoCompleteCitiesList, hideLocationSearchWrapper, hideErrorMessage } from "./autoCompleteCitiesList.js";
 import renderNearbyMosquesList from "./nearbyMosques.js"; // default function
-import saveToLocalStorage from "./saveToLocalStorage.js";
+import saveToLocalStorage, { getFromLocalStorage } from "./saveToLocalStorage.js";
+import { renderLocalTime, renderGregorianDate, renderPrayerTiming } from "./dataRendering.js";
 import dom from "./domElements.js"; // default object
 
 
@@ -32,28 +33,30 @@ let currentLocationCoordinates
 setInterval(() => {
     const time = new Date().toLocaleTimeString("fr") // With Seconds
     //* const time = new Date().toLocaleTimeString("fr", { hour: "2-digit", minute: "2-digit" }) // Without Seconds
-    dom().mainTimeLabel.innerText = time
+    renderLocalTime(time)
 }, 1000)
 
 //* Get and display Islamic & Gregorian Dates
-displayIslamicDate(toDay)
-displayGregorianDate(toDay)
+getIslamicDate(toDay)
+renderGregorianDate(toDay)
 
 //* Get User Location Coordinates and then display the local adresse/city...
-async function renderFetchedData() {
+async function loadData() {
     currentLocationCoordinates = await getUserCoordinates()
     if (currentLocationCoordinates) {
+        saveToLocalStorage('currentLocationCoordinates', currentLocationCoordinates)
         autoLocateCity(currentLocationCoordinates)
         getPrayerTimes(currentLocationCoordinates)
     }
 }
-renderFetchedData()
+window.onload = loadData()
 
 //* ...and prayer times specific for that city
 async function getPrayerTimes(coords) {
     try {
         const prayerTimingApiResponse = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-        const fetchedPrayerTimes = savePrayerTiming(prayerTimingApiResponse)
+        const fetchedPrayerTimes = extractMainPrayerTimes(prayerTimingApiResponse)
+        saveToLocalStorage('prayerTimings', fetchedPrayerTimes)
         renderPrayerTiming(fetchedPrayerTimes)
         renderUpcomingPrayerCard(fetchedPrayerTimes)
     } catch (err) {
@@ -64,6 +67,13 @@ async function getPrayerTimes(coords) {
 //* Display/Hide city search component
 dom().locationBtn.addEventListener("mousedown", () => {
     dom().locationSearchWrapper.classList.add("city-search-component-activated")
+    //* Auto-complete user entry with matched cities in Search component
+    dom().citySearchInput.addEventListener("input", autoCompleteCitiesList)
+    //* Manualy tirgger Auto-Location & Rendering Prayer Times functions
+    dom().autoLocateButton.addEventListener("click", () => {
+        hideErrorMessage()
+        loadData()
+    })
 })
 
 window.addEventListener("keydown", e => {
@@ -76,12 +86,6 @@ window.addEventListener("click", e => {
     if (!dom().locationSearchWrapper.classList.contains("city-search-component-activated") || dom().locationWrapper.contains(e.target)) return
     hideLocationSearchWrapper()
 })
-
-//* Auto-complete user entry with matched cities in Search component
-dom().citySearchInput.addEventListener("input", autoCompleteCitiesList)
-
-//* Manualy tirgger Auto-Location & Rendering Prayer Times functions
-dom().autoLocateButton.addEventListener("click", renderFetchedData)
 
 //* Activate / Di-activate Call-To-Prayer feature
 dom().adhanBells.forEach(el => {

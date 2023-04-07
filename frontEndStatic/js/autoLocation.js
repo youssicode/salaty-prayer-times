@@ -2,8 +2,8 @@
 //==================
 
 import errorHandler from "./errorHandler.js";
-import dom from "./domElements.js";
-
+import saveToLocalStorage from "./saveToLocalStorage.js";
+import { renderAutoLocatedCity } from "./dataRendering.js";
 
 //? Functions
 //===========
@@ -31,22 +31,15 @@ export async function getUserCoordinates() {
 
 export async function autoLocateCity(coords) {
     try {
-        const localAdresse = await getAdresse(coords.latitude, coords.longitude);
-        //* Display Located Adresse
-        let cityCountryName
-        if (localAdresse) {
-            cityCountryName = `${localAdresse.cityName}, ${localAdresse.countryShortName}`
-        } else {
-            cityCountryName = "Location Undetectable"
-        }
-        dom().actualLocationLabel.innerText = cityCountryName
+        const localAdresse = await getAdresse(coords.latitude, coords.longitude) || { cityName: "Location Undetectable", countryShortName: "" }
+        saveToLocalStorage('salaty_localAdresse', localAdresse)
+        renderAutoLocatedCity(localAdresse)
     } catch (err) {
         errorHandler(err)
     }
 }
 
 //* Reverse Geocoding API
-
 export async function getAdresse(lat, long) {
     try {
         const latLongUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}`;

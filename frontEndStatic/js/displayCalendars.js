@@ -2,25 +2,22 @@
 //==================
 
 import errorHandler from "./errorHandler.js";
+import { renderIslamicCalender } from "./dataRendering.js";
+
 import dom from "./domElements.js";
 
 
 //? Functions
 //===========
 
-//* Display Gregorian Dates
-export const displayGregorianDate = (date) => {
-    dom().gregorianDateLabel.innerText = `${date.weekday}, ${date.monthName} ${date.day}, ${date.year}`
-}
 
 //* Get and display Islamic dates
-export const displayIslamicDate = async (date) => {
+export const getIslamicDate = async (date) => {
 
     const grego_date = `${date.day}-${date.month}-${date.year}`
     const islamicCalendarResult = await getIslamicCalendar(grego_date)
     if (islamicCalendarResult) {
-        const islamicDate = `${islamicCalendarResult.month.en} ${islamicCalendarResult.day}, ${islamicCalendarResult.year}`
-        dom().islamicDateLabel.innerText = islamicDate
+        renderIslamicCalender(islamicCalendarResult)
     } else {
         let err = new Error("Islamic calendar unavailable") // Create custom error object
         err.code = 99

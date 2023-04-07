@@ -1,6 +1,7 @@
 //? Imported Modules
 //==================
-import dom from "./domElements.js";
+import { renderUpcomingPrayer, renderUpcomingPrayerCountDown } from "./dataRendering.js";
+import dom from "./domElements.js"; // default object
 
 
 //? Global Constantes and Variables
@@ -8,14 +9,14 @@ import dom from "./domElements.js";
 let setIntervalStatus = false
 let upComingPrayerCountDown
 let prayerTimeCard__index
-let timesArray = []
+let timesArray
 
 //? Functions
 //===========
 
 //* Check witch prayer is next & display it
 export const renderUpcomingPrayerCard = (passedArray) => {
-    if (passedArray) timesArray = passedArray
+    timesArray = passedArray || []
     if (setIntervalStatus) {
         clearInterval(upComingPrayerCountDown)
         setIntervalStatus = false
@@ -49,11 +50,7 @@ export const renderUpcomingPrayerCard = (passedArray) => {
             }
         }
     }
-    dom().prayerTimeCards.forEach(card => {
-        card.classList.remove("prayerTimeCard--nextPrayer")
-    })
-    dom().prayerTimeCards[prayerTimeCard__index].classList.add("prayerTimeCard--nextPrayer")
-    dom().upcomingPrayerLabel.innerText = upcomingPrayerLabelContent
+    renderUpcomingPrayer(prayerTimeCard__index, upcomingPrayerLabelContent)
     startCountDown(upComingPrayerTimeStamp)
 }
 
@@ -79,7 +76,7 @@ const startCountDown = (upComingPrayerTime) => {
         hours = hours < 10 ? '0' + hours : hours
         minutes = minutes < 10 ? '0' + minutes : minutes
         seconds = seconds < 10 ? '0' + seconds : seconds
-        dom().countDownLabel.innerText = `${hours}:${minutes}:${seconds}`
+        renderUpcomingPrayerCountDown(hours, minutes, seconds)
     }, 1000);
 }
 
