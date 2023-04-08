@@ -9,7 +9,7 @@ import { prayerTimesByLocationCoordinates, extractMainPrayerTimes } from "./pray
 import { autoCompleteCitiesList, hideLocationSearchWrapper, hideErrorMessage } from "./autoCompleteCitiesList.js";
 import renderNearbyMosquesList from "./nearbyMosques.js"; // default function
 import saveToLocalStorage, { getFromLocalStorage } from "./saveToLocalStorage.js";
-import { renderLocalTime, renderGregorianDate, renderPrayerTiming } from "./dataRendering.js";
+import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterYear } from "./dataRendering.js";
 import dom from "./domElements.js"; // default object
 
 
@@ -95,7 +95,7 @@ dom().adhanBells.forEach(el => {
 });
 
 //* Assign Year in the Footer Dinamically
-document.querySelector(".actual-year").textContent = toDay.year
+renderFooterYear(toDay.year)
 
 //* Render Nearby Mosques List according to current location
 dom().nearbyMosquesShowBtn.addEventListener("click", () => {

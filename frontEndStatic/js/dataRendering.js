@@ -34,6 +34,32 @@ export const renderUpcomingPrayer = (index, content) => {
     dom().upcomingPrayerLabel.innerText = content
 }
 
-export const renderUpcomingPrayerCountDown = (hours, minutes, seconds) => {
+export const renderUpcomingPrayerCountDown = (remainingTimeStamp) => {
+    let hours = Math.floor(remainingTimeStamp / (1000 * 60 * 60))
+    let minutes = Math.floor((remainingTimeStamp % (1000 * 60 * 60)) / (1000 * 60))
+    let seconds = Math.floor((remainingTimeStamp % (1000 * 60)) / 1000)
+    hours = hours < 10 ? '0' + hours : hours
+    minutes = minutes < 10 ? '0' + minutes : minutes
+    seconds = seconds < 10 ? '0' + seconds : seconds
     dom().countDownLabel.innerText = `${hours}:${minutes}:${seconds}`
+}
+
+export const renderCallToPrayerOverlay = () => {
+    // play 'Call-To_Prayer' sound track
+    let adhanSound = document.createElement('audio')
+    adhanSound.setAttribute("src", "../src/audio/Adhan_Alaqsa.mp3")
+    adhanSound.play()
+    // Show/Hide overlay + Start/Stop Adhan
+    dom().adhanOverlay.classList.remove("adhan-overlay--hidden")
+    dom().upcomingPrayerCustomBorder.classList.add("animation-paused")
+    dom().muteAdhanButton.addEventListener("click", stopAdhan)
+    window.addEventListener("keydown", e => e.key == "Escape" ? stopAdhan() : null)
+    function stopAdhan() {
+        dom().upcomingPrayerCustomBorder.classList.remove("animation-paused")
+        dom().adhanOverlay.classList.add("adhan-overlay--hidden")
+        adhanSound.pause()
+    }
+}
+export const renderFooterYear = (year) => {
+    dom().footerYear.textContent = year
 }

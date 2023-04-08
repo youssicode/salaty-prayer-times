@@ -1,6 +1,6 @@
 //? Imported Modules
 //==================
-import { renderUpcomingPrayer, renderUpcomingPrayerCountDown } from "./dataRendering.js";
+import { renderUpcomingPrayer, renderUpcomingPrayerCountDown, renderCallToPrayerOverlay } from "./dataRendering.js";
 import dom from "./domElements.js"; // default object
 
 
@@ -56,11 +56,10 @@ export const renderUpcomingPrayerCard = (passedArray) => {
 
 //* Count-down time until next prayer
 const startCountDown = (upComingPrayerTime) => {
-    let remainingTimeStamp, hours, minutes, seconds
     setIntervalStatus = true
     upComingPrayerCountDown = setInterval(() => {
         let timeNow = new Date().getTime()
-        remainingTimeStamp = (upComingPrayerTime - timeNow)
+        const remainingTimeStamp = (upComingPrayerTime - timeNow)
 
         if (remainingTimeStamp <= 0) {
             clearInterval(upComingPrayerCountDown)
@@ -69,31 +68,11 @@ const startCountDown = (upComingPrayerTime) => {
             renderUpcomingPrayerCard(timesArray)
             return
         }
-
-        hours = Math.floor(remainingTimeStamp / (1000 * 60 * 60))
-        minutes = Math.floor((remainingTimeStamp % (1000 * 60 * 60)) / (1000 * 60))
-        seconds = Math.floor((remainingTimeStamp % (1000 * 60)) / 1000)
-        hours = hours < 10 ? '0' + hours : hours
-        minutes = minutes < 10 ? '0' + minutes : minutes
-        seconds = seconds < 10 ? '0' + seconds : seconds
-        renderUpcomingPrayerCountDown(hours, minutes, seconds)
+        renderUpcomingPrayerCountDown(remainingTimeStamp)
     }, 1000);
 }
 
 const startCallToPrayer = () => {
     if (dom().adhanBells[prayerTimeCard__index].classList.contains("prayerTimeCard__adhan--disabled")) return
-    // play 'Call-To_Prayer' sound track
-    let adhanSound = document.createElement('audio')
-    adhanSound.setAttribute("src", "../src/audio/Adhan_Alaqsa.mp3")
-    adhanSound.play()
-    // Show/Hide overlay + Start/Stop Adhan
-    dom().adhanOverlay.classList.remove("adhan-overlay--hidden")
-    dom().upcomingPrayerCustomBorder.classList.add("animation-paused")
-    dom().muteAdhanButton.addEventListener("click", stopAdhan)
-    window.addEventListener("keydown", e => e.key == "Escape" ? stopAdhan() : null)
-    function stopAdhan() {
-        dom().upcomingPrayerCustomBorder.classList.remove("animation-paused")
-        dom().adhanOverlay.classList.add("adhan-overlay--hidden")
-        adhanSound.pause()
-    }
+    renderCallToPrayerOverlay()
 }
