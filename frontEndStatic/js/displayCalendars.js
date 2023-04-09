@@ -1,16 +1,11 @@
 //? Imported Modules
 //==================
-
 import errorHandler from "./errorHandler.js";
 import { renderIslamicCalender } from "./dataRendering.js";
-
-import dom from "./domElements.js";
 
 
 //? Functions
 //===========
-
-
 //* Get and display Islamic dates
 export const getIslamicDate = async (date) => {
 

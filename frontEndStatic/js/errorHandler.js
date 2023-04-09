@@ -1,6 +1,9 @@
+//? Imported Modules
+//==================
 import dom from "./domElements.js";
 
-
+//? Functions
+//===========
 const errorHandler = (error) => {
     let errorMessage = "Unknown error."
     switch (error.code) {
@@ -39,22 +42,11 @@ const errorHandler = (error) => {
 }
 
 // function takes a message and appends an error-label div containing the message to a provided position element
-/*
-If we use innerHTML property to add "<div class="error-label">Please turn on location, or enter a city manually.</div>"
-, the 'citySearchInput' element will not remain the same after adding a new element to 'locationBtn' wrapper.
-When you add a new element to the DOM using innerHTML, the browser will RECREATE the DOM subtree for the 'locationBtn' element,
-which means that the old 'citySearchInput' element that has an 'input' event Listner will be replaced by a new element/instance.
-Since the new instance was not present in the DOM when the code that sets up the event listener was executed, the event listener will not be attached to the new element.
-Therefore, writing caracters in the 'citySearchInput' will not trigger the autoCompleteCitiesList() function, even if it has the same class name as the old element. 
-If you want to attach an event listener to the new instance, you need to do so after the new element has been added to the DOM, 
-OR avoid using 'innerHTML' and use DOM methods instead (create, append,...) 
-*/
 const showErrorMessage = (message, position) => {
     const errorLabel = document.createElement('div');
     errorLabel.classList.add('error-label');
     errorLabel.textContent = message;
     position.appendChild(errorLabel);
 }
-
 
 export default errorHandler

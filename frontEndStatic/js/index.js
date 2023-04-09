@@ -6,10 +6,10 @@ import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import errorHandler from "./errorHandler.js"; // default function
 import { prayerTimesByLocationCoordinates, extractMainPrayerTimes } from "./prayerTimesAPI.js";
-import { autoCompleteCitiesList, hideLocationSearchWrapper, hideErrorMessage } from "./autoCompleteCitiesList.js";
-import renderNearbyMosquesList from "./nearbyMosques.js"; // default function
+import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
+import getNearbyMosquesList from "./nearbyMosques.js"; // default function
 import saveToLocalStorage, { getFromLocalStorage } from "./saveToLocalStorage.js";
-import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterYear } from "./dataRendering.js";
+import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage } from "./dataRendering.js";
 import dom from "./domElements.js"; // default object
 
 
@@ -94,10 +94,11 @@ dom().adhanBells.forEach(el => {
     })
 });
 
-//* Assign Year in the Footer Dinamically
-renderFooterYear(toDay.year)
-
 //* Render Nearby Mosques List according to current location
 dom().nearbyMosquesShowBtn.addEventListener("click", () => {
-    renderNearbyMosquesList(currentLocationCoordinates)
+    if (dom().nearbyMosquesSection.classList.contains("nearbyMosquesBtnClicked")) return
+    getNearbyMosquesList(currentLocationCoordinates)
 })
+
+//* Assign Year in the Footer Dinamically
+renderFooterYear(toDay.year)

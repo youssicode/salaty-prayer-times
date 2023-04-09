@@ -62,6 +62,7 @@
 
         &.city-search-component-activated {
             display: block;
+            z-index: 66;
         }
 
         .search-for-city-icon,

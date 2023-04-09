@@ -1,3 +1,10 @@
+//? Imported Modules
+//==================
+
+import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
+import { renderPrayerTiming } from "./dataRendering.js";
+import errorHandler from "./errorHandler.js";
+
 //? Functions
 //===========
 
@@ -37,5 +44,23 @@ export async function prayerTimesByLocationCoordinates(x, y) {
         let err = new Error("Prayer times unavailable!")
         err.code = 77
         throw err
+    }
+}
+
+
+export async function refreshPrayerTimingForChosenCity(chosenCity) {
+    try {
+        const city = chosenCity.slice(0, -4)
+        const country = chosenCity.slice(-2)
+        const date = new Date()
+        const day = date.getDate()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+        const prayerTimesByCityResponse = await prayerTimesByCity(city, country, day, month, year)
+        const fetchedPrayerTimesByCity = extractMainPrayerTimes(prayerTimesByCityResponse)
+        renderPrayerTiming(fetchedPrayerTimesByCity)
+        renderUpcomingPrayerCard(fetchedPrayerTimesByCity)
+    } catch (err) {
+        errorHandler(err)
     }
 }
