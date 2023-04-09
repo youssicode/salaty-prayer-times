@@ -2,7 +2,7 @@
   "name": "salaty_prayer_times",
   "version": "1.0.0",
   "description": "An application that display islamic prayer times and other infos depending on user location.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
