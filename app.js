@@ -10,7 +10,7 @@ app.use(cors());
 
 // Render Root file
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/frontEndStatic/index.html")
+    res.sendFile(__dirname + "/index.html")
 })
 
 // Set the API key
