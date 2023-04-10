@@ -4,6 +4,8 @@
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { renderPrayerTiming } from "./dataRendering.js";
 import errorHandler from "./errorHandler.js";
+import saveToLocalStorage from "./saveToLocalStorage.js";
+
 
 //? Functions
 //===========
@@ -26,8 +28,11 @@ export const extractMainPrayerTimes = (apiResponse) => {
 export async function prayerTimesByCity(city, country, day, month, year) {
     try {
         const apiUrl = `https://api.aladhan.com/v1/calendarByCity?city=${city}&country=${country}&method=3&month=${month}&year=${year}`
-        const response = await axios.get(apiUrl)
-        return response.data.data[day - 1]
+        const { data: { data } } = await axios.get(apiUrl)
+        return data[day - 1]
+        // const apiUrl = `https://api.aladhan.com/v1/calendarByCity?city=${city}&country=${country}&method=3&month=${month}&year=${year}`
+        // const response = await axios.get(apiUrl)
+        // return response.data.data[day - 1]
     } catch (err) {
         throw err
     }
@@ -57,6 +62,11 @@ export async function refreshPrayerTimingForChosenCity(chosenCity) {
         const month = date.getMonth() + 1
         const year = date.getFullYear()
         const prayerTimesByCityResponse = await prayerTimesByCity(city, country, day, month, year)
+        const newCityCoords = {
+            latitude: prayerTimesByCityResponse.meta.latitude,
+            longitude: prayerTimesByCityResponse.meta.longitude
+        }
+        saveToLocalStorage('locationCoordinates', newCityCoords)
         const fetchedPrayerTimesByCity = extractMainPrayerTimes(prayerTimesByCityResponse)
         renderPrayerTiming(fetchedPrayerTimesByCity)
         renderUpcomingPrayerCard(fetchedPrayerTimesByCity)

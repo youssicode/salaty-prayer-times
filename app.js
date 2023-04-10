@@ -43,14 +43,9 @@ app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
 
-
-
-
-
-
-// 1- In your app.js file, create a new endpoint to serve the Google Maps API script tag with the API key injected dynamically. 
-app.get('/api/google-maps', (req, res) => {
-    // const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
-    const scriptTag = `https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}`;
-    res.send(scriptTag);
-});
+// 1- In your app.js file, create a new endpoint to serve the Google Maps API script tag with the API key injected dynamically.
+// app.get('/api/google-maps', (req, res) => {
+//     // const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
+//     const scriptTag = `https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}`;
+//     res.send(scriptTag);
+// });

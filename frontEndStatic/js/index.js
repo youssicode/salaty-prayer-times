@@ -8,8 +8,8 @@ import errorHandler from "./errorHandler.js"; // default function
 import { prayerTimesByLocationCoordinates, extractMainPrayerTimes } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
 import getNearbyMosquesList from "./nearbyMosques.js"; // default function
-import saveToLocalStorage, { getFromLocalStorage } from "./saveToLocalStorage.js";
-import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage } from "./dataRendering.js";
+import saveToLocalStorage, { getDataFromLocalStorage } from "./saveToLocalStorage.js";
+import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques } from "./dataRendering.js";
 import dom from "./domElements.js"; // default object
 
 
@@ -24,7 +24,6 @@ const toDay = {
     monthName: date.toLocaleString("default", { month: "short" }),
     year: date.getFullYear(),
 }
-let currentLocationCoordinates
 
 //? Main Functions
 //================
@@ -42,11 +41,11 @@ renderGregorianDate(toDay)
 
 //* Get User Location Coordinates and then display the local adresse/city...
 async function loadData() {
-    currentLocationCoordinates = await getUserCoordinates()
-    if (currentLocationCoordinates) {
-        saveToLocalStorage('currentLocationCoordinates', currentLocationCoordinates)
-        autoLocateCity(currentLocationCoordinates)
-        getPrayerTimes(currentLocationCoordinates)
+    const locationCoordinates = await getUserCoordinates()
+    if (locationCoordinates) {
+        saveToLocalStorage('locationCoordinates', locationCoordinates)
+        autoLocateCity(locationCoordinates)
+        getPrayerTimes(locationCoordinates)
     }
 }
 window.onload = loadData()
@@ -73,6 +72,8 @@ dom().locationBtn.addEventListener("mousedown", () => {
     dom().autoLocateButton.addEventListener("click", () => {
         hideErrorMessage()
         loadData()
+        hideLocationSearchWrapper()
+        hideNearbyMosques()
     })
 })
 
@@ -97,7 +98,8 @@ dom().adhanBells.forEach(el => {
 //* Render Nearby Mosques List according to current location
 dom().nearbyMosquesShowBtn.addEventListener("click", () => {
     if (dom().nearbyMosquesSection.classList.contains("nearbyMosquesBtnClicked")) return
-    getNearbyMosquesList(currentLocationCoordinates)
+    const coords = getDataFromLocalStorage("locationCoordinates")
+    getNearbyMosquesList(coords)
 })
 
 //* Assign Year in the Footer Dinamically

@@ -1,9 +1,14 @@
+//? Imported Modules
+//==================
+
 import dom from "./domElements.js";
 import { haversineCalcDistance } from "./nearbyMosques.js";
 import { citiesOfTheWorld } from "./citiesList.js";
 import { refreshPrayerTimingForChosenCity } from "./prayerTimesAPI.js";
 
 
+//? Main Functions
+//================
 export const renderLocalTime = (time) => {
     dom().mainTimeLabel.innerText = time
 }
@@ -70,10 +75,15 @@ export const renderMosquesList = (list, coords) => {
     displayMosquesList(list, coords)
     //* add EventListener to Remove Nearby Mosques List 
     dom().nearbyMosquesHideBtn.addEventListener("click", () => {
-        dom().mosquesWrapper.innerHTML = ""
-        dom().nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
+        hideNearbyMosques()
     })
 }
+
+export const hideNearbyMosques = () => {
+    dom().mosquesWrapper.innerHTML = ""
+    dom().nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
+}
+
 const displayMosquesList = (mosquesList, currentCoordinates) => {
     const mosquesMarkers = []
     const domMosquesCardsWrap = document.createElement("ul")
@@ -145,32 +155,32 @@ export const renderCitiesList = (input) => {
         }
     }
 }
+
 const addClickEventToSuggestedCity = (element, city) => {
     element.addEventListener("click", () => {
         dom().actualLocationLabel.innerText = city
         hideErrorMessage()
         hideLocationSearchWrapper()
+        hideNearbyMosques()
         refreshPrayerTimingForChosenCity(city)
     })
 }
+
 export const hideErrorMessage = () => {
     const errorLAbel = document.querySelector(".error-label")
     errorLAbel ? errorLAbel.remove() : null // Hide error message if it exist
 }
+
 export const hideLocationSearchWrapper = () => {
     dom().locationSearchWrapper.classList.remove("city-search-component-activated")
     dom().citySearchInput.value = ''
     clearChildren(dom().citiesListMatch)
 }
 
-
-
-
-
-
 export const renderFooterYear = (year) => {
     dom().footerYear.textContent = year
 }
+
 export const clearChildren = (target) => {
     while (target.firstChild) {
         target.firstChild.remove()
