@@ -13,34 +13,53 @@ import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterY
 import dom from "./domElements.js"; // default object
 
 
-//? Global Constantes & Variables
+//! Global Constantes & Variables
 //===============================
 
-const date = new Date()
-const toDay = {
-    day: date.getDate(),
-    weekday: date.toLocaleString("default", { weekday: "long" }),
-    month: date.getMonth() + 1,
-    monthName: date.toLocaleString("default", { month: "short" }),
-    year: date.getFullYear(),
-}
+// const toDay = {
+//     day: date.getDate(),
+//     weekday: date.toLocaleString("default", { weekday: "long" }),
+//     month: date.getMonth() + 1,
+//     monthName: date.toLocaleString("default", { month: "short" }),
+//     year: date.getFullYear(),
+// }
 
 //? Main Functions
 //================
-
-//* Display actual time
-setInterval(() => {
-    const time = new Date().toLocaleTimeString("fr") // With Seconds
-    //* const time = new Date().toLocaleTimeString("fr", { hour: "2-digit", minute: "2-digit" }) // Without Seconds
-    renderLocalTime(time)
-}, 1000)
-
 //* Get and display Islamic & Gregorian Dates
-getIslamicDate(toDay)
-renderGregorianDate(toDay)
+const date = new Date()
+getIslamicDate(date)
+renderGregorianDate(date)
 
-//* Get User Location Coordinates and then display the local adresse/city...
-async function loadData() {
+//! setInterval(() => {
+//!    const time = new Date().toLocaleTimeString("fr") // With Seconds
+//!   //* const time = new Date().toLocaleTimeString("fr", { hour: "2-digit", minute: "2-digit" }) // Without Seconds
+//!  renderLocalTime(time)
+//! }, 1000)
+//* Display local time
+let timeLoop
+export const displayTime = (timezone) => {
+    clearInterval(timeLoop)
+    //! if (timeLoop) clearInterval(timeLoop)
+    timeLoop = setInterval(() => {
+        const date = new Date();
+        const options = {
+            timeZone: timezone,
+            hour12: true,
+            hour: 'numeric',
+            minute: 'numeric'
+            //! second: 'numeric'
+        };
+        const time = date.toLocaleString('en-US', options);
+
+        //! const time = new Date().toLocaleTimeString("fr") // With Seconds
+        renderLocalTime(time)
+    }, 1000)
+}
+
+//* Get User Location Coordinates and then display the local time, adresse/city and prayer times
+async function loadData(time_zone) {
+    displayTime(time_zone)
     const locationCoordinates = await getUserCoordinates()
     if (locationCoordinates) {
         saveToLocalStorage('locationCoordinates', locationCoordinates)
@@ -48,13 +67,15 @@ async function loadData() {
         getPrayerTimes(locationCoordinates)
     }
 }
-window.onload = loadData()
+const time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+window.onload = loadData(time_zone)
 
-//* ...and prayer times specific for that city
 async function getPrayerTimes(coords) {
     try {
-        const prayerTimingApiResponse = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-        const fetchedPrayerTimes = extractMainPrayerTimes(prayerTimingApiResponse)
+        //! const prayerTimingApiResponse = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
+        //! const fetchedPrayerTimes = extractMainPrayerTimes(prayerTimingApiResponse)
+        const { timings } = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
+        const fetchedPrayerTimes = extractMainPrayerTimes(timings)
         saveToLocalStorage('prayerTimings', fetchedPrayerTimes)
         renderPrayerTiming(fetchedPrayerTimes)
         renderUpcomingPrayerCard(fetchedPrayerTimes)
@@ -103,4 +124,4 @@ dom().nearbyMosquesShowBtn.addEventListener("click", () => {
 })
 
 //* Assign Year in the Footer Dinamically
-renderFooterYear(toDay.year)
+renderFooterYear(date.getFullYear())

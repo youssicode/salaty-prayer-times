@@ -20,7 +20,15 @@ export const renderIslamicCalender = (api_data) => {
 }
 
 export const renderGregorianDate = (date) => {
-    dom().gregorianDateLabel.innerText = `${date.weekday}, ${date.monthName} ${date.day}, ${date.year}`
+    const toDay = {
+        day: date.getDate(),
+        weekday: date.toLocaleString("default", { weekday: "long" }),
+        month: date.getMonth() + 1,
+        monthName: date.toLocaleString("default", { month: "short" }),
+        year: date.getFullYear(),
+    }
+
+    dom().gregorianDateLabel.innerText = `${toDay.weekday}, ${toDay.monthName} ${toDay.day}, ${toDay.year}`
 }
 
 export const renderAutoLocatedCity = (adresse) => {
@@ -123,12 +131,20 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
 }
 
 const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers, mapContainer) => {
-    function initMap() {
+    (function initMap() {
         // Defining tha map and its params
         const map = new google.maps.Map(mapContainer, {
-            zoom: 14,
+
+            zoom: getZoomLevel(mapContainer.offsetWidth),
             center: currentLocation,
         });
+        // Function to get the zoom level based on screen width (optional)
+        function getZoomLevel(width) {
+            if (width < 450) {
+                return 13;
+            }
+            return 14;
+        }
         // putting Markers
         mosquesMarkers.forEach(markerCoords => {
             const image =
@@ -139,8 +155,7 @@ const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers, mapContaine
                 icon: image,
             });
         });
-    }
-    initMap(); // Execute the function
+    })();
 }
 
 export const renderCitiesList = (input) => {

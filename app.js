@@ -1,12 +1,13 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
+const express = require('express')
+const cors = require('cors')
+const axios = require('axios')
+require('dotenv').config()
 
-const app = express();
+const app = express()
 app.use(express.static("frontEndStatic"))
 
 // Allow CORS for all routes
-app.use(cors());
+app.use(cors())
 
 // Render Root file
 app.get("/", (req, res) => {
@@ -14,13 +15,7 @@ app.get("/", (req, res) => {
 })
 
 // Set the API key
-const googleMapApiKey = 'AIzaSyBmpG54I9-eYib9_21wPdmEkV7ylrjN2KA'
-// You can set an environment variable using the following command(Terminal):
-//? heroku config:set G_API_KEY='AIzaSyBmpG54I9-eYib9_21wPdmEkV7ylrjN2KA'
-// This will set an environment variable named API_KEY to the value of your API key.
-
-// In your server-side script, you can access the value of the API_KEY environment variable using the process.env object:
-//? const googleMapApiKey = process.env.G_API_KEY;
+const googleMapApiKey = process.env.G_API_KEY
 
 // Define API endpoint
 app.get('/places', async (req, res) => {
@@ -42,10 +37,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
-
-// 1- In your app.js file, create a new endpoint to serve the Google Maps API script tag with the API key injected dynamically.
-// app.get('/api/google-maps', (req, res) => {
-//     // const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
-//     const scriptTag = `https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}`;
-//     res.send(scriptTag);
-// });

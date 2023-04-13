@@ -11,14 +11,12 @@ import { renderAutoLocatedCity } from "./dataRendering.js";
 //* Get the User's geolocation coordinates
 export async function getUserCoordinates() {
     try {
-        let position = await new Promise((resolve, reject) => {
+        const position = await new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(
-                pos => resolve(pos), // Success CallBack Method's parameter
-                err => reject(err),  // Error CallBack Method's parameter
+                resolve, // Success CallBack Method's parameter (resolve == 'pos => resolve(pos)')
+                reject,  // Error CallBack Method's parameter (resolve == 'err => reject(err)')
                 { timeout: 10000 }
             )
-            //* OR simply:
-            //* navigator.geolocation.getCurrentPosition(resolve, reject)
         })
         return {
             latitude: position.coords.latitude,
@@ -43,10 +41,7 @@ export async function autoLocateCity(coords) {
 export async function getAdresse(lat, long) {
     try {
         const latLongUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}`;
-        let response = await axios({
-            method: "GET",
-            url: latLongUrl,
-        })
+        let response = await axios.get(latLongUrl)
         const adressedata = await response.data
         const localAdresse = {
             cityName: adressedata.city ? adressedata.city : adressedata.locality ? adressedata.locality : "Unknown area",

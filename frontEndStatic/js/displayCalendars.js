@@ -8,8 +8,13 @@ import { renderIslamicCalender } from "./dataRendering.js";
 //===========
 //* Get and display Islamic dates
 export const getIslamicDate = async (date) => {
+    const toDay = {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+    }
+    const grego_date = `${toDay.day}-${toDay.month}-${toDay.year}`
 
-    const grego_date = `${date.day}-${date.month}-${date.year}`
     const islamicCalendarResult = await getIslamicCalendar(grego_date)
     if (islamicCalendarResult) {
         renderIslamicCalender(islamicCalendarResult)
