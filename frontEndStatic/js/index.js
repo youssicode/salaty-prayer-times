@@ -13,17 +13,6 @@ import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterY
 import dom from "./domElements.js"; // default object
 
 
-//! Global Constantes & Variables
-//===============================
-
-// const toDay = {
-//     day: date.getDate(),
-//     weekday: date.toLocaleString("default", { weekday: "long" }),
-//     month: date.getMonth() + 1,
-//     monthName: date.toLocaleString("default", { month: "short" }),
-//     year: date.getFullYear(),
-// }
-
 //? Main Functions
 //================
 //* Get and display Islamic & Gregorian Dates
@@ -31,28 +20,20 @@ const date = new Date()
 getIslamicDate(date)
 renderGregorianDate(date)
 
-//! setInterval(() => {
-//!    const time = new Date().toLocaleTimeString("fr") // With Seconds
-//!   //* const time = new Date().toLocaleTimeString("fr", { hour: "2-digit", minute: "2-digit" }) // Without Seconds
-//!  renderLocalTime(time)
-//! }, 1000)
 //* Display local time
 let timeLoop
 export const displayTime = (timezone) => {
     clearInterval(timeLoop)
-    //! if (timeLoop) clearInterval(timeLoop)
     timeLoop = setInterval(() => {
         const date = new Date();
         const options = {
             timeZone: timezone,
-            hour12: true,
+            hour12: false,
             hour: 'numeric',
             minute: 'numeric'
             //! second: 'numeric'
         };
-        const time = date.toLocaleString('en-US', options);
-
-        //! const time = new Date().toLocaleTimeString("fr") // With Seconds
+        const time = date.toLocaleTimeString('en-US', options);
         renderLocalTime(time)
     }, 1000)
 }
@@ -67,15 +48,14 @@ async function loadData(time_zone) {
         getPrayerTimes(locationCoordinates)
     }
 }
-const time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-window.onload = loadData(time_zone)
+const local_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+window.onload = loadData(local_time_zone)
 
 async function getPrayerTimes(coords) {
     try {
-        //! const prayerTimingApiResponse = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-        //! const fetchedPrayerTimes = extractMainPrayerTimes(prayerTimingApiResponse)
         const { timings } = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
         const fetchedPrayerTimes = extractMainPrayerTimes(timings)
+        console.log("fetchedPrayerTimes", fetchedPrayerTimes) //!remove
         saveToLocalStorage('prayerTimings', fetchedPrayerTimes)
         renderPrayerTiming(fetchedPrayerTimes)
         renderUpcomingPrayerCard(fetchedPrayerTimes)
@@ -92,7 +72,7 @@ dom().locationBtn.addEventListener("mousedown", () => {
     //* Manualy tirgger Auto-Location & Rendering Prayer Times functions
     dom().autoLocateButton.addEventListener("click", () => {
         hideErrorMessage()
-        loadData()
+        loadData(local_time_zone)
         hideLocationSearchWrapper()
         hideNearbyMosques()
     })

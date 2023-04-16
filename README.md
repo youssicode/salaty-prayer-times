@@ -2,7 +2,7 @@
 
 ## Welcome! 👋
 
-Thanks for checking out this front-end coding project.
+Thanks for checking out this coding project.
 
 ## Table of contents
 
@@ -22,7 +22,7 @@ Thanks for checking out this front-end coding project.
 ### Links
 
 - The Project Repo URL: (https://github.com/youssicode/salaty-prayer-times)
-- Live Site URL: (https://youssicode.github.io/salaty-prayer-times/)
+- Live Site URL (Not yet deployed on its final hosting server): (https://youssicode.github.io/salaty-prayer-times/)
 
 ### Project's Main Features
 
@@ -33,12 +33,13 @@ Thanks for checking out this front-end coding project.
 
 ## My process
 
-- Building the HTML structure / squeleton
+- Building the HTML structure / squeleton.
 - Styling the the different parts (Colored buttons, Control pannel,..)
-- Writing the algoritm of the basic funtions of the game.
+- Writing the algoritm of the basic funtions of the app.
 - Coding with JavaScript.
-- Adding new functionalities and improving the basic ones (On-Off switch button, Strict mode, Number of rounds,..)
-- Using Git to push/Upload all files and changes to github.com
+- Adding new functionalities and improving the basic ones (------,..)
+- Refactoring code when needed to reach a clean code.
+- Using Git to commit/push all files and changes to Github as the work is in progress.
 
 ### Built with
 

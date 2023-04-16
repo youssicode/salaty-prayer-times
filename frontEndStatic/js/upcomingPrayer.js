@@ -26,6 +26,7 @@ export const renderUpcomingPrayerCard = (passedArray) => {
     const actualTimeStamp = date.getTime()
     let upcomingPrayerLabelContent
     let upComingPrayerTimeStamp
+
     const ishaaTime = new Date(`${date.toDateString()} ${timesArray[5].prayerTime}:00`).getTime()
     // If actual time passes "Isha'a" prayer's time => render "Fajr" as upcoming prayer
     if (actualTimeStamp > ishaaTime) {

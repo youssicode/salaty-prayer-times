@@ -1,7 +1,7 @@
 //? Imported Modules
 //==================
 import errorHandler from "./errorHandler.js";
-import { renderIslamicCalender } from "./dataRendering.js";
+import { renderIslamicCalender, renderGregorianDate } from "./dataRendering.js";
 
 
 //? Functions
@@ -24,7 +24,14 @@ export const getIslamicDate = async (date) => {
         errorHandler(err)
     }
 }
-
+export const refreshGregorianDate = (time_zone) => {
+    const options = {
+        timeZone: time_zone,
+    };
+    const new_zone_date_string = new Date().toLocaleString('en-US', options)
+    const date = new Date(new_zone_date_string)
+    renderGregorianDate(date)
+}
 //* Converting Gregorian date to Islamic date
 async function getIslamicCalendar(gregorian) {
     let apiUrl = `https://api.aladhan.com/v1/gToH?date=${gregorian}`

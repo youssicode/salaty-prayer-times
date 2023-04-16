@@ -5,6 +5,9 @@ import dom from "./domElements.js";
 import { haversineCalcDistance } from "./nearbyMosques.js";
 import { citiesOfTheWorld } from "./citiesList.js";
 import { refreshPrayerTimingForChosenCity } from "./prayerTimesAPI.js";
+import { displayTime } from "./index.js";
+import { refreshGregorianDate } from "./displayCalendars.js";
+import saveToLocalStorage from "./saveToLocalStorage.js";
 
 
 //? Main Functions
@@ -172,12 +175,29 @@ export const renderCitiesList = (input) => {
 }
 
 const addClickEventToSuggestedCity = (element, city) => {
-    element.addEventListener("click", () => {
+    element.addEventListener("click", async () => {
         dom().actualLocationLabel.innerText = city
         hideErrorMessage()
         hideLocationSearchWrapper()
         hideNearbyMosques()
-        refreshPrayerTimingForChosenCity(city)
+        // refreshPrayerTimingForChosenCity(city)
+        const { meta, date } = await refreshPrayerTimingForChosenCity(city)
+        const newCityCoords = {
+            latitude: meta.latitude,
+            longitude: meta.longitude
+        }
+        saveToLocalStorage('locationCoordinates', newCityCoords)
+        const local_time_zone = meta.timezone
+
+        //* Refresh Current Time
+        displayTime(local_time_zone)
+
+        //* Refresh Current Gregorian Date
+        refreshGregorianDate(local_time_zone)
+
+        //* Refresh Current Hijri Date
+        const newHijriDate = { month: date.hijri.month, day: date.hijri.day, year: date.hijri.year }
+        renderIslamicCalender(newHijriDate)
     })
 }
 
