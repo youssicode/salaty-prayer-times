@@ -1,21 +1,15 @@
 //? Imported Modules
 //==================
-
-import { displayTime } from "./index.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-import { renderPrayerTiming, renderIslamicCalender } from "./dataRendering.js";
+import { renderPrayerTiming } from "./dataRendering.js";
 import errorHandler from "./errorHandler.js";
-import saveToLocalStorage from "./saveToLocalStorage.js";
-import { refreshGregorianDate } from "./displayCalendars.js";
-
 
 
 //? Functions
 //===========
 
 //* Save fetched prayer times data in an array
-// export const extractMainPrayerTimes = (apiResponse) => {
-//     const { Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha } = apiResponse.timings;
+
 export const extractMainPrayerTimes = (times) => {
     const { Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha } = times;
     const prayerTimings = [
@@ -62,25 +56,12 @@ export async function refreshPrayerTimingForChosenCity(chosenCity) {
         const fetchedPrayerTimesByCity = extractMainPrayerTimes(timings)
         renderPrayerTiming(fetchedPrayerTimesByCity)
         renderUpcomingPrayerCard(fetchedPrayerTimesByCity)
+        ///////////////////////////
+        // const dateOfselectedCity = date.readable
+        // const timeZoneOfselectedCity = meta.timezone
+        // renderUpcomingPrayerCard(fetchedPrayerTimesByCity, dateOfselectedCity, timeZoneOfselectedCity)
+        ///////////////////////////
         return { meta, date }
-        ////////////////////////////////////
-        // const newCityCoords = {
-        //     latitude: meta.latitude,
-        //     longitude: meta.longitude
-        // }
-        // saveToLocalStorage('locationCoordinates', newCityCoords)
-        // const local_time_zone = meta.timezone
-        // //* refresh Current Time
-        // displayTime(local_time_zone)
-
-        // //* refresh Current Gregorian Date
-        // refreshGregorianDate(local_time_zone)
-
-        // //* refresh Current Hijri Date
-        // const newHijriDate = { month: date.hijri.month, day: date.hijri.day, year: date.hijri.year }
-        // renderIslamicCalender(newHijriDate)
-
-        ////////////////////////////////////////
     } catch (err) {
         errorHandler(err)
     }

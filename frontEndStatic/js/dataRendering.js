@@ -180,15 +180,14 @@ const addClickEventToSuggestedCity = (element, city) => {
         hideErrorMessage()
         hideLocationSearchWrapper()
         hideNearbyMosques()
-        // refreshPrayerTimingForChosenCity(city)
         const { meta, date } = await refreshPrayerTimingForChosenCity(city)
         const newCityCoords = {
             latitude: meta.latitude,
             longitude: meta.longitude
         }
         saveToLocalStorage('locationCoordinates', newCityCoords)
-        const local_time_zone = meta.timezone
 
+        const local_time_zone = meta.timezone
         //* Refresh Current Time
         displayTime(local_time_zone)
 
