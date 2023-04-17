@@ -2,7 +2,7 @@
 //==================
 
 import errorHandler from "./errorHandler.js";
-import saveToLocalStorage from "./saveToLocalStorage.js";
+import { saveToLocalStorage } from "./saveToLocalStorage.js";
 import { renderAutoLocatedCity } from "./dataRendering.js";
 
 //? Functions

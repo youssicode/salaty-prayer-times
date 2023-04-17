@@ -8,7 +8,7 @@ import errorHandler from "./errorHandler.js"; // default function
 import { prayerTimesByLocationCoordinates, extractMainPrayerTimes } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
 import getNearbyMosquesList from "./nearbyMosques.js"; // default function
-import saveToLocalStorage, { getDataFromLocalStorage } from "./saveToLocalStorage.js";
+import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
 import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques } from "./dataRendering.js";
 import dom from "./domElements.js"; // default object
 
@@ -49,19 +49,19 @@ async function loadData(time_zone) {
     }
 }
 const local_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+saveToLocalStorage('salaty_localTimeZone', local_time_zone)
 window.onload = loadData(local_time_zone)
 
 async function getPrayerTimes(coords) {
-    try {
-        const { timings } = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-        const fetchedPrayerTimes = extractMainPrayerTimes(timings)
-        console.log("fetchedPrayerTimes", fetchedPrayerTimes) //!remove
-        saveToLocalStorage('prayerTimings', fetchedPrayerTimes)
-        renderPrayerTiming(fetchedPrayerTimes)
-        renderUpcomingPrayerCard(fetchedPrayerTimes)
-    } catch (err) {
-        errorHandler(err)
-    }
+    // try {
+    const { timings } = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
+    const fetchedPrayerTimes = extractMainPrayerTimes(timings)
+    saveToLocalStorage('prayerTimings', fetchedPrayerTimes)
+    renderPrayerTiming(fetchedPrayerTimes)
+    renderUpcomingPrayerCard(fetchedPrayerTimes, getDataFromLocalStorage('salaty_localTimeZone'))
+    // } catch (err) {
+    //     errorHandler(err)
+    // }
 }
 
 //* Display/Hide city search component
@@ -72,6 +72,8 @@ dom().locationBtn.addEventListener("mousedown", () => {
     //* Manualy tirgger Auto-Location & Rendering Prayer Times functions
     dom().autoLocateButton.addEventListener("click", () => {
         hideErrorMessage()
+        const local_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        saveToLocalStorage('salaty_localTimeZone', local_time_zone)
         loadData(local_time_zone)
         hideLocationSearchWrapper()
         hideNearbyMosques()

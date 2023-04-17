@@ -1,7 +1,7 @@
 //? Imported Modules
 //==================
-import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { renderPrayerTiming } from "./dataRendering.js";
+import { saveToLocalStorage } from "./saveToLocalStorage.js";
 import errorHandler from "./errorHandler.js";
 
 
@@ -49,20 +49,20 @@ export async function prayerTimesByCity(city, country) {
 }
 
 export async function refreshPrayerTimingForChosenCity(chosenCity) {
-    try {
-        const city = chosenCity.slice(0, -4)
-        const country = chosenCity.slice(-2)
-        const { data: { timings, meta, date } } = await prayerTimesByCity(city, country)
-        const fetchedPrayerTimesByCity = extractMainPrayerTimes(timings)
-        renderPrayerTiming(fetchedPrayerTimesByCity)
-        renderUpcomingPrayerCard(fetchedPrayerTimesByCity)
-        ///////////////////////////
-        // const dateOfselectedCity = date.readable
-        // const timeZoneOfselectedCity = meta.timezone
-        // renderUpcomingPrayerCard(fetchedPrayerTimesByCity, dateOfselectedCity, timeZoneOfselectedCity)
-        ///////////////////////////
-        return { meta, date }
-    } catch (err) {
-        errorHandler(err)
+    // try {
+    const city = chosenCity.slice(0, -4)
+    const country = chosenCity.slice(-2)
+    const { data: { timings, meta, date } } = await prayerTimesByCity(city, country)
+    const fetchedPrayerTimesByCity = extractMainPrayerTimes(timings)
+    saveToLocalStorage('prayerTimings', fetchedPrayerTimesByCity)
+    const newCityCoords = {
+        latitude: meta.latitude,
+        longitude: meta.longitude
     }
+    saveToLocalStorage('locationCoordinates', newCityCoords)
+    renderPrayerTiming(fetchedPrayerTimesByCity)
+    return { date, meta }
+    // } catch (err) {
+    //     errorHandler(err)
+    // }
 }

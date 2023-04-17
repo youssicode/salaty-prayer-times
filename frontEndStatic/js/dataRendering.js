@@ -7,7 +7,9 @@ import { citiesOfTheWorld } from "./citiesList.js";
 import { refreshPrayerTimingForChosenCity } from "./prayerTimesAPI.js";
 import { displayTime } from "./index.js";
 import { refreshGregorianDate } from "./displayCalendars.js";
-import saveToLocalStorage from "./saveToLocalStorage.js";
+import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
+import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
+
 
 
 //? Main Functions
@@ -180,14 +182,11 @@ const addClickEventToSuggestedCity = (element, city) => {
         hideErrorMessage()
         hideLocationSearchWrapper()
         hideNearbyMosques()
-        const { meta, date } = await refreshPrayerTimingForChosenCity(city)
-        const newCityCoords = {
-            latitude: meta.latitude,
-            longitude: meta.longitude
-        }
-        saveToLocalStorage('locationCoordinates', newCityCoords)
-
+        const { date, meta } = await refreshPrayerTimingForChosenCity(city)
+        //! console.log(newCityInfos) //!
         const local_time_zone = meta.timezone
+        saveToLocalStorage('salaty_localTimeZone', local_time_zone)
+
         //* Refresh Current Time
         displayTime(local_time_zone)
 
@@ -197,6 +196,11 @@ const addClickEventToSuggestedCity = (element, city) => {
         //* Refresh Current Hijri Date
         const newHijriDate = { month: date.hijri.month, day: date.hijri.day, year: date.hijri.year }
         renderIslamicCalender(newHijriDate)
+
+        //* Refresh Upcoming Card
+        const fetchedPrayerTimesByCity = getDataFromLocalStorage('prayerTimings')
+        console.log("fetchedPrayerTimesByCity", fetchedPrayerTimesByCity) //!
+        renderUpcomingPrayerCard(fetchedPrayerTimesByCity, local_time_zone)
     })
 }
 

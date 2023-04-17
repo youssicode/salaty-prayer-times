@@ -3,7 +3,6 @@
 import { renderUpcomingPrayer, renderUpcomingPrayerCountDown, renderCallToPrayerOverlay } from "./dataRendering.js";
 import dom from "./domElements.js"; // default object
 
-
 //? Global Constantes and Variables
 //=================================
 let setIntervalStatus = false
@@ -15,20 +14,21 @@ let timesArray
 //===========
 
 //* Check witch prayer is next & display it
-export const renderUpcomingPrayerCard = (passedArray) => {
+export const renderUpcomingPrayerCard = (passedArray, time_zone) => {
     timesArray = passedArray || []
     if (setIntervalStatus) {
         clearInterval(upComingPrayerCountDown)
         setIntervalStatus = false
     }
-
-    const date = new Date()
+    const dateTimeZone = new Date().toLocaleString('en-US', { timeZone: time_zone, hour12: false });
+    const date = new Date(dateTimeZone)
+    console.log("date L25=", date.toLocaleString()) //!
     const actualTimeStamp = date.getTime()
     let upcomingPrayerLabelContent
     let upComingPrayerTimeStamp
-    const ishaaTime = new Date(`${date.toDateString()} ${timesArray[5].prayerTime}:00`).getTime()
+    const ishaaTimeStamp = new Date(`${date.toDateString()} ${timesArray[5].prayerTime}:00`).getTime()
     // If actual time passes "Isha'a" prayer's time => render "Fajr" as upcoming prayer
-    if (actualTimeStamp > ishaaTime) {
+    if (actualTimeStamp > ishaaTimeStamp) {
         upcomingPrayerLabelContent = "Fajr"
         //* Get timeStamp for tomorro's "Fajr" prayer:
         const dateTemplateMonth = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 // get ACTUAL month in 2-digit number
@@ -51,7 +51,31 @@ export const renderUpcomingPrayerCard = (passedArray) => {
         }
     }
     renderUpcomingPrayer(prayerTimeCard__index, upcomingPrayerLabelContent)
-    startCountDown(upComingPrayerTimeStamp)
+    startCountDown(upComingPrayerTimeStamp, time_zone)
+}
+
+//* Count-down time until next prayer
+const startCountDown = (upComingPrayerTimeStamp, time_zone) => {
+    setIntervalStatus = true
+    upComingPrayerCountDown = setInterval(() => {
+        const dateTimeZone = new Date().toLocaleString('en-US', { timeZone: time_zone, hour12: false });
+        let nowTimeStamp = new Date(dateTimeZone).getTime()
+        const remainingTimeStamp = (upComingPrayerTimeStamp - nowTimeStamp)
+
+        if (remainingTimeStamp <= 0) {
+            clearInterval(upComingPrayerCountDown)
+            setIntervalStatus = false
+            startCallToPrayer(prayerTimeCard__index)
+            renderUpcomingPrayerCard(timesArray, time_zone)
+            return
+        }
+        renderUpcomingPrayerCountDown(remainingTimeStamp)
+    }, 1000);
+}
+
+const startCallToPrayer = () => {
+    if (dom().adhanBells[prayerTimeCard__index].classList.contains("prayerTimeCard__adhan--disabled")) return
+    renderCallToPrayerOverlay()
 }
 
 
@@ -111,26 +135,3 @@ export const renderUpcomingPrayerCard = (passedArray) => {
 //     renderUpcomingPrayer(prayerTimeCard__index, upcomingPrayerLabelContent)
 //     startCountDown(upComingPrayerTimeStamp)
 // }
-
-//* Count-down time until next prayer
-const startCountDown = (upComingPrayerTime) => {
-    setIntervalStatus = true
-    upComingPrayerCountDown = setInterval(() => {
-        let timeNow = new Date().getTime()
-        const remainingTimeStamp = (upComingPrayerTime - timeNow)
-
-        if (remainingTimeStamp <= 0) {
-            clearInterval(upComingPrayerCountDown)
-            setIntervalStatus = false
-            startCallToPrayer(prayerTimeCard__index)
-            renderUpcomingPrayerCard(timesArray)
-            return
-        }
-        renderUpcomingPrayerCountDown(remainingTimeStamp)
-    }, 1000);
-}
-
-const startCallToPrayer = () => {
-    if (dom().adhanBells[prayerTimeCard__index].classList.contains("prayerTimeCard__adhan--disabled")) return
-    renderCallToPrayerOverlay()
-}
