@@ -20,9 +20,9 @@ export const renderUpcomingPrayerCard = (passedArray, time_zone) => {
         clearInterval(upComingPrayerCountDown)
         setIntervalStatus = false
     }
-    const dateTimeZone = new Date().toLocaleString('en-US', { timeZone: time_zone, hour12: false });
+    const dateTimeZone = new Date().toLocaleString('default', { timeZone: time_zone, hour12: false });
+    //!Did not get the local time!!!!! const dateTimeZone = new Date().toString('en-US', { timeZone: time_zone, hour12: false });
     const date = new Date(dateTimeZone)
-    console.log("date L25=", date.toLocaleString()) //!
     const actualTimeStamp = date.getTime()
     let upcomingPrayerLabelContent
     let upComingPrayerTimeStamp

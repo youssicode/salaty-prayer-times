@@ -19,7 +19,7 @@ const errorHandler = (error) => {
             showErrorMessage(errorMessage, dom().locationBtn)
             break;
         case 2:
-            errorMessage = "Location unavailable."
+            errorMessage = "Location unavailable. Please check your network."
             showErrorMessage(errorMessage, dom().locationBtn)
             break;
         case 3:

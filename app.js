@@ -24,7 +24,7 @@ app.get('/places', async (req, res) => {
         const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&type=mosque&rankby=distance&key=${googleMapApiKey}`;
         const response = await axios.get(url);
 
-        res.setHeader('Access-Control-Allow-Origin', '*');
+        // res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(response.data);
     } catch (error) {
         console.error(error);

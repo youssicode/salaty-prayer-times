@@ -1,7 +1,7 @@
 //? Imported Modules
 //==================
 
-import { getIslamicDate } from "./displayCalendars.js";
+import { getIslamicDate, refreshGregorianDate } from "./displayCalendars.js";
 import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import errorHandler from "./errorHandler.js"; // default function
@@ -29,11 +29,13 @@ export const displayTime = (timezone) => {
         const options = {
             timeZone: timezone,
             hour12: false,
-            hour: 'numeric',
-            minute: 'numeric'
+            hour: '2-digit',
+            minute: '2-digit'
             //! second: 'numeric'
         };
-        const time = date.toLocaleTimeString('en-US', options);
+        const hour = date.getHours();
+        const time = date.toLocaleTimeString('en-US', options)
+        // const time = hour === 0 ? date.toLocaleTimeString('en-US', options).replace(/24/, '00') : date.toLocaleTimeString('en-US', options);
         renderLocalTime(time)
     }, 1000)
 }
@@ -42,6 +44,8 @@ export const displayTime = (timezone) => {
 async function loadData(time_zone) {
     displayTime(time_zone)
     const locationCoordinates = await getUserCoordinates()
+    console.log("locationCoordinates:", locationCoordinates) //!
+
     if (locationCoordinates) {
         saveToLocalStorage('locationCoordinates', locationCoordinates)
         autoLocateCity(locationCoordinates)
@@ -74,6 +78,11 @@ dom().locationBtn.addEventListener("mousedown", () => {
         hideErrorMessage()
         const local_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         saveToLocalStorage('salaty_localTimeZone', local_time_zone)
+        //* Refresh Current Gregorian Date
+        refreshGregorianDate(local_time_zone)
+        //* Refresh Current Hijri Date
+        getIslamicDate(new Date())
+        //* Refresh Current Time and Prayers Data        
         loadData(local_time_zone)
         hideLocationSearchWrapper()
         hideNearbyMosques()
