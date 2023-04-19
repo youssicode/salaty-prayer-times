@@ -92,6 +92,11 @@
                 border: none;
                 outline: none;
                 overflow: hidden;
+
+                &::placeholder {
+                    font-size: 1.2rem;
+                }
+
             }
 
             .extracted-cities-list {
