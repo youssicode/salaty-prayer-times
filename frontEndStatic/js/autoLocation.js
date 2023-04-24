@@ -42,17 +42,10 @@ export async function autoLocateCity(coords) {
 }
 
 //* Reverse Geocoding API
-export async function getAdresse(lat, long) {
+export async function getAdresse(lat, lng) {
     try {
-        const latLongUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}`;
-        let response = await axios.get(latLongUrl)
-        const adressedata = await response.data
-        const localAdresse = {
-            cityName: adressedata.city ? adressedata.city : adressedata.locality ? adressedata.locality : "Unknown area",
-            countryName: adressedata.countryName,
-            countryShortName: adressedata.countryCode
-        }
-        return localAdresse
+        const { data } = await axios.get("/reverse-geocode", { params: { lat, lng } })
+        return data
     } catch (err) {
         errorHandler(err)
     }

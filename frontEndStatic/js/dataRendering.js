@@ -2,7 +2,6 @@
 //==================
 
 import dom from "./domElements.js";
-import { haversineCalcDistance } from "./nearbyMosques.js";
 import { citiesOfTheWorld } from "./citiesList.js";
 import { refreshPrayerTimingForChosenCity } from "./prayerTimesAPI.js";
 import { displayTime } from "./index.js";
@@ -17,9 +16,7 @@ export const renderLocalTime = (time) => {
     dom().mainTimeLabel.innerText = time
 }
 
-export const renderIslamicCalender = (api_data) => {
-    const { month, day, year } = api_data
-    const islamicDate = `${month.en} ${day}, ${year}`
+export const renderIslamicCalender = (islamicDate) => {
     dom().islamicDateLabel.innerText = islamicDate
 }
 
@@ -82,9 +79,9 @@ export const renderCallToPrayerOverlay = () => {
     }
 }
 
-export const renderMosquesList = (list, coords) => {
+export const renderMosquesList = (lists) => {
     dom().nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked") //show area that will contain list of mosques and the map
-    displayMosquesList(list, coords)
+    displayMosquesList(lists)
     //* add EventListener to Remove Nearby Mosques List 
     dom().nearbyMosquesHideBtn.addEventListener("click", () => {
         hideNearbyMosques()
@@ -96,34 +93,25 @@ export const hideNearbyMosques = () => {
     dom().nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
 }
 
-const displayMosquesList = (mosquesList, currentCoordinates) => {
-    const mosquesMarkers = []
+const displayMosquesList = (mosques_lists) => {
     const domMosquesCardsWrap = document.createElement("ul")
     domMosquesCardsWrap.className = "mosquesList"
     dom().mosquesWrapper.appendChild(domMosquesCardsWrap)
 
-    const { latitude: lat, longitude: lng } = currentCoordinates
-    const currentLocation = { lat, lng }
-
-    mosquesList.forEach(({ geometry: { location }, name }) => {
-        const { lat: mosqueLat, lng: mosqueLng } = location
-        mosquesMarkers.push({ lat: mosqueLat, lng: mosqueLng })
-
-        const distance = haversineCalcDistance([lat, lng], [mosqueLat, mosqueLng])
-
+    mosques_lists.mosques.forEach(mosque => {
         const mosqueCardTemplate = `
         <li class="mosqueInformationsCard">
-          <div class="mosqueInformationsCard__mosque-icon fa-solid fa-mosque"></div>
-          <div class="mosqueInformationsCard__title">
-            <h4 class="mosqueInformationsCard__title__mosque-name">${name}</h4>
-            <p class="mosqueInformationsCard__title__city">${dom().actualLocationLabel.textContent.slice(0, -4)}</p>
-          </div>
-          <div class="mosqueInformationsCard__distanceWrapper">
-            <div class="mosqueInformationsCard__distanceWrapper__direction-icon fa-solid fa-diamond-turn-right"></div>
-            <p class="mosqueInformationsCard__distanceWrapper__distance">${distance} meters</p>
-          </div>
+        <div class="mosqueInformationsCard__mosque-icon fa-solid fa-mosque"></div>
+        <div class="mosqueInformationsCard__title">
+        <h4 class="mosqueInformationsCard__title__mosque-name">${mosque.mosque_name}</h4>
+        <p class="mosqueInformationsCard__title__city">${dom().actualLocationLabel.textContent.slice(0, -4)}</p>
+        </div>
+        <div class="mosqueInformationsCard__distanceWrapper">
+        <div class="mosqueInformationsCard__distanceWrapper__direction-icon fa-solid fa-diamond-turn-right"></div>
+        <p class="mosqueInformationsCard__distanceWrapper__distance">${mosque.mosque_dist} meters</p>
+        </div>
         </li>
-      `
+        `
         domMosquesCardsWrap.innerHTML += mosqueCardTemplate
     })
 
@@ -131,16 +119,18 @@ const displayMosquesList = (mosquesList, currentCoordinates) => {
     mapContainer.id = "map"
     dom().mosquesWrapper.appendChild(mapContainer)
 
-    displayMosquesMarkersOnMap(currentLocation, mosquesMarkers, mapContainer)
+    displayMosquesMarkersOnMap(mosques_lists.markers, mapContainer)
 }
 
-const displayMosquesMarkersOnMap = (currentLocation, mosquesMarkers, mapContainer) => {
+const displayMosquesMarkersOnMap = (mosquesMarkers, mapContainer) => {
     (function initMap() {
         // Defining tha map and its params
+        const currentLocation = getDataFromLocalStorage("locationCoordinates")
+        console.log("Center Coords", currentLocation)
         const map = new google.maps.Map(mapContainer, {
 
             zoom: getZoomLevel(mapContainer.offsetWidth),
-            center: currentLocation,
+            center: { lat: currentLocation.latitude, lng: currentLocation.longitude },
         });
         // Function to get the zoom level based on screen width (optional)
         function getZoomLevel(width) {
