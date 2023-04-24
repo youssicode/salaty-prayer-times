@@ -34,8 +34,8 @@ export const displayTime = (timezone) => {
             //! second: 'numeric'
         };
         const hour = date.getHours();
-        const time = date.toLocaleTimeString('en-US', options)
-        // const time = hour === 0 ? date.toLocaleTimeString('en-US', options).replace(/24/, '00') : date.toLocaleTimeString('en-US', options);
+        // const time = date.toLocaleTimeString('en-US', options)
+        const time = hour === 0 ? date.toLocaleTimeString('en-US', options).replace(/24/, '00') : date.toLocaleTimeString('en-US', options);
         renderLocalTime(time)
     }, 1000)
 }

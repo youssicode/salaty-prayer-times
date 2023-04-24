@@ -52,7 +52,8 @@ export const renderUpcomingPrayer = (index, content) => {
     dom().prayerTimeCards.forEach(card => {
         card.classList.remove("prayerTimeCard--nextPrayer")
     })
-    console.log('index', index)//!
+    console.log('classList> index', index)//!
+
     dom().prayerTimeCards[index].classList.add("prayerTimeCard--nextPrayer")
     dom().upcomingPrayerLabel.innerText = content
 }
