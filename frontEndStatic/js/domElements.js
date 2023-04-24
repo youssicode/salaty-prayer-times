@@ -1,5 +1,6 @@
 //? DOM Elements References
 //=========================
+
 function dom() {
     const domElements = {
         actualLocationLabel: document.querySelector(".location__actual-location-wrapper__cityName"),

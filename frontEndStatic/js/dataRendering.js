@@ -11,8 +11,7 @@ import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
 
 
-
-//? Main Functions
+//? Functions
 //================
 export const renderLocalTime = (time) => {
     dom().mainTimeLabel.innerText = time
@@ -52,8 +51,6 @@ export const renderUpcomingPrayer = (index, content) => {
     dom().prayerTimeCards.forEach(card => {
         card.classList.remove("prayerTimeCard--nextPrayer")
     })
-    console.log('classList> index', index)//!
-
     dom().prayerTimeCards[index].classList.add("prayerTimeCard--nextPrayer")
     dom().upcomingPrayerLabel.innerText = content
 }
@@ -185,7 +182,6 @@ const addClickEventToSuggestedCity = (element, city) => {
         hideLocationSearchWrapper()
         hideNearbyMosques()
         const { date, meta } = await refreshPrayerTimingForChosenCity(city)
-        //! console.log(newCityInfos) //!
         const local_time_zone = meta.timezone
         saveToLocalStorage('salaty_localTimeZone', local_time_zone)
 
@@ -201,7 +197,6 @@ const addClickEventToSuggestedCity = (element, city) => {
 
         //* Refresh Upcoming Card
         const fetchedPrayerTimesByCity = getDataFromLocalStorage('prayerTimings')
-        console.log("fetchedPrayerTimesByCity", fetchedPrayerTimesByCity) //!
         renderUpcomingPrayerCard(fetchedPrayerTimesByCity, local_time_zone)
     })
 }

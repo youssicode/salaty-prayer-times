@@ -6,7 +6,7 @@ import { renderIslamicCalender, renderGregorianDate } from "./dataRendering.js";
 
 //? Functions
 //===========
-//* Get and display Islamic dates
+//* Get and display Islamic date
 export const getIslamicDate = async (date) => {
     const toDay = {
         day: date.getDate(),
@@ -24,6 +24,7 @@ export const getIslamicDate = async (date) => {
         errorHandler(err)
     }
 }
+//* Get and display Gregorian date
 export const refreshGregorianDate = (time_zone) => {
     const options = {
         timeZone: time_zone,

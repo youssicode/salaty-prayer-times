@@ -9,7 +9,6 @@ import errorHandler from "./errorHandler.js";
 //===========
 
 //* Save fetched prayer times data in an array
-
 export const extractMainPrayerTimes = (times) => {
     const { Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha } = times;
     const prayerTimings = [
@@ -49,20 +48,20 @@ export async function prayerTimesByCity(city, country) {
 }
 
 export async function refreshPrayerTimingForChosenCity(chosenCity) {
-    // try {
-    const city = chosenCity.slice(0, -4)
-    const country = chosenCity.slice(-2)
-    const { data: { timings, meta, date } } = await prayerTimesByCity(city, country)
-    const fetchedPrayerTimesByCity = extractMainPrayerTimes(timings)
-    saveToLocalStorage('prayerTimings', fetchedPrayerTimesByCity)
-    const newCityCoords = {
-        latitude: meta.latitude,
-        longitude: meta.longitude
+    try {
+        const city = chosenCity.slice(0, -4)
+        const country = chosenCity.slice(-2)
+        const { data: { timings, meta, date } } = await prayerTimesByCity(city, country)
+        const fetchedPrayerTimesByCity = extractMainPrayerTimes(timings)
+        saveToLocalStorage('prayerTimings', fetchedPrayerTimesByCity)
+        const newCityCoords = {
+            latitude: meta.latitude,
+            longitude: meta.longitude
+        }
+        saveToLocalStorage('locationCoordinates', newCityCoords)
+        renderPrayerTiming(fetchedPrayerTimesByCity)
+        return { date, meta }
+    } catch (err) {
+        errorHandler(err)
     }
-    saveToLocalStorage('locationCoordinates', newCityCoords)
-    renderPrayerTiming(fetchedPrayerTimesByCity)
-    return { date, meta }
-    // } catch (err) {
-    //     errorHandler(err)
-    // }
 }

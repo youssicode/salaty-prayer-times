@@ -4,13 +4,13 @@
 import { getIslamicDate, refreshGregorianDate } from "./displayCalendars.js";
 import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-import errorHandler from "./errorHandler.js"; // default function
+import errorHandler from "./errorHandler.js"; // default export
 import { prayerTimesByLocationCoordinates, extractMainPrayerTimes } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
 import getNearbyMosquesList from "./nearbyMosques.js"; // default function
 import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
 import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques } from "./dataRendering.js";
-import dom from "./domElements.js"; // default object
+import dom from "./domElements.js"; // default export
 
 
 //? Main Functions
@@ -31,11 +31,9 @@ export const displayTime = (timezone) => {
             hour12: false,
             hour: '2-digit',
             minute: '2-digit'
-            //! second: 'numeric'
         };
         const hour = date.getHours();
-        // const time = date.toLocaleTimeString('en-US', options)
-        const time = hour === 0 ? date.toLocaleTimeString('en-US', options).replace(/24/, '00') : date.toLocaleTimeString('en-US', options);
+        const time = hour === 0 ? date.toLocaleTimeString('en-US', options).replace(/24:/, '00:') : date.toLocaleTimeString('en-US', options);// X.replace(/24:/, '00:')=>replace '24'(midnight hour format) to '00', the ':' to avoid replacing minutes
         renderLocalTime(time)
     }, 1000)
 }
@@ -44,8 +42,6 @@ export const displayTime = (timezone) => {
 async function loadData(time_zone) {
     displayTime(time_zone)
     const locationCoordinates = await getUserCoordinates()
-    console.log("locationCoordinates:", locationCoordinates) //!
-
     if (locationCoordinates) {
         saveToLocalStorage('locationCoordinates', locationCoordinates)
         autoLocateCity(locationCoordinates)
@@ -57,15 +53,15 @@ saveToLocalStorage('salaty_localTimeZone', local_time_zone)
 window.onload = loadData(local_time_zone)
 
 async function getPrayerTimes(coords) {
-    // try {
-    const { timings } = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-    const fetchedPrayerTimes = extractMainPrayerTimes(timings)
-    saveToLocalStorage('prayerTimings', fetchedPrayerTimes)
-    renderPrayerTiming(fetchedPrayerTimes)
-    renderUpcomingPrayerCard(fetchedPrayerTimes, getDataFromLocalStorage('salaty_localTimeZone'))
-    // } catch (err) {
-    //     errorHandler(err)
-    // }
+    try {
+        const { timings } = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
+        const fetchedPrayerTimes = extractMainPrayerTimes(timings)
+        saveToLocalStorage('prayerTimings', fetchedPrayerTimes)
+        renderPrayerTiming(fetchedPrayerTimes)
+        renderUpcomingPrayerCard(fetchedPrayerTimes, getDataFromLocalStorage('salaty_localTimeZone'))
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 //* Display/Hide city search component

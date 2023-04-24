@@ -1,13 +1,13 @@
 {
   "name": "salaty_prayer_times",
   "version": "1.0.0",
-  "description": "An application that display islamic prayer times and other infos depending on user location.",
+  "description": "An application that display islamic prayers times, nearest mosques, there location on map, and other informations depending on user current location or a choosen city name.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "build": "echo Success",
-    "start_fe": "node index.html"
+    "dev": "nodemon app.js",
+    "build": "echo Success"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
     "times",
     "auto-location",
     "clock",
+    "map",
     "mosque"
   ],
   "author": "Youssef El-Hrouzi",
