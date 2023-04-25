@@ -3,13 +3,11 @@
 
 import { getIslamicDate, refreshGregorianDate } from "./displayCalendars.js";
 import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
-import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-import errorHandler from "./errorHandler.js"; // default export
-import { prayerTimesByLocationCoordinates, extractMainPrayerTimes } from "./prayerTimesAPI.js";
+import { getPrayerTimes } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
 import getNearbyMosquesList from "./nearbyMosques.js"; // default function
 import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
-import { renderLocalTime, renderGregorianDate, renderPrayerTiming, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques } from "./dataRendering.js";
+import { renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques } from "./dataRendering.js";
 import dom from "./domElements.js"; // default export
 
 
@@ -52,17 +50,7 @@ const local_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 saveToLocalStorage('salaty_localTimeZone', local_time_zone)
 window.onload = loadData(local_time_zone)
 
-async function getPrayerTimes(coords) {
-    try {
-        const { timings } = await prayerTimesByLocationCoordinates(coords.latitude, coords.longitude);
-        const fetchedPrayerTimes = extractMainPrayerTimes(timings)
-        saveToLocalStorage('prayerTimings', fetchedPrayerTimes)
-        renderPrayerTiming(fetchedPrayerTimes)
-        renderUpcomingPrayerCard(fetchedPrayerTimes, getDataFromLocalStorage('salaty_localTimeZone'))
-    } catch (err) {
-        errorHandler(err)
-    }
-}
+
 
 //* Display/Hide city search component
 dom().locationBtn.addEventListener("mousedown", () => {

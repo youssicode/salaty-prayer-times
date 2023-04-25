@@ -17,7 +17,9 @@ export const renderLocalTime = (time) => {
 }
 
 export const renderIslamicCalender = (islamicDate) => {
-    dom().islamicDateLabel.innerText = islamicDate
+    const { month, day, year } = islamicDate
+    const islamic_date_label = `${month} ${day}, ${year}`
+    dom().islamicDateLabel.innerText = islamic_date_label
 }
 
 export const renderGregorianDate = (date) => {
@@ -93,22 +95,22 @@ export const hideNearbyMosques = () => {
     dom().nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
 }
 
-const displayMosquesList = (mosques_lists) => {
+const displayMosquesList = (mosques_list) => {
     const domMosquesCardsWrap = document.createElement("ul")
     domMosquesCardsWrap.className = "mosquesList"
     dom().mosquesWrapper.appendChild(domMosquesCardsWrap)
 
-    mosques_lists.mosques.forEach(mosque => {
+    mosques_list.forEach(mosque => {
         const mosqueCardTemplate = `
         <li class="mosqueInformationsCard">
         <div class="mosqueInformationsCard__mosque-icon fa-solid fa-mosque"></div>
         <div class="mosqueInformationsCard__title">
-        <h4 class="mosqueInformationsCard__title__mosque-name">${mosque.mosque_name}</h4>
+        <h4 class="mosqueInformationsCard__title__mosque-name">${mosque.name}</h4>
         <p class="mosqueInformationsCard__title__city">${dom().actualLocationLabel.textContent.slice(0, -4)}</p>
         </div>
         <div class="mosqueInformationsCard__distanceWrapper">
         <div class="mosqueInformationsCard__distanceWrapper__direction-icon fa-solid fa-diamond-turn-right"></div>
-        <p class="mosqueInformationsCard__distanceWrapper__distance">${mosque.mosque_dist} meters</p>
+        <p class="mosqueInformationsCard__distanceWrapper__distance">${mosque.distance} meters</p>
         </div>
         </li>
         `
@@ -119,14 +121,13 @@ const displayMosquesList = (mosques_lists) => {
     mapContainer.id = "map"
     dom().mosquesWrapper.appendChild(mapContainer)
 
-    displayMosquesMarkersOnMap(mosques_lists.markers, mapContainer)
+    displayMosquesMarkersOnMap(mosques_list, mapContainer)
 }
 
 const displayMosquesMarkersOnMap = (mosquesMarkers, mapContainer) => {
     (function initMap() {
         // Defining tha map and its params
         const currentLocation = getDataFromLocalStorage("locationCoordinates")
-        console.log("Center Coords", currentLocation)
         const map = new google.maps.Map(mapContainer, {
 
             zoom: getZoomLevel(mapContainer.offsetWidth),
@@ -140,11 +141,11 @@ const displayMosquesMarkersOnMap = (mosquesMarkers, mapContainer) => {
             return 14;
         }
         // putting Markers
-        mosquesMarkers.forEach(markerCoords => {
+        mosquesMarkers.forEach(marker => {
             const image =
                 "../src/images/icons8-mosque-35.png";
-            const beachMarker = new google.maps.Marker({
-                position: markerCoords,
+            const mosqueMarker = new google.maps.Marker({
+                position: marker.coords,
                 map,
                 icon: image,
             });
@@ -171,23 +172,21 @@ const addClickEventToSuggestedCity = (element, city) => {
         hideErrorMessage()
         hideLocationSearchWrapper()
         hideNearbyMosques()
-        const { date, meta } = await refreshPrayerTimingForChosenCity(city)
-        const local_time_zone = meta.timezone
-        saveToLocalStorage('salaty_localTimeZone', local_time_zone)
+        const { newHijriDate, city_time_zone } = await refreshPrayerTimingForChosenCity(city)
+        saveToLocalStorage('salaty_localTimeZone', city_time_zone)
 
         //* Refresh Current Time
-        displayTime(local_time_zone)
+        displayTime(city_time_zone)
 
         //* Refresh Current Gregorian Date
-        refreshGregorianDate(local_time_zone)
+        refreshGregorianDate(city_time_zone)
 
         //* Refresh Current Hijri Date
-        const newHijriDate = { month: date.hijri.month, day: date.hijri.day, year: date.hijri.year }
         renderIslamicCalender(newHijriDate)
 
         //* Refresh Upcoming Card
         const fetchedPrayerTimesByCity = getDataFromLocalStorage('prayerTimings')
-        renderUpcomingPrayerCard(fetchedPrayerTimesByCity, local_time_zone)
+        renderUpcomingPrayerCard(fetchedPrayerTimesByCity, city_time_zone)
     })
 }
 

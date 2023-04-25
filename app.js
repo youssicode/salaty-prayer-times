@@ -59,7 +59,8 @@ app.get('/islamic-date', async (req, res) => {
         const { gregorian } = req.query;
         const url = `https://api.aladhan.com/v1/gToH?date=${gregorian}`
         const { data: { data: { hijri: { month, day, year } } } } = await axios.get(url);
-        const islamicDate = `${month.en} ${day}, ${year}`
+        const islamicDate = { month: month.en, day, year }
+        //! const islamicDate = `${month.en} ${day}, ${year}`
         res.json(islamicDate);
     } catch (error) {
         console.error(error);
@@ -75,32 +76,29 @@ app.get('/places', async (req, res) => {
         const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${current_lat},${current_lng}&type=mosque&rankby=distance&key=${googleMapApiKey}`;
         const { data: { results } } = await axios.get(url);
         const mosques = []
-        const markers = []
 
         for (let i = 0; i < results.length; i++) {
             if (i === 6) break
             const { geometry: { location: { lat, lng } }, name } = results[i]
             const distance = haversineCalcDistance([current_lat, current_lng], [lat, lng])
             const mosqueInfo = {
-                mosque_name: name,
-                mosque_Lat: lat,
-                mosque_Lng: lng,
-                mosque_dist: distance
+                name,
+                coords: { lat, lng },
+                distance
             }
 
             mosques.push(mosqueInfo)
-            markers.push({ lat, lng })
         }
 
-        console.log("mosques List: ", mosques) //!
-        console.log("mosques Markers: ", markers) //!
+        console.log("mosques List: ", mosques) //! ////////////
         // res.setHeader('Access-Control-Allow-Origin', '*');
-        res.json({ mosques, markers })
+        res.json(mosques)
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: 'Internal server error' })
     }
 })
+
 // Calculate the distance between two positions using "Heversine Formula"
 const haversineCalcDistance = ([lat1, long1], [lat2, long2]) => {
     const toRadian = angle => angle * (Math.PI / 180);
@@ -120,4 +118,59 @@ const haversineCalcDistance = ([lat1, long1], [lat2, long2]) => {
     let finalDistance = earth_radius_km * c;
 
     return Math.round(finalDistance * 1000); // in meters
+}
+
+//* Get Payer Timings by Coordinates
+app.get('/prayer-timings', async (req, res) => {
+    try {
+        const { x, y } = req.query
+        const dateTimeStamp = Math.floor(Date.now() / 1000)
+        const url = `https://api.aladhan.com/v1/timings/${dateTimeStamp}?latitude=${x}&longitude=${y}&method=3`
+        const { data: { data: { timings } } } = await axios.get(url)
+        const mainPrayerTimings = extractMainPrayerTimes(timings)
+        res.json(mainPrayerTimings);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+
+
+
+
+
+
+
+//* Get Payer Timings by City Name
+app.get('/prayer-timings-by-city', async (req, res) => {
+    // try {
+    const { city, country } = req.query
+    const url = `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=3`
+    const { data: { data: { timings, meta, date } } } = await axios.get(url)
+
+    const mainPrayerTimings = extractMainPrayerTimes(timings)
+    const newCityCoords = {
+        latitude: meta.latitude,
+        longitude: meta.longitude
+    }
+    const newHijriDate = { month: date.hijri.month.en, day: date.hijri.day, year: date.hijri.year }
+    res.json({ mainPrayerTimings, newCityCoords, city_time_zone: meta.timezone, newHijriDate });
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ error: 'Internal server error' });
+    // }
+})
+//* Save fetched principal prayer times in an array
+const extractMainPrayerTimes = (times) => {
+    const { Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha } = times;
+    const prayerTimings = [
+        { prayerName: 'Fajr', prayerTime: Fajr.slice(0, 5) },
+        { prayerName: 'Sunrise', prayerTime: Sunrise.slice(0, 5) },
+        { prayerName: 'Dhuhr', prayerTime: Dhuhr.slice(0, 5) },
+        { prayerName: 'Asr', prayerTime: Asr.slice(0, 5) },
+        { prayerName: 'Maghrib', prayerTime: Maghrib.slice(0, 5) },
+        { prayerName: 'Isha', prayerTime: Isha.slice(0, 5) },
+    ];
+    return prayerTimings;
 }
