@@ -15,7 +15,7 @@ const errorHandler = (error) => {
             errorMessage = "Bad request. Unkown area or bad parameters."
             break;
         case 1:
-            errorMessage = "Please turn on location, or enter a city manually."
+            errorMessage = "Oops! location off. Please turn it on, or enter a city manually."
             showErrorMessage(errorMessage, dom().locationBtn)
             break;
         case 2:
@@ -43,10 +43,20 @@ const errorHandler = (error) => {
 
 // function takes a message and appends an error-label div containing the message to a provided position element
 const showErrorMessage = (message, position) => {
+
+    //*Method 1
     const errorLabel = document.createElement('div');
     errorLabel.classList.add('error-label');
     errorLabel.textContent = message;
     position.appendChild(errorLabel);
+
+    //*Method 2
+    // const errorLabel = `<div class='error-label'>${message}</div>`
+    // position.insertAdjacentHTML("beforeEnd", errorLabel)
+
+    //*Method 3(not recommanded: can cause re-instancing DOM elements issue )
+    // const errorLabel = `<div class='error-label'>${message}</div>`
+    // position.innerHTML += errorLabel
 }
 
 export default errorHandler

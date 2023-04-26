@@ -6,8 +6,7 @@ require('dotenv').config()
 const app = express()
 app.use(express.static("frontEndStatic"))
 
-// Allow CORS for all routes
-//* app.use(cors())
+//* app.use(cors()) Allow CORS for all routes
 const allowedOrigins = ['https://maps.googleapis.com', 'http://localhost:3000'];
 app.use(cors({
     origin: function (origin, callback) {
@@ -27,7 +26,6 @@ app.get("/", (req, res) => {
 
 // Set the API key
 const googleMapApiKey = process.env.G_API_KEY
-
 
 // Start server
 const port = process.env.PORT || 3000;
@@ -60,7 +58,6 @@ app.get('/islamic-date', async (req, res) => {
         const url = `https://api.aladhan.com/v1/gToH?date=${gregorian}`
         const { data: { data: { hijri: { month, day, year } } } } = await axios.get(url);
         const islamicDate = { month: month.en, day, year }
-        //! const islamicDate = `${month.en} ${day}, ${year}`
         res.json(islamicDate);
     } catch (error) {
         console.error(error);
@@ -89,9 +86,6 @@ app.get('/places', async (req, res) => {
 
             mosques.push(mosqueInfo)
         }
-
-        console.log("mosques List: ", mosques) //! ////////////
-        // res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(mosques)
     } catch (error) {
         console.error(error)
@@ -114,7 +108,6 @@ const haversineCalcDistance = ([lat1, long1], [lat2, long2]) => {
     // Haversine Formula
     const a = Math.pow(Math.sin(dLat / 2), 2) + Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
     const c = 2 * Math.asin(Math.sqrt(a));
-
     let finalDistance = earth_radius_km * c;
 
     return Math.round(finalDistance * 1000); // in meters
@@ -135,32 +128,26 @@ app.get('/prayer-timings', async (req, res) => {
     }
 })
 
-
-
-
-
-
-
-
 //* Get Payer Timings by City Name
 app.get('/prayer-timings-by-city', async (req, res) => {
-    // try {
-    const { city, country } = req.query
-    const url = `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=3`
-    const { data: { data: { timings, meta, date } } } = await axios.get(url)
+    try {
+        const { city, country } = req.query
+        const url = `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=3`
+        const { data: { data: { timings, meta, date } } } = await axios.get(url)
 
-    const mainPrayerTimings = extractMainPrayerTimes(timings)
-    const newCityCoords = {
-        latitude: meta.latitude,
-        longitude: meta.longitude
+        const mainPrayerTimings = extractMainPrayerTimes(timings)
+        const newCityCoords = {
+            latitude: meta.latitude,
+            longitude: meta.longitude
+        }
+        const newHijriDate = { month: date.hijri.month.en, day: date.hijri.day, year: date.hijri.year }
+        res.json({ mainPrayerTimings, newCityCoords, city_time_zone: meta.timezone, newHijriDate });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-    const newHijriDate = { month: date.hijri.month.en, day: date.hijri.day, year: date.hijri.year }
-    res.json({ mainPrayerTimings, newCityCoords, city_time_zone: meta.timezone, newHijriDate });
-    // } catch (error) {
-    //     console.error(error);
-    //     res.status(500).json({ error: 'Internal server error' });
-    // }
 })
+
 //* Save fetched principal prayer times in an array
 const extractMainPrayerTimes = (times) => {
     const { Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha } = times;

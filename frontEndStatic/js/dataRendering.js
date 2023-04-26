@@ -74,6 +74,10 @@ export const renderCallToPrayerOverlay = () => {
     dom().upcomingPrayerCustomBorder.classList.add("animation-paused")
     dom().muteAdhanButton.addEventListener("click", stopAdhan)
     window.addEventListener("keydown", e => e.key == "Escape" ? stopAdhan() : null)
+
+    // Stop/Hide Adhan/Overlay when the 'Call-To_Prayer' sound track's play is finished 
+    adhanSound.addEventListener('ended', stopAdhan);
+
     function stopAdhan() {
         dom().upcomingPrayerCustomBorder.classList.remove("animation-paused")
         dom().adhanOverlay.classList.add("adhan-overlay--hidden")
@@ -169,6 +173,12 @@ export const renderCitiesList = (input) => {
 const addClickEventToSuggestedCity = (element, city) => {
     element.addEventListener("click", async () => {
         dom().actualLocationLabel.innerText = city
+        const cityAdresse = {
+            cityName: city.slice(0, -4),
+            countryName: city.slice(-2),
+            countryShortName: city.slice(-2)
+        }
+        saveToLocalStorage('salaty_localAdresse', cityAdresse)
         hideErrorMessage()
         hideLocationSearchWrapper()
         hideNearbyMosques()
