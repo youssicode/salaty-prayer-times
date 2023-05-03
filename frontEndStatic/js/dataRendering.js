@@ -34,10 +34,8 @@ export const renderGregorianDate = (date) => {
     dom().gregorianDateLabel.innerText = `${toDay.weekday}, ${toDay.monthName} ${toDay.day}, ${toDay.year}`
 }
 
-export const renderAutoLocatedCity = (adresse) => {
-    const { cityName, countryShortName } = adresse
-    let cityCountryName = `${cityName}, ${countryShortName}`
-    dom().actualLocationLabel.innerText = cityCountryName
+export const renderAutoLocatedCity = ({ cityName, countryShortName }) => {
+    dom().actualLocationLabel.innerText = `${cityName}, ${countryShortName}`
 }
 
 export const renderPrayerTiming = (timesArray) => {

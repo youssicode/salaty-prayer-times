@@ -1,9 +1,9 @@
 //? Imported Modules
 //==================
 
-import errorHandler from "./errorHandler.js";
-import { saveToLocalStorage } from "./saveToLocalStorage.js";
-import { renderAutoLocatedCity } from "./dataRendering.js";
+import errorHandler from "./errorHandler.js"
+import { saveToLocalStorage } from "./saveToLocalStorage.js"
+import { renderAutoLocatedCity } from "./dataRendering.js"
 
 //? Functions
 //===========
@@ -22,18 +22,19 @@ export async function getUserCoordinates() {
                 } // The maximumAge option is used to provide a hint to the browser on how old a cached position result can be used. When a user requests the current position, the browser can return a cached result if it's available and no new position is available. Setting maximumAge to 0 indicates that the browser should not use any cached result and it should always try to get a fresh position result.
             )
         })
-        return {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-        }
+        // Distructure position's lat/long
+        const { coords: { latitude, longitude } } = position;
+
+        return { latitude, longitude }
     } catch (err) {
         errorHandler(err)
     }
 }
 
-export async function autoLocateCity(coords) {
+// Automatically locate city based on user's geolocation
+export async function autoLocateCity({ latitude, longitude }) {
     try {
-        const localAdresse = await getAdresse(coords.latitude, coords.longitude) || { cityName: "Location Undetectable", countryShortName: "" }
+        const localAdresse = await getAdresse(latitude, longitude) || { cityName: "Location Undetectable", countryShortName: "" }
         saveToLocalStorage('salaty_localAdresse', localAdresse)
         renderAutoLocatedCity(localAdresse)
     } catch (err) {

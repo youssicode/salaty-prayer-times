@@ -32,7 +32,11 @@ function dom() {
         mosquesWrapper: document.querySelector(".mosquesWrapper"),
         nearbyMosquesShowBtn: document.querySelector(".displayNearbyMosques__show"),
         nearbyMosquesHideBtn: document.querySelector(".displayNearbyMosques__hide"),
-        footerYear: document.querySelector(".actual-year")
+        footerYear: document.querySelector(".actual-year"),
+
+        menuBurgerBtn : document.querySelector(".burger_btn"),
+        dropDownMenu : document.querySelector(".dropdown__content"),
+        menuHideBtn : document.querySelector(".dropdown__hide-btn")
     };
 
     return domElements

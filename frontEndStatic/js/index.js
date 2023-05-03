@@ -8,6 +8,7 @@ import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
 import getNearbyMosquesList from "./nearbyMosques.js"; // default function
 import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
 import { renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques } from "./dataRendering.js";
+import { toggleMenu } from "./burgerMenu.js";
 import dom from "./domElements.js"; // default export
 
 
@@ -100,3 +101,7 @@ dom().nearbyMosquesShowBtn.addEventListener("click", () => {
 
 //* Assign Year in the Footer Dinamically
 renderFooterYear(date.getFullYear())
+
+// Show/Hide DropDown Menu
+dom().menuBurgerBtn.onclick = toggleMenu
+dom().menuHideBtn.onclick = toggleMenu

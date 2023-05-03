@@ -17,6 +17,10 @@
     letter-spacing: 0.3rem;
     text-align: center;
     margin-bottom: $margin-2rem5;
+    
+    @include responsive_medium() {
+        margin-left: $margin-2rem5;    
+    }
 }
 
 .islamic_date {
