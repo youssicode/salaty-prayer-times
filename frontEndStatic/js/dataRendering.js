@@ -70,10 +70,11 @@ export const renderCallToPrayerOverlay = () => {
     // Show/Hide overlay + Start/Stop Adhan
     dom().adhanOverlay.classList.remove("adhan-overlay--hidden")
     dom().upcomingPrayerCustomBorder.classList.add("animation-paused")
+    
+    // Hide overlay + Stop Adhan
     dom().muteAdhanButton.addEventListener("click", stopAdhan)
     window.addEventListener("keydown", e => e.key == "Escape" ? stopAdhan() : null)
-
-    // Stop/Hide Adhan/Overlay when the 'Call-To_Prayer' sound track's play is finished 
+    // Stop/Hide Adhan/Overlay when the 'Call-To_Prayer' sound track stops playing 
     adhanSound.addEventListener('ended', stopAdhan);
 
     function stopAdhan() {

@@ -51,7 +51,6 @@ nav {
         padding-bottom: 1.5rem;
         background-color: $bg-primary;
         border-bottom-right-radius: 100%;
-        box-shadow: 0px 5px 10px $bg-second;
         font-size: 1rem;
         overflow: hidden;
         font-family: $Comfortaa;
@@ -68,6 +67,7 @@ nav {
 
         &.visible {
             transform: rotate(0deg);
+            box-shadow: 0px 5px 10px $bg-second;
             /* when the parent will be visible, then '.dropdown__content__link' will slide right */
             .dropdown__content__link {
                 right: 0;

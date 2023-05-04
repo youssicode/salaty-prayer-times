@@ -9,6 +9,7 @@ import getNearbyMosquesList from "./nearbyMosques.js"; // default function
 import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
 import { renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques } from "./dataRendering.js";
 import { toggleMenu } from "./burgerMenu.js";
+import { loadAdhanSettings } from "./adhanSettings.js";
 import dom from "./domElements.js"; // default export
 
 
@@ -49,9 +50,10 @@ async function loadData(time_zone) {
 }
 const local_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 saveToLocalStorage('salaty_localTimeZone', local_time_zone)
-window.onload = loadData(local_time_zone)
-
-
+window.onload = ()=> {
+    loadData(local_time_zone)
+    loadAdhanSettings()
+}
 
 //* Display/Hide city search component
 dom().locationBtn.addEventListener("mousedown", () => {
@@ -85,13 +87,6 @@ window.addEventListener("click", e => {
     hideLocationSearchWrapper()
 })
 
-//* Activate / Di-activate Call-To-Prayer feature
-dom().adhanBells.forEach(el => {
-    el.addEventListener("click", function () {
-        this.classList.toggle("prayerTimeCard__adhan--disabled")
-    })
-});
-
 //* Render Nearby Mosques List according to current location
 dom().nearbyMosquesShowBtn.addEventListener("click", () => {
     if (dom().nearbyMosquesSection.classList.contains("nearbyMosquesBtnClicked")) return
@@ -105,3 +100,5 @@ renderFooterYear(date.getFullYear())
 // Show/Hide DropDown Menu
 dom().menuBurgerBtn.onclick = toggleMenu
 dom().menuHideBtn.onclick = toggleMenu
+
+// Deactivate Adhan Alarm
