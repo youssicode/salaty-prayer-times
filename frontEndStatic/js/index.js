@@ -9,7 +9,7 @@ import getNearbyMosquesList from "./nearbyMosques.js"; // default function
 import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
 import { renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques } from "./dataRendering.js";
 import { toggleMenu } from "./burgerMenu.js";
-import { loadAdhanSettings } from "./adhanSettings.js";
+import { loadAdhanSettings, adhanActivation } from "./adhanSettings.js";
 import dom from "./domElements.js"; // default export
 
 
@@ -101,4 +101,6 @@ renderFooterYear(date.getFullYear())
 dom().menuBurgerBtn.onclick = toggleMenu
 dom().menuHideBtn.onclick = toggleMenu
 
-// Deactivate Adhan Alarm
+// Settings: Deactivate Adhan Alarm
+
+dom().activateAdhanSwitch.addEventListener('change',adhanActivation);

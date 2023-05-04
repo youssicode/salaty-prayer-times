@@ -36,7 +36,9 @@ function dom() {
 
         menuBurgerBtn : document.querySelector(".burger_btn"),
         dropDownMenu : document.querySelector(".dropdown__content"),
-        menuHideBtn : document.querySelector(".dropdown__hide-btn")
+        menuHideBtn : document.querySelector(".dropdown__hide-btn"),
+        activateAdhanSwitch : document.querySelector(".switch__input--adhan")
+
     };
 
     return domElements
