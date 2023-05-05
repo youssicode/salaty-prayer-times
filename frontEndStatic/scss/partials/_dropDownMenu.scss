@@ -62,8 +62,7 @@ nav {
         transform-origin: 0 0;
 
         transition: transform 0.5s ease-out;
-
-
+        z-index: 999;
 
         &.visible {
             transform: rotate(0deg);
