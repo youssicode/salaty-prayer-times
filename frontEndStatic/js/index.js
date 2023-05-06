@@ -2,24 +2,14 @@
 //==================
 
 import { getIslamicDate, refreshGregorianDate } from "./displayCalendars.js";
-import { getUserCoordinates, autoLocateCity } from "./autoLocation.js";
+import { getUserCoordinates, autoLocateCity, SaveCurrentLocation, loadSavedLocationSettings } from "./autoLocation.js";
 import { getPrayerTimes } from "./prayerTimesAPI.js";
 import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
-import getNearbyMosquesList from "./nearbyMosques.js"; // default function
-import {
-  saveToLocalStorage,
-  getDataFromLocalStorage,
-} from "./saveToLocalStorage.js";
-import {
-  renderLocalTime,
-  renderGregorianDate,
-  renderFooterYear,
-  hideLocationSearchWrapper,
-  hideErrorMessage,
-  hideNearbyMosques,
-} from "./dataRendering.js";
+import { saveToLocalStorage, getDataFromLocalStorage} from "./saveToLocalStorage.js";
+import { renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques} from "./dataRendering.js";
 import { toggleMenu } from "./burgerMenu.js";
 import { loadAdhanSettings, adhanActivation } from "./adhanSettings.js";
+import getNearbyMosquesList from "./nearbyMosques.js";
 import dom from "./domElements.js"; // default export
 
 //? Main Functions
@@ -61,11 +51,14 @@ async function loadData(time_zone) {
   }
 }
 const local_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-saveToLocalStorage("salaty_localTimeZone", local_time_zone);
-window.onload = () => {
-  loadData(local_time_zone);
-  loadAdhanSettings();
-};
+saveToLocalStorage("salaty_localTimeZone", local_time_zone)
+// DOMContentLoaded event as it is faster and more efficient than window.onload 
+document.addEventListener("DOMContentLoaded", () => {
+  loadData(local_time_zone)
+  loadAdhanSettings()
+  loadSavedLocationSettings()
+});
+
 // Settings: Deactivate Adhan Alarm
 dom().activateAdhanSwitch.addEventListener("change", adhanActivation);
 
@@ -91,6 +84,12 @@ dom().locationBtn.addEventListener("mousedown", () => {
 });
 
 window.addEventListener("click", (e) => {
+  // Hide Settings Menu
+  if (
+    dom().dropDownMenu.classList.contains("visible") &&
+    !dom().navContainer.contains(e.target)
+  )
+    dom().dropDownMenu.classList.remove("visible");
   // if the search component is hidden or the element we clicked on = (e.target) is child of "locationBtn" then return, if not, then execute hideLocationSearchWrapper()
   if (
     !dom().locationSearchWrapper.classList.contains(
@@ -123,3 +122,7 @@ window.addEventListener("keydown", (e) => {
     dom().dropDownMenu.classList.remove("visible");
   }
 });
+
+
+// Settings: Save Current Location
+dom().saveLocationSwitch.addEventListener("change", SaveCurrentLocation);

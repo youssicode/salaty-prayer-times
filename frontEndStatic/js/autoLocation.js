@@ -2,8 +2,10 @@
 //==================
 
 import errorHandler from "./errorHandler.js"
-import { saveToLocalStorage } from "./saveToLocalStorage.js"
+import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js"
 import { renderAutoLocatedCity } from "./dataRendering.js"
+import dom from "./domElements.js";
+
 
 //? Functions
 //===========
@@ -50,4 +52,18 @@ export async function getAdresse(lat, lng) {
     } catch (err) {
         errorHandler(err)
     }
+}
+
+// Settings : Save Current Location
+
+export const loadSavedLocationSettings = function () {
+    const savedLocation = getDataFromLocalStorage("savedLocation")
+    if (savedLocation) dom().saveLocationSwitch.checked = true
+
+}
+export const SaveCurrentLocation = function () {
+    const currentCoords = getDataFromLocalStorage("locationCoordinates")
+    const currentTimeZone = getDataFromLocalStorage("salaty_localTimeZone")
+    const currentLocationToSave = this.checked ? {savedCoords: currentCoords, savedTimeZone : currentTimeZone} : ''
+    saveToLocalStorage ("savedLocation", currentLocationToSave)
 }
