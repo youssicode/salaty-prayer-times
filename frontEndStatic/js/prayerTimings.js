@@ -1,7 +1,7 @@
 //? Imported Modules
 //==================
 import { renderPrayerTiming } from "./dataRendering.js";
-import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
+import { saveToLocalStorage, getDataFromLocalStorage } from "./localStorage.js";
 import errorHandler from "./errorHandler.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 

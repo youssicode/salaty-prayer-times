@@ -3,11 +3,11 @@
 
 import dom from "./domElements.js";
 import { citiesOfTheWorld } from "./citiesList.js";
-import { refreshPrayerTimingForChosenCity } from "./prayerTimesAPI.js";
+import { refreshPrayerTimingForChosenCity } from "./prayerTimings.js";
 import { displayTime } from "./index.js";
-import { refreshGregorianDate } from "./displayCalendars.js";
+import { refreshGregorianDate } from "./calendars.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-import { saveToLocalStorage, getDataFromLocalStorage } from "./saveToLocalStorage.js";
+import { saveToLocalStorage, getDataFromLocalStorage } from "./localStorage.js";
 
 
 //? Functions

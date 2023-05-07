@@ -1,12 +1,12 @@
 //? Imported Modules
 //==================
-import { saveToLocalStorage, getDataFromLocalStorage} from "./saveToLocalStorage.js";
+import { saveToLocalStorage, getDataFromLocalStorage} from "./localStorage.js";
 import dom from "./domElements.js";
 
 //? Functions
 //===========
 
-//* Activate / Di-activate Call-To-Prayer feature
+//* Activate / Deactivate Call-To-Prayer feature
 export const loadAdhanSettings = () => {
   const adhanSetting = getDataFromLocalStorage("adhanSetting")
   addEventListenerToAlarmIcons()
@@ -16,6 +16,7 @@ export const loadAdhanSettings = () => {
     renderAlarmIcons(adhanSetting)
   }
 };
+
 const initiateAdhanSettings = () => {
   const settings = [
     { fajr: "on", dhuhr: "on", asr: "on", maghrib: "on", ishaa: "on" },
