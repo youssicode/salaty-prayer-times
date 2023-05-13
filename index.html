@@ -246,7 +246,8 @@
           </ul>
         </div>
       </footer>
-
+      
+      <!-- Adhan Modal -->
       <div class="adhan-overlay adhan-overlay--hidden">
         <div class="adhan-overlay__main-div">
           <img
@@ -272,6 +273,7 @@
           <div class="dropdown__content">
             <section>
               <h3 class="dropdown__content__title">Settings</h3>
+
               <div class="dropdown__content__link dropdown__content__link--1">
                 Save current location infos
                 <label class="switch">
@@ -282,9 +284,7 @@
                   <span class="switch__slider"></span>
                 </label>
               </div>
-              <div class="dropdown__content__link dropdown__content__link--2">
-                Show prayer times table
-              </div>
+              
               <div class="dropdown__content__link dropdown__content__link--3">
                 Deactivate Adhan alarm
                 <label class="switch">
@@ -295,23 +295,97 @@
                   <span class="switch__slider"></span>
                 </label>
               </div>
+
+              <div class="dropdown__content__link dropdown__content__link--2">
+                Show prayer times table
+              </div>
+
               <div class="dropdown__content__link dropdown__content__link--4">
                 Change theme
               </div>
+
             </section>
             <section>
               <h3 class="dropdown__content__title">Help</h3>
+
               <div class="dropdown__content__link dropdown__content__link--5">
                 Documentation
               </div>
+
               <div class="dropdown__content__link dropdown__content__link--6">
                 About
               </div>
+
             </section>
             <div class="dropdown__hide-btn">X</div>
           </div>
         </div>
       </nav>
+
+      <!-- Prayer Times Table -->
+      <div class="times-table-modal">
+        <div class="times-table-container">
+          <header class="times-table__header">
+            <p class="times-table__header__title">Prayer Times Table</p>
+            <div class="times-table__header__month-picker-wrapper">
+              <select class="times-table__header__month-picker">
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select>
+            </div>
+            <button class="times-table-modal__close-btn fa-solid fa-arrow-left"></button>
+          </header>
+        
+          <div class="times-table-body">
+            <table class="times-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Day</th>
+                  <th>Fajr</th>
+                  <th>Dhuhr</th>
+                  <th>Asr</th>
+                  <th>Maghrib</th>
+                  <th>Ishaa</th>
+                </tr>
+              </thead>
+              <tbody class="times-table-tbody">
+                <tr>
+                  <!-- <td>Sunday</td>
+                  <td>01</td>
+                  <td>4:50</td>
+                  <td>12:50</td>
+                  <td>4:30</td>
+                  <td>6:09</td>
+                  <td>7:24</td>
+                </tr>
+                <tr>
+                  <td>Sunday</td>
+                  <td>01</td>
+                  <td>4:50</td>
+                  <td>12:50</td>
+                  <td>4:30</td>
+                  <td>6:09</td>
+                  <td>7:24</td>
+                </tr> -->
+                       
+                <!-- Add more rows here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </main>
     <!-- Importing Axios Librery from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
