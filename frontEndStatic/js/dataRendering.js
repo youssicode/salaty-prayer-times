@@ -70,7 +70,7 @@ export const renderCallToPrayerOverlay = () => {
     // Show/Hide overlay + Start/Stop Adhan
     dom().adhanOverlay.classList.remove("adhan-overlay--hidden")
     dom().upcomingPrayerCustomBorder.classList.add("animation-paused")
-    
+    document.body.classList.add("noscroll") // Prevent the main page from scrolling
     // Hide overlay + Stop Adhan
     dom().muteAdhanButton.addEventListener("click", stopAdhan)
     window.addEventListener("keydown", e => e.key == "Escape" ? stopAdhan() : null)
@@ -78,6 +78,7 @@ export const renderCallToPrayerOverlay = () => {
     adhanSound.addEventListener('ended', stopAdhan);
 
     function stopAdhan() {
+        document.body.classList.remove("noscroll")
         dom().upcomingPrayerCustomBorder.classList.remove("animation-paused")
         dom().adhanOverlay.classList.add("adhan-overlay--hidden")
         adhanSound.pause()

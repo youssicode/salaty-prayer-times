@@ -27,6 +27,10 @@ body {
     text-transform: capitalize;
 }
 
+body.noscroll {
+    overflow: hidden;
+}
+
 ul {
     list-style: none;
 }

@@ -51,6 +51,11 @@ function dom() {
     activateAdhanSwitch: document.querySelector(".switch__input--adhan"),
     saveLocationSwitch: document.querySelector(".switch__input--location"),
     navContainer: document.querySelector(".nav-container"),
+    showTimesTable : document.querySelector(".dropdown__content__link--2"),
+    timesTableModal : document.querySelector(".times-table-modal-overlay"),
+    closeModal : document.querySelector(".times-table-modal__close-btn"),
+    monthPicker : document.querySelector(".times-table__header__month-picker"),
+    timesTableTBody : document.querySelector(".times-table-tbody")
   };
 
   return domElements;

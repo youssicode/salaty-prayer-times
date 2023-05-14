@@ -323,7 +323,7 @@
       </nav>
 
       <!-- Prayer Times Table -->
-      <div class="times-table-modal">
+      <div class="times-table-modal-overlay">
         <div class="times-table-container">
           <header class="times-table__header">
             <p class="times-table__header__title">Prayer Times Table</p>
@@ -350,8 +350,8 @@
             <table class="times-table">
               <thead>
                 <tr>
+                  <th>Weekday</th>
                   <th>Date</th>
-                  <th>Day</th>
                   <th>Fajr</th>
                   <th>Dhuhr</th>
                   <th>Asr</th>
@@ -360,8 +360,9 @@
                 </tr>
               </thead>
               <tbody class="times-table-tbody">
+                <!-- 
                 <tr>
-                  <!-- <td>Sunday</td>
+                  <td>Sunday</td>
                   <td>01</td>
                   <td>4:50</td>
                   <td>12:50</td>

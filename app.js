@@ -161,3 +161,21 @@ const extractMainPrayerTimes = (times) => {
     ];
     return prayerTimings;
 }
+
+//* Get Payer Timings For Specific Month by Coordinates
+app.get('/times-table', async (req, res) => {
+    // try {
+        const { month, latitude, longitude } = req.query
+        const year = new Date().getFullYear()
+        const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=3`
+        const { data:{data} } = await axios.get(url)
+        const timingsTable = data.map(dayData => {
+            const {timings:{Fajr,Dhuhr,Asr,Maghrib,Isha}, date:{gregorian:{day, weekday:{en}}}} = dayData
+            return { weekday:en, day, Fajr, Dhuhr, Asr, Maghrib, Isha }
+        })
+        res.json(timingsTable);
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ error: 'Internal server error' });
+    // }
+})
