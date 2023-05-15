@@ -7,7 +7,7 @@ const app = express()
 app.use(express.static("frontEndStatic"))
 
 //* app.use(cors()) Allow CORS for all routes
-const allowedOrigins = ['https://maps.googleapis.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://maps.googleapis.com', 'http://localhost:3000', 'https://api.bigdatacloud.net', 'https://api.aladhan.com'];
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {

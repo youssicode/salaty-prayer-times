@@ -1,5 +1,11 @@
 @use "./variables" as var;
 
+// Small Screens
+@mixin responsive_small() {
+    @media only screen and (min-width : var.$min-width-small) {
+        @content;
+    }
+}
 // Medium Screens
 @mixin responsive_medium() {
     @media only screen and (min-width : var.$min-width-medium) {

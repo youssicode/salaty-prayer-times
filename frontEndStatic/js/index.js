@@ -10,7 +10,8 @@ import { clearChildren, renderLocalTime, renderGregorianDate, renderFooterYear, 
 import { toggleMenu } from "./settings.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { loadAdhanSettings, adhanActivation } from "./adhanSettings.js";
-import { renderTableData, renderModalOverlay} from "./timesTable.js";
+import { renderTableData, renderTimesTableModalOverlay} from "./timesTable.js";
+import { renderAboutModalOverlay } from "./about.js";
 import getNearbyMosquesList from "./nearbyMosques.js";
 import dom from "./domElements.js"; // default export
 
@@ -18,7 +19,7 @@ import dom from "./domElements.js"; // default export
 //================
 
 // DOMContentLoaded event as it is faster and more efficient than window.onload 
-
+/* //! HHHHHHHHHH
 document.addEventListener("DOMContentLoaded", async () => {
   
   const SavedLocationSettings = loadSavedLocationSettings()
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Load 'Call-To-Prayer/Adhan' saved Settings
   loadAdhanSettings()
 });
-
+*/ //! HHHHHHHHHH
 
 let timeLoop;
 export const displayTime = (timezone) => {
@@ -154,7 +155,7 @@ dom().activateAdhanSwitch.addEventListener("change", adhanActivation);
 
 // Show Prayer Times Table
 dom().showTimesTable.onclick = ()=> {
-  renderModalOverlay()
+  renderTimesTableModalOverlay()
 }
 dom().monthPicker.addEventListener("change", () => {
   clearChildren(dom().timesTableTBody)
@@ -162,7 +163,18 @@ dom().monthPicker.addEventListener("change", () => {
   renderTableData(currentMonth + 1)
 });
 
-dom().closeModal.onclick = ()=> {
+// close Times Table modal
+dom().closeTimesTable.onclick = ()=> {
   document.body.classList.remove("noscroll")
   dom().timesTableModal.classList.remove("open")
+}
+
+// Show About modal
+dom().showAboutModal.onclick = ()=> {
+  renderAboutModalOverlay()
+}
+// close About modal
+dom().closeAboutModal.onclick = ()=> {
+  document.body.classList.remove("noscroll")
+  dom().aboutModal.classList.remove("open")
 }

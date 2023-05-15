@@ -51,11 +51,16 @@ function dom() {
     activateAdhanSwitch: document.querySelector(".switch__input--adhan"),
     saveLocationSwitch: document.querySelector(".switch__input--location"),
     navContainer: document.querySelector(".nav-container"),
-    showTimesTable : document.querySelector(".dropdown__content__link--2"),
+    showTimesTable : document.querySelector(".dropdown__content__link--times-table"),
     timesTableModal : document.querySelector(".times-table-modal-overlay"),
-    closeModal : document.querySelector(".times-table-modal__close-btn"),
+    closeTimesTable : document.querySelector(".times-table-modal__close-btn"),
     monthPicker : document.querySelector(".times-table__header__month-picker"),
-    timesTableTBody : document.querySelector(".times-table-tbody")
+    timesTableTBody : document.querySelector(".times-table-tbody"),
+    
+    
+    aboutModal : document.querySelector(".about-modal-overlay"),
+    showAboutModal : document.querySelector(".dropdown__content__link--about"),
+    closeAboutModal : document.querySelector(".about__header__close-btn"),
   };
 
   return domElements;

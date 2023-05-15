@@ -97,30 +97,30 @@ nav {
             transition-timing-function: ease-out;
         
             
-            &--1 {
+            &--location {
                 transition-delay: 200ms;
             }
             
-            &--2 {
+            &--alarm {
                 transition-delay: 300ms;
+            }
+
+            &--times-table {
+                transition-delay: 400ms;
                 cursor: pointer;
             }
             
-            &--3 {
-                transition-delay: 400ms;
-            }
-            
-            &--4 {
+            &--theme {
                 transition-delay: 500ms;
                 cursor: pointer;
             }
             
-            &--5 {
+            &--docs {
                 transition-delay: 600ms;
                 cursor: pointer;
             }
             
-            &--6 {
+            &--about {
                 transition-delay: 700ms;
                 cursor: pointer;
             }

@@ -1,0 +1,97 @@
+@use "../utilities" as *;
+
+  /* about-modal styles */
+  .about-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0,.9);
+    overflow-y: auto;
+    &.open {
+      display: block
+    }
+
+    @include responsive_small() {
+      transition: all 1s ease;
+      padding: $margin-2rem5;
+    }
+  }
+
+.about-dilog {
+  @include auto-margin-center;
+  width: 100%;  
+  max-width: 400px;  
+  @include responsive_small() {
+    transition: all 1s ease;
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+  /* Header styles */
+  .about__header {
+    background-color: $active-color;
+    width: 100%;
+    height: 6rem;
+    padding-left: $margin-0rem5;
+    display: flex;
+    align-items: center;
+
+    &__title {
+      padding-left: $margin-2rem5;
+      font-size: 2rem;
+      font-family: $Catamaran;
+      font-weight: bold;
+      color: $bg-second;
+    }
+
+    &__close-btn {
+      color: $bg-second;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.about__body {
+  padding-top: $margin-2rem5;
+  background-color: $shadow-color;
+  color: $bg-main;
+  
+  &__logo {
+    @include auto-margin-center;
+    margin-bottom: $margin-2rem5;
+  }
+
+  p {
+    margin-bottom: $margin-1rem;
+  }
+  &__app-developed-by .app-developer {
+    font-family: $Catamaran;
+  }
+  &__infos  {
+    padding: $margin-1rem;
+    text-align: center;
+    font-size: 1.4rem;
+    font-family: $Comfortaa;
+    li {
+      font-family: $Catamaran;
+      text-transform: lowercase;
+    }
+  }
+
+  &__links  {
+    padding: $margin-1rem;
+    font-size: 1.4rem;
+    font-family: $Comfortaa;
+    cursor: pointer;
+  }
+}
+
+
+
+
+
+
+

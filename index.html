@@ -274,7 +274,7 @@
             <section>
               <h3 class="dropdown__content__title">Settings</h3>
 
-              <div class="dropdown__content__link dropdown__content__link--1">
+              <div class="dropdown__content__link dropdown__content__link--save-location">
                 Save current location infos
                 <label class="switch">
                   <input
@@ -285,7 +285,7 @@
                 </label>
               </div>
               
-              <div class="dropdown__content__link dropdown__content__link--3">
+              <div class="dropdown__content__link dropdown__content__link--alarm">
                 Deactivate Adhan alarm
                 <label class="switch">
                   <input
@@ -296,11 +296,11 @@
                 </label>
               </div>
 
-              <div class="dropdown__content__link dropdown__content__link--2">
+              <div class="dropdown__content__link dropdown__content__link--times-table">
                 Show prayer times table
               </div>
 
-              <div class="dropdown__content__link dropdown__content__link--4">
+              <div class="dropdown__content__link dropdown__content__link--theme">
                 Change theme
               </div>
 
@@ -308,11 +308,11 @@
             <section>
               <h3 class="dropdown__content__title">Help</h3>
 
-              <div class="dropdown__content__link dropdown__content__link--5">
+              <div class="dropdown__content__link dropdown__content__link--docs">
                 Documentation
               </div>
 
-              <div class="dropdown__content__link dropdown__content__link--6">
+              <div class="dropdown__content__link dropdown__content__link--about">
                 About
               </div>
 
@@ -323,7 +323,7 @@
       </nav>
 
       <!-- Prayer Times Table -->
-      <div class="times-table-modal-overlay">
+      <section class="times-table-modal-overlay">
         <div class="times-table-container">
           <header class="times-table__header">
             <p class="times-table__header__title">Prayer Times Table</p>
@@ -360,32 +360,44 @@
                 </tr>
               </thead>
               <tbody class="times-table-tbody">
-                <!-- 
-                <tr>
-                  <td>Sunday</td>
-                  <td>01</td>
-                  <td>4:50</td>
-                  <td>12:50</td>
-                  <td>4:30</td>
-                  <td>6:09</td>
-                  <td>7:24</td>
-                </tr>
-                <tr>
-                  <td>Sunday</td>
-                  <td>01</td>
-                  <td>4:50</td>
-                  <td>12:50</td>
-                  <td>4:30</td>
-                  <td>6:09</td>
-                  <td>7:24</td>
-                </tr> -->
-                       
-                <!-- Add more rows here -->
+                <!-- Content added here dinamicaly -->
               </tbody>
             </table>
           </div>
         </div>
-      </div>
+      </section>
+
+
+      <!-- About modal -->
+      <section class="about-modal-overlay open">
+        <div class="about-dilog">
+          <header class="about__header">
+            <button class="about__header__close-btn fa-solid fa-arrow-left"></button>
+            <p class="about__header__title">About Salaty</p>
+          </header>
+          <div class="about__body">
+            <img class="about__body__logo" src="./src/images/icons8-mosque-64.png" alt="app logo"/>
+            <div class="about__body__infos">
+              <p class="about__body__app-name">Salaty: Prayer Times</p>
+              <p class="about__body__app-version">Version: 1.0.0</p>
+              <p class="about__body__app-developed-by">Developed by <a href="#portfolio" class="app-developer">Youssef El-Hrouzi</a></p>
+              <p class="about__body__app-powred">Powred by :</p>
+                <ul class="about__body__app-powred__links">
+                  <li><a href="https://api.aladhan.com">api.aladhan.com</a></li>
+                  <li><a href="https://api.bigdatacloud.net">api.bigdatacloud.net</a></li>
+                  <li><a href="https://maps.googleapis.com">maps.googleapis.com</a></li>
+                </ul>
+            </div>
+            <hr>
+            <div class="about__body__links">
+              <p class="about__body__links__app-on-fb">Salaty on Facebook</p>
+              <p class="about__body__links__contact">Contact</p>
+              <p class="about__body__links__app-restore">Restore default settings</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
     </main>
     <!-- Importing Axios Librery from CDN -->

@@ -5,7 +5,7 @@ import { getDataFromLocalStorage } from "./localStorage.js";
 
 //? Functions
 //===========
-export const renderModalOverlay = () => {
+export const renderTimesTableModalOverlay = () => {
     dom().dropDownMenu.classList.remove("visible")
     dom().timesTableModal.classList.add("open")
     document.body.classList.add("noscroll") // Prevent the main page from scrolling
