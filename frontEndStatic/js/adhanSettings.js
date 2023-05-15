@@ -17,13 +17,14 @@ export const loadAdhanSettings = () => {
   }
 };
 
-const initiateAdhanSettings = () => {
+export const initiateAdhanSettings = () => {
   const settings = [
     { fajr: "on", dhuhr: "on", asr: "on", maghrib: "on", ishaa: "on" },
     "alarmISactive",
   ]
   saveToLocalStorage("adhanSetting", settings)
   dom().activateAdhanSwitch.checked = false
+  dom().adhanBells.forEach(bell => bell.classList.remove("prayerTimeCard__adhan--disabled"))
 }
 
 const renderAlarmIcons = (savedSetting) => {

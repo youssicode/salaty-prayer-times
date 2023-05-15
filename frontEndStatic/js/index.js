@@ -9,7 +9,7 @@ import { saveToLocalStorage, getDataFromLocalStorage} from "./localStorage.js";
 import { clearChildren, renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques, renderAutoLocatedCity, renderIslamicCalender} from "./dataRendering.js";
 import { toggleMenu } from "./settings.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-import { loadAdhanSettings, adhanActivation } from "./adhanSettings.js";
+import { loadAdhanSettings, adhanActivation, initiateAdhanSettings } from "./adhanSettings.js";
 import { renderTableData, renderTimesTableModalOverlay} from "./timesTable.js";
 import { renderAboutModalOverlay } from "./about.js";
 import getNearbyMosquesList from "./nearbyMosques.js";
@@ -19,7 +19,6 @@ import dom from "./domElements.js"; // default export
 //================
 
 // DOMContentLoaded event as it is faster and more efficient than window.onload 
-/* //! HHHHHHHHHH
 document.addEventListener("DOMContentLoaded", async () => {
   
   const SavedLocationSettings = loadSavedLocationSettings()
@@ -63,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Load 'Call-To-Prayer/Adhan' saved Settings
   loadAdhanSettings()
 });
-*/ //! HHHHHHHHHH
+
 
 let timeLoop;
 export const displayTime = (timezone) => {
@@ -175,6 +174,22 @@ dom().showAboutModal.onclick = ()=> {
 }
 // close About modal
 dom().closeAboutModal.onclick = ()=> {
+  closeAboutModal ()
+}
+const closeAboutModal = () => {
   document.body.classList.remove("noscroll")
   dom().aboutModal.classList.remove("open")
+}
+// Restore settings
+dom().restoreSettings.onclick = ()=> {
+  let restoreAction = confirm("Are you sure you want to restore default settings? This will: delete saved location data and your 'Call-To-Prayer' and app's theme preferences?");
+
+  if (restoreAction) {
+    saveToLocalStorage ("savedLocationInfos", '')
+    dom().saveLocationSwitch.checked = false
+
+    initiateAdhanSettings()
+    closeAboutModal()
+    alert('Default settings restored successfully!')
+  }
 }

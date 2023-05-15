@@ -61,6 +61,7 @@ function dom() {
     aboutModal : document.querySelector(".about-modal-overlay"),
     showAboutModal : document.querySelector(".dropdown__content__link--about"),
     closeAboutModal : document.querySelector(".about__header__close-btn"),
+    restoreSettings : document.querySelector(".about__body__links__link--restore-settings"),
   };
 
   return domElements;

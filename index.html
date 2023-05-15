@@ -26,7 +26,7 @@
     <title>Salaty Prayer Times</title>
   </head>
   <body>
-    <main>
+    <main class="main-container">
       <section class="heroSection">
         <header class="heroSection__header">
           <div class="appLogo">salaty: prayer times</div>
@@ -346,7 +346,7 @@
             <button class="times-table-modal__close-btn fa-solid fa-arrow-left"></button>
           </header>
         
-          <div class="times-table-body">
+          <main class="times-table-body">
             <table class="times-table">
               <thead>
                 <tr>
@@ -363,39 +363,38 @@
                 <!-- Content added here dinamicaly -->
               </tbody>
             </table>
-          </div>
+          </main>
         </div>
       </section>
 
 
       <!-- About modal -->
-      <section class="about-modal-overlay open">
+      <section class="about-modal-overlay">
         <div class="about-dilog">
           <header class="about__header">
             <button class="about__header__close-btn fa-solid fa-arrow-left"></button>
-            <p class="about__header__title">About Salaty</p>
+            <p class="about__header__title">About</p>
           </header>
-          <div class="about__body">
+          <main class="about__body">
             <img class="about__body__logo" src="./src/images/icons8-mosque-64.png" alt="app logo"/>
             <div class="about__body__infos">
-              <p class="about__body__app-name">Salaty: Prayer Times</p>
-              <p class="about__body__app-version">Version: 1.0.0</p>
-              <p class="about__body__app-developed-by">Developed by <a href="#portfolio" class="app-developer">Youssef El-Hrouzi</a></p>
-              <p class="about__body__app-powred">Powred by :</p>
-                <ul class="about__body__app-powred__links">
-                  <li><a href="https://api.aladhan.com">api.aladhan.com</a></li>
-                  <li><a href="https://api.bigdatacloud.net">api.bigdatacloud.net</a></li>
-                  <li><a href="https://maps.googleapis.com">maps.googleapis.com</a></li>
-                </ul>
+              <p class="about__body__infos__info">Salaty : Prayer Times</p>
+              <p class="about__body__infos__info">Version : 1.0.0</p>
+              <p class="about__body__infos__info">Developed by : <a class="app-developer" target="_blank" href="https://www.linkedin.com/in/youssef-el-hrouzi/">Youssef El-Hrouzi</a></p>
+              <p class="about__body__infos__info">Data from :</p>
+              <ul>
+                <li class="about__body__infos__api-source"><a target="_blank" href="https://aladhan.com">aladhan.com</a></li>
+                <li class="about__body__infos__api-source"><a target="_blank" href="https://bigdatacloud.net">bigdatacloud.net</a></li>
+                <li class="about__body__infos__api-source"><a target="_blank" href="https://developers.google.com/maps/">maps.googleapis.com</a></li>
+              </ul>
             </div>
             <hr>
-            <div class="about__body__links">
-              <p class="about__body__links__app-on-fb">Salaty on Facebook</p>
-              <p class="about__body__links__contact">Contact</p>
-              <p class="about__body__links__app-restore">Restore default settings</p>
-            </div>
-
-          </div>
+            <ul class="about__body__links">
+              <li class="about__body__links__link"><a target="_blank" href="https://www.facebook.com/SalatyPrayerTimes">Salaty on Facebook</a></li>
+              <li class="about__body__links__link"><a target="_blank" href="mailto:youssef.elhrouzi@yahoo.com">Contact</a></li>
+              <li class="about__body__links__link about__body__links__link--restore-settings">Restore default settings</li>
+            </ul>
+          </main>
         </div>
       </section>
 

@@ -1,6 +1,6 @@
 @use "../utilities" as *;
 
-main {
+.main-container {
     width: max(280px, 100%);
     background-color: $bg-main;
     background-color: $bg-primary;
