@@ -49,7 +49,13 @@ function dom() {
     dropDownMenu: document.querySelector(".dropdown__content"),
     menuHideBtn: document.querySelector(".dropdown__hide-btn"),
     activateAdhanSwitch: document.querySelector(".switch__input--adhan"),
+    activateAdhanBtn: document.querySelector(".dropdown__content__link--alarm"),
+    activateAdhanSwitchWrapper: document.querySelector(".switchWrapper--alarm"),
+
+    saveLocationBtn: document.querySelector(".dropdown__content__link--save-location"),
     saveLocationSwitch: document.querySelector(".switch__input--location"),
+    saveLocationSwitchWrapper: document.querySelector(".switchWrapper--save-location"),
+  
     navContainer: document.querySelector(".nav-container"),
     showTimesTable : document.querySelector(".dropdown__content__link--times-table"),
     timesTableModal : document.querySelector(".times-table-modal-overlay"),

@@ -2,16 +2,16 @@
 //==================
 
 import { getIslamicDate, refreshGregorianDate } from "./calendars.js";
-import { getUserCoordinates, autoLocateCity, SaveCurrentLocation, loadSavedLocationSettings } from "./locations.js";
+import { getUserCoordinates, autoLocateCity } from "./locations.js";
 import { getPrayerTimes, refreshPrayerTimingForChosenCity } from "./prayerTimings.js";
 import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
 import { saveToLocalStorage, getDataFromLocalStorage} from "./localStorage.js";
 import { clearChildren, renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques, renderAutoLocatedCity, renderIslamicCalender} from "./dataRendering.js";
-import { toggleMenu } from "./settings.js";
+import { toggleMenu, SaveCurrentLocation, loadSavedLocationSettings } from "./settings.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { loadAdhanSettings, adhanActivation, initiateAdhanSettings } from "./adhanSettings.js";
-import { renderTableData, renderTimesTableModalOverlay} from "./timesTable.js";
-import { renderAboutModalOverlay } from "./about.js";
+import { renderTableData, renderTimesTableModalOverlay,closeTimesTableModal} from "./timesTable.js";
+import { renderAboutModalOverlay, closeAboutModal } from "./about.js";
 import getNearbyMosquesList from "./nearbyMosques.js";
 import dom from "./domElements.js"; // default export
 
@@ -127,7 +127,7 @@ dom().nearbyMosquesShowBtn.addEventListener("click", () => {
   getNearbyMosquesList(coords);
 });
 
-// Hide settings menu & Location Search Wrapper
+// Hide settings menu & Location Search feature by clicking outside
 window.addEventListener("click", (e) => {
   // Hide Settings Menu
   if (dom().dropDownMenu.classList.contains("visible") && !dom().navContainer.contains(e.target)) dom().dropDownMenu.classList.remove("visible");
@@ -135,10 +135,14 @@ window.addEventListener("click", (e) => {
   if ( !dom().locationSearchWrapper.classList.contains("city-search-component-activated") || dom().locationWrapper.contains(e.target)) return;
   hideLocationSearchWrapper();
 });
+
+// Hide settings menu, Location Search feature, 'TimesTable' and 'About' modals using keyboard
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     dom().dropDownMenu.classList.remove("visible");
     hideLocationSearchWrapper();
+    closeTimesTableModal()
+    closeAboutModal()
   }
 });
 
@@ -147,10 +151,22 @@ dom().menuBurgerBtn.onclick = toggleMenu
 dom().menuHideBtn.onclick = toggleMenu
 
 // Save Current Location
-dom().saveLocationSwitch.addEventListener("change", SaveCurrentLocation)
+dom().saveLocationBtn.addEventListener("click", e => {
+  // if the user clicks outside the switch btn then toggle its cheched state, otherwise it will be toggled automatically.
+  if (!dom().saveLocationSwitchWrapper.contains(e.target)) {
+    dom().saveLocationSwitch.checked = !dom().saveLocationSwitch.checked // This is = to this:    dom().saveLocationSwitch.checked = dom().saveLocationSwitch.checked? false : true
+  }
+  SaveCurrentLocation()
+})
 
 // Deactivate All Adhan alarms
-dom().activateAdhanSwitch.addEventListener("change", adhanActivation);
+dom().activateAdhanBtn.addEventListener("click", e => {
+  if (!dom().activateAdhanSwitchWrapper.contains(e.target)) {
+    dom().activateAdhanSwitch.checked = !dom().activateAdhanSwitch.checked // This is = to this:    dom().saveLocationSwitch.checked = dom().saveLocationSwitch.checked? false : true
+  }
+  adhanActivation()
+})
+// dom().activateAdhanSwitch.addEventListener("change", adhanActivation);
 
 // Show Prayer Times Table
 dom().showTimesTable.onclick = ()=> {
@@ -164,25 +180,21 @@ dom().monthPicker.addEventListener("change", () => {
 
 // close Times Table modal
 dom().closeTimesTable.onclick = ()=> {
-  document.body.classList.remove("noscroll")
-  dom().timesTableModal.classList.remove("open")
+  closeTimesTableModal()
 }
 
-// Show About modal
+// Show 'About' modal
 dom().showAboutModal.onclick = ()=> {
   renderAboutModalOverlay()
 }
-// close About modal
+// close 'About' modal
 dom().closeAboutModal.onclick = ()=> {
   closeAboutModal ()
 }
-const closeAboutModal = () => {
-  document.body.classList.remove("noscroll")
-  dom().aboutModal.classList.remove("open")
-}
+
 // Restore settings
 dom().restoreSettings.onclick = ()=> {
-  let restoreAction = confirm("Are you sure you want to restore default settings? This will: delete saved location data and your 'Call-To-Prayer' and app's theme preferences?");
+  let restoreAction = confirm("Are You Sure You Want to Restore Default Settings? Please note that performing this action will delete all saved location data as well as your 'Call-To-Prayer' and themes preferences.");
 
   if (restoreAction) {
     saveToLocalStorage ("savedLocationInfos", '')

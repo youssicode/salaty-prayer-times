@@ -46,12 +46,11 @@ nav {
     display: inline-block;
 
     & .dropdown__content {
-        width: 33rem;
+        width: 26rem;
         padding: .5rem;
-        padding-bottom: 1.5rem;
+        padding-bottom: 1rem;
         background-color: $bg-primary;
         border-bottom-right-radius: 100%;
-        font-size: 1rem;
         overflow: hidden;
         font-family: $Comfortaa;
 
@@ -73,7 +72,7 @@ nav {
             }
         }
         &__title {
-            font-size: 1.7rem;
+            font-size: 1.5rem;
             padding-left: 1rem;
             margin-top: .5rem;
             margin-bottom: 1rem;
@@ -85,44 +84,39 @@ nav {
             padding: .7rem;
             padding-left: 1.5rem;
             text-decoration: none;
-            font-size: 1.6rem;
+            font-size: 1.2rem;
             color: $bg-second;
             background-color: $active-color;
             border-bottom: 1px solid $bg-second;
-        
+            cursor: pointer;
             position: relative;
             right: 105%;
             transition-property: right;
-            transition-duration: 700ms;
+            transition-duration: 600ms;
             transition-timing-function: ease-out;
         
-            
             &--location {
-                transition-delay: 200ms;
+                transition-delay: 150ms;
             }
             
             &--alarm {
-                transition-delay: 300ms;
+                transition-delay: 200ms;
             }
 
             &--times-table {
-                transition-delay: 400ms;
-                cursor: pointer;
+                transition-delay: 250ms;
             }
             
             &--theme {
-                transition-delay: 500ms;
-                cursor: pointer;
+                transition-delay: 300ms;
             }
             
             &--docs {
-                transition-delay: 600ms;
-                cursor: pointer;
+                transition-delay: 350ms;
             }
             
             &--about {
-                transition-delay: 700ms;
-                cursor: pointer;
+                transition-delay: 400ms;
             }
             
             &:hover {
@@ -132,15 +126,15 @@ nav {
         }        
 
         & .dropdown__hide-btn {
-            font-size: 1.7rem;
+            font-size: 1.5rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 1rem;
-            margin-left: 1.5rem;
+            margin-top: .6rem;
+            margin-left: 1rem;
             color: $bg-second;
             background-color: $active-color;
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 2.2rem;
+            height: 2.2rem;
             border-radius: 50%;
             display: grid;
             place-items: center;
@@ -152,8 +146,8 @@ nav {
 .switch {
     position: relative;
     display: inline-block;
-    width: 4.8rem;
-    height: 2.1rem;
+    width: 4rem;
+    height: 1.6rem;
 
     & .switch__input {
         opacity: 0;
@@ -176,10 +170,10 @@ nav {
     & .switch__slider:before {
         position: absolute;
         content: "";
-        height: 1.5rem;
-        width: 1.5rem;
-        left: .3rem;
-        bottom: .3rem;
+        height: 1.2rem;
+        width: 1.2rem;
+        left: 0.25rem;
+        bottom: 0.2rem;
         border-radius: 50%;
         background-color: $active-color;
         box-shadow: 0 .3rem .3rem rgba(0, 0, 0, 0.2);
@@ -195,6 +189,6 @@ nav {
     }
     
     & .switch__input:checked+.switch__slider:before {
-        transform: translateX(2.7rem);
+        transform: translateX(2.3rem);
     }
 }

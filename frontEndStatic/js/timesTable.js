@@ -48,3 +48,8 @@ function mapTableData(dataTable) {
     dom().timesTableTBody.insertAdjacentHTML("beforeend",rowTemplate)
     })
 }
+
+export const closeTimesTableModal = () => {
+    document.body.classList.remove("noscroll")
+    dom().timesTableModal.classList.remove("open")
+}

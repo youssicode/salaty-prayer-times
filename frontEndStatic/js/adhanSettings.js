@@ -60,12 +60,9 @@ const saveAlarmsStates = (prayerName) => {
   saveToLocalStorage("adhanSetting", adhanSetting)
 };
 
-export const adhanActivation = function () {
+export const adhanActivation = () => {
   const adhanSetting = getDataFromLocalStorage("adhanSetting")
-
-  // if we use arrow function, 'this' won't refer to the element checked.
-  adhanSetting[1] = this.checked ? "adhanDeactivated" : "alarmISactive"
-
+  adhanSetting[1] = dom().activateAdhanSwitch.checked ? "adhanDeactivated" : "alarmISactive"
   saveToLocalStorage("adhanSetting", adhanSetting);
   renderAlarmIcons(adhanSetting);
 };

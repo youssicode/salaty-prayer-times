@@ -53,23 +53,3 @@ export async function getAdresse(lat, lng) {
         errorHandler(err)
     }
 }
-
-// Settings : Save Current Location
-
-export const loadSavedLocationSettings = function () {
-    const savedLocationInfos = getDataFromLocalStorage("savedLocationInfos")
-    if (!savedLocationInfos) return false
-    dom().saveLocationSwitch.checked = true
-    return savedLocationInfos
-}
-
-export const SaveCurrentLocation = function () {
-    let currentLocationToSave  = ''
-    if (this.checked) {
-        const localStorageSaves = localStorage.getItem('salaty_prayer_times_infos')
-        const data = localStorageSaves ? JSON.parse(localStorageSaves) : null
-        const {locationCoordinates, salaty_localAdresse : {cityName, countryShortName}, salaty_localTimeZone} = data
-        currentLocationToSave = {locationCoordinates,cityName, countryShortName,salaty_localTimeZone}
-    } 
-    saveToLocalStorage ("savedLocationInfos", currentLocationToSave)
-}
