@@ -164,7 +164,7 @@ const extractMainPrayerTimes = (times) => {
 
 //* Get Payer Timings For Specific Month by Coordinates
 app.get('/times-table', async (req, res) => {
-    // try {
+    try {
         const { month, latitude, longitude } = req.query
         const year = new Date().getFullYear()
         const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=3`
@@ -174,8 +174,28 @@ app.get('/times-table', async (req, res) => {
             return { weekday:en, day, Fajr, Dhuhr, Asr, Maghrib, Isha }
         })
         res.json(timingsTable);
-    // } catch (error) {
-    //     console.error(error);
-    //     res.status(500).json({ error: 'Internal server error' });
-    // }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 })
+
+//* Get Hadeeth of the day
+app.get('/hadeeth', async (req, res) => {
+    try {
+        
+        const hadeethId = getRandomNumber()
+        const url = `https://hadeethenc.com/api/v1/hadeeths/one/?language=en&id=${hadeethId}`
+        const {data} = await axios.get(url)
+        res.json(data)
+    } catch (error) {
+        // console.log("Hadeeth error!");
+        res.json(error)
+    }
+})
+
+function getRandomNumber() {
+  const min = 2932;
+  const max = 3532;
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}

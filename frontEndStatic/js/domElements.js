@@ -18,9 +18,7 @@ function dom() {
     ),
     dhuhrTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.dhuhr"),
     asrTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.asr"),
-    maghribTimeLabel: document.querySelector(
-      ".prayerTimeCard__prayerTime.maghrib"
-    ),
+    maghribTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.maghrib"),
     ishaaTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.ishaa"),
     locationSearchWrapper: document.querySelector(".location__search-wrapper"),
     locationWrapper: document.querySelector(".location"),
@@ -28,13 +26,9 @@ function dom() {
     mainTimeLabel: document.querySelector(".timingContainer__timeDua__timeNow"),
     citySearchInput: document.querySelector(".search-for-city-input"),
     citiesListMatch: document.querySelector(".extracted-cities-list"),
-    upcomingPrayerLabel: document.querySelector(
-      ".timingContainer__upcomingPrayer__prayerName"
-    ),
+    upcomingPrayerLabel: document.querySelector(".timingContainer__upcomingPrayer__prayerName"),
     upcomingPrayerCustomBorder: document.querySelector(".custom-border"),
-    countDownLabel: document.querySelector(
-      ".timingContainer__upcomingPrayer__remainingTime"
-    ),
+    countDownLabel: document.querySelector(".timingContainer__upcomingPrayer__remainingTime"),
     prayerTimeCards: document.querySelectorAll(".prayerTimeCard"),
     prayerTimeLabels: document.querySelectorAll(".prayerTimeCard__prayerTime"),
     adhanBells: document.querySelectorAll(".prayerTimeCard__adhan"),
@@ -51,10 +45,14 @@ function dom() {
     activateAdhanSwitch: document.querySelector(".switch__input--adhan"),
     activateAdhanBtn: document.querySelector(".dropdown__content__link--alarm"),
     activateAdhanSwitchWrapper: document.querySelector(".switchWrapper--alarm"),
-
     saveLocationBtn: document.querySelector(".dropdown__content__link--save-location"),
     saveLocationSwitch: document.querySelector(".switch__input--location"),
     saveLocationSwitchWrapper: document.querySelector(".switchWrapper--save-location"),
+
+    showHadeethBtn: document.querySelector(".timingContainer__timeDua__hadeeth"),
+    hadeethQuote: document.querySelector(".timingContainer__timeDua__hadeeth__quote"),
+    hadeethGrade: document.querySelector(".timingContainer__timeDua__hadeeth__grade"),
+    hadeethAttribution: document.querySelector(".timingContainer__timeDua__hadeeth__attribution"),
   
     navContainer: document.querySelector(".nav-container"),
     showTimesTable : document.querySelector(".dropdown__content__link--times-table"),

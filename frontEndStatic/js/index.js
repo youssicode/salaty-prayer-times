@@ -13,6 +13,7 @@ import { loadAdhanSettings, adhanActivation, initiateAdhanSettings } from "./adh
 import { renderTableData, renderTimesTableModalOverlay,closeTimesTableModal} from "./timesTable.js";
 import { renderAboutModalOverlay, closeAboutModal } from "./about.js";
 import getNearbyMosquesList from "./nearbyMosques.js";
+import { getAndRenderHadeeth } from "./hadeeths_list.js";
 import dom from "./domElements.js"; // default export
 
 //? Main Functions
@@ -54,13 +55,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // RE-save coordinates to ensure that saved location's coords had not been changer when refreshPrayerTimingForChosenCity() function was executed
     saveToLocalStorage('locationCoordinates', locationCoordinates)
-    
   }
   //* Assign Year in the Footer Dinamically
   renderFooterYear(new Date().getFullYear())
   
   // Load 'Call-To-Prayer/Adhan' saved Settings
   loadAdhanSettings()
+
+  // Fetch and display Hadeeth of the day
+  getAndRenderHadeeth()
 });
 
 
@@ -166,7 +169,6 @@ dom().activateAdhanBtn.addEventListener("click", e => {
   }
   adhanActivation()
 })
-// dom().activateAdhanSwitch.addEventListener("change", adhanActivation);
 
 // Show Prayer Times Table
 dom().showTimesTable.onclick = ()=> {
@@ -205,3 +207,9 @@ dom().restoreSettings.onclick = ()=> {
     alert('Default settings restored successfully!')
   }
 }
+
+// Hadeeth of the day code
+dom().showHadeethBtn.onclick = function () {
+  this.classList.toggle("visible")
+}
+
