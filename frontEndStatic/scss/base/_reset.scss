@@ -15,7 +15,7 @@ html {
         font-size: 72%;
     }
 
-    @include responsive_Large() {
+    @include responsive_large() {
         font-size: 85%;
     }
 }

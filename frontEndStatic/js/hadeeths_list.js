@@ -7,6 +7,9 @@ export const getAndRenderHadeeth = async ()=> {
 }
 
 const renderHadeeth = ({attribution, grade, hadeeth}) => {
+    dom().hadeethQuote.textContent = ''
+    dom().hadeethGrade.textContent = ''
+    dom().hadeethAttribution.textContent = ''
     dom().hadeethQuote.insertAdjacentText("afterbegin", hadeeth)
     dom().hadeethGrade.insertAdjacentText("afterbegin", "Grade: " + grade)
     dom().hadeethAttribution.insertAdjacentText("afterbegin", "Attribution: " + attribution)

@@ -6,7 +6,7 @@
     background-color: $bg-primary;
     position: relative;
 
-    @include responsive_Large {
+    @include responsive_large {
         @include auto-margin-center;
         max-width: 1200px;
         border-radius: 1rem;

@@ -39,7 +39,7 @@
           <div class="location__actual-location-wrapper">
             <i class="location__actual-location-wrapper__icon fa-solid fa-location-dot"></i>
             <div class="location__actual-location-wrapper__cityName"></div>
-            <i class="location__actual-location-wrapper__icon location__actual-location-wrapper__icon--arrow fa-solid fa-chevron-down"></i>
+            <i class="location__actual-location-wrapper__icon location__actual-location-wrapper__icon--arrow fa-solid fa-chevron-down"  tabindex="2"></i>
           </div>
           <div class="location__search-wrapper">
             <div class="location__search-wrapper__city">
@@ -49,6 +49,7 @@
                 type="text"
                 class="search-for-city-input"
                 placeholder="City name (e.g. Rabat, MA)"
+                aria-autocomplete="list"
               />
               <!-- List of cities suggestions == To Add Dinamically with JS == -->
               <ul class="extracted-cities-list"></ul>
@@ -66,13 +67,13 @@
 
             <div class="timingContainer__timeDua__hadeeth">
               <blockquote class="timingContainer__timeDua__hadeeth__quote">
-
+                Verily Allah, most High, loves for you to perfect a good deed when you perform it.
               </blockquote>
               <cite class="timingContainer__timeDua__hadeeth__grade">
-
+                Grade: Sahih/Authentic
               </cite>
               <cite class="timingContainer__timeDua__hadeeth__attribution">
-
+                Attribution: [Al-Albani]
                </cite>
             </div>
 
@@ -225,6 +226,7 @@
                 href="mailto:youssef.elhrouzi@yahoo.com"
                 target="_blank"
                 class="contactIcons__socialIcon fa-solid fa-envelope"
+                aria-label="Youssef El-Hrouzi email adresse"
               ></a>
             </li>
             <li>
@@ -232,6 +234,7 @@
                 href="https://www.linkedin.com/in/youssef-el-hrouzi/"
                 target="_blank"
                 class="contactIcons__socialIcon fa-brands fa-linkedin"
+                aria-label="Youssef El-Hrouzi LinkedIn profile"
               ></a>
             </li>
             <li>
@@ -239,6 +242,7 @@
                 href="https://www.facebook.com/youssef.elhrouzi"
                 target="_blank"
                 class="contactIcons__socialIcon fa-brands fa-square-facebook"
+                aria-label="Youssef El-Hrouzi facebook profile"
               ></a>
             </li>
             <li>
@@ -246,30 +250,16 @@
                 href="https://github.com/youssicode"
                 target="_blank"
                 class="contactIcons__socialIcon fa-brands fa-square-github"
+                aria-label="Youssef El-Hrouzi github profile"
               ></a>
             </li>
           </ul>
         </div>
       </footer>
       
-      <!-- Adhan Modal -->
-      <div class="adhan-overlay adhan-overlay--hidden">
-        <div class="adhan-overlay__main-div">
-          <img
-            src="./src/images/adhan-overlay-background.jpg"
-            class="adhan-overlay-background-image"
-            alt="mosque image as Adhan's overlay background"
-          />
-          <div class="adhan-overlay__main-div__circle circle1"></div>
-          <div class="adhan-overlay__main-div__circle circle2"></div>
-          <div class="adhan-overlay__main-div__circle circle3"></div>
-        </div>
-        <p class="mute-adhan-button">Click (Or press 'Escp') to stop</p>
-      </div>
-
       <!-- Burger Menu / Settings -->
       <nav class="nav-container">
-        <div class="burger_btn">
+        <div class="burger_btn" tabindex="1">
           <span></span>
           <span></span>
           <span></span>
@@ -327,6 +317,21 @@
         </div>
       </nav>
 
+      <!-- Adhan Modal -->
+      <div class="adhan-overlay adhan-overlay--hidden">
+        <div class="adhan-overlay__main-div">
+          <img
+            src="./src/images/adhan-overlay-background.jpg"
+            class="adhan-overlay-background-image"
+            alt="mosque image as Adhan's overlay background"
+          />
+          <div class="adhan-overlay__main-div__circle circle1"></div>
+          <div class="adhan-overlay__main-div__circle circle2"></div>
+          <div class="adhan-overlay__main-div__circle circle3"></div>
+        </div>
+        <p class="mute-adhan-button">Click (Or press 'Escp') to stop</p>
+      </div>
+
       <!-- Prayer Times Table -->
       <section class="times-table-modal-overlay">
         <div class="times-table-container">
@@ -372,7 +377,6 @@
         </div>
       </section>
 
-
       <!-- About modal -->
       <section class="about-modal-overlay">
         <div class="about-dilog">
@@ -397,7 +401,7 @@
             <hr>
             <ul class="about__body__links">
               <li class="about__body__links__link"><a target="_blank" href="https://www.facebook.com/SalatyPrayerTimes">Salaty on Facebook</a></li>
-              <li class="about__body__links__link"><a target="_blank" href="mailto:youssef.elhrouzi@yahoo.com">Contact</a></li>
+              <li class="about__body__links__link"><a target="_blank" href="mailto:youssef.elhrouzi@yahoo.com">Contact support</a></li>
               <li class="about__body__links__link about__body__links__link--restore-settings">Restore default settings</li>
             </ul>
           </main>

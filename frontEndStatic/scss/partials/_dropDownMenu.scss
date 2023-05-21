@@ -1,9 +1,12 @@
 @use "../utilities" as *;
 
 nav {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
+    @include responsive_large() {
+        position: absolute;
+    }
 }
 /* Style for the burger button */
 .burger_btn {

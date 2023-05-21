@@ -14,7 +14,7 @@
     color: $text-color-primary;
     position: relative;
 
-    @include responsive_Large {
+    @include responsive_large {
         margin-bottom: $margin-2rem5 * 3;
     }
 
@@ -47,7 +47,7 @@
 
     }
 
-    @include responsive_Large() {
+    @include responsive_large() {
         margin-left: 0;
     }
 
@@ -61,7 +61,7 @@
         line-height: 1.5rem;
         display: none;
 
-        @include responsive_Large {
+        @include responsive_large {
             left: 0;
         }
 

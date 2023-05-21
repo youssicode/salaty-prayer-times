@@ -7,7 +7,7 @@
     padding: 1.2rem;
     background-image: url("../src/images/hero-section-background-image_Sunset-behind-mosque.jpg");
 
-    @include responsive_Large() {
+    @include responsive_large() {
         border-top-left-radius: inherit;
         border-top-right-radius: inherit;
     }

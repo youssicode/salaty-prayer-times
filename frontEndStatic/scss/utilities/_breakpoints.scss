@@ -21,7 +21,7 @@
 }
 
 // Large Screens
-@mixin responsive_Large() {
+@mixin responsive_large() {
     @media only screen and (min-width : var.$min-width-large) {
         @content;
     }

@@ -117,11 +117,27 @@ dom().autoLocateButton.addEventListener("click", () => {
 
 //* Display/Hide city search component
 dom().showLocationSearchWrapper.addEventListener("mousedown", () => {
-  dom().locationSearchWrapper.classList.add("city-search-component-activated");
+  showLocationSearchWrapper()
 });
+dom().showLocationSearchWrapper.addEventListener("keydown", function (event) {
+  if (event.keyCode === 13) {
+    showLocationSearchWrapper()
+  }
+});
+const showLocationSearchWrapper = () => {
+  dom().locationSearchWrapper.classList.add("city-search-component-activated");
+}
 
 // Search Data about typed city
 dom().searchForCityBtn.addEventListener("click", () => {
+  searchForCityData()
+});
+dom().citySearchInput.addEventListener("keydown", function (event) {
+  if (event.keyCode === 13) {
+    searchForCityData()
+  }
+});
+const searchForCityData = () => {
   const userInput = dom().citySearchInput.value
   if (testTypedCityFormat(userInput)) {
     refreshDataForNewCity(userInput)
@@ -130,8 +146,7 @@ dom().searchForCityBtn.addEventListener("click", () => {
     err.code = 66
     errorHandler(err)
   }
-});
-
+}
 const testTypedCityFormat = (input) => {
   // regular expression to match the format used to fetch times data
   const regex = /^[a-zA-Z\s\-.']+,\s{1}[a-zA-Z]{2}$/; 
@@ -148,13 +163,11 @@ const testTypedCityFormat = (input) => {
 
 //* Auto-complete user entry with matched cities in Search component
 dom().citySearchInput.addEventListener("input", autoCompleteCitiesList)
-
 export const addClickEventToSuggestedCity = (element, city) => {
   element.addEventListener("click", async () => {
     refreshDataForNewCity(city)
   })
 }
-
 const refreshDataForNewCity = async (city) => {
   try {
     dom().actualLocationLabel.innerText = city
@@ -190,11 +203,19 @@ const refreshDataForNewCity = async (city) => {
 
 //* Render Nearby Mosques List according to current location
 dom().nearbyMosquesShowBtn.addEventListener("click", () => {
+  displayNearbyMosques()
+});
+dom().nearbyMosquesShowBtn.addEventListener("keydown", (event) => {
+  if (event.keyCode === 13) {
+    displayNearbyMosques()
+  }
+});
+const displayNearbyMosques = () => {
   if (dom().nearbyMosquesSection.classList.contains("nearbyMosquesBtnClicked"))
   return;
   const coords = getDataFromLocalStorage("locationCoordinates");
   getNearbyMosquesList(coords);
-});
+}
 
 // Hide settings menu & Location Search feature by clicking outside
 window.addEventListener("click", (e) => {
@@ -216,8 +237,14 @@ window.addEventListener("keydown", (e) => {
 });
 
 // Show/Hide settings Menu
-dom().menuBurgerBtn.onclick = toggleMenu
-dom().menuHideBtn.onclick = toggleMenu
+dom().menuBurgerBtn.addEventListener("click", toggleMenu)
+dom().menuHideBtn.addEventListener("click", toggleMenu)
+dom().menuBurgerBtn.addEventListener("keydown", function (event) {
+  // Check if the pressed key is Enter (key code 13)
+  if (event.keyCode === 13) {
+    toggleMenu()
+  }
+})
 
 // Save Current Location
 dom().saveLocationBtn.addEventListener("click", e => {
@@ -237,9 +264,9 @@ dom().activateAdhanBtn.addEventListener("click", e => {
 })
 
 // Show Prayer Times Table
-dom().showTimesTable.onclick = ()=> {
+dom().showTimesTable.addEventListener("click", ()=> {
   renderTimesTableModalOverlay()
-}
+})
 dom().monthPicker.addEventListener("change", () => {
   clearChildren(dom().timesTableTBody)
   const currentMonth = dom().monthPicker.selectedIndex
@@ -247,21 +274,21 @@ dom().monthPicker.addEventListener("change", () => {
 });
 
 // close Times Table modal
-dom().closeTimesTable.onclick = ()=> {
+dom().closeTimesTable.addEventListener("click", ()=> {
   closeTimesTableModal()
-}
+})
 
 // Show 'About' modal
-dom().showAboutModal.onclick = ()=> {
+dom().showAboutModal.addEventListener("click", ()=> {
   renderAboutModalOverlay()
-}
+})
 // close 'About' modal
-dom().closeAboutModal.onclick = ()=> {
+dom().closeAboutModal.addEventListener("click", ()=> {
   closeAboutModal ()
-}
+})
 
 // Restore settings
-dom().restoreSettings.onclick = ()=> {
+dom().restoreSettings.addEventListener("click", ()=> {
   let restoreAction = confirm("Are You Sure You Want to Restore Default Settings? Please note that performing this action will delete all saved location data as well as your 'Call-To-Prayer' and themes preferences.");
 
   if (restoreAction) {
@@ -272,10 +299,9 @@ dom().restoreSettings.onclick = ()=> {
     closeAboutModal()
     alert('Default settings restored successfully!')
   }
-}
+})
 
 // Hadeeth of the day code
-dom().showHadeethBtn.onclick = function () {
+dom().showHadeethBtn.addEventListener("click", function () {
   this.classList.toggle("visible")
-}
-
+})
