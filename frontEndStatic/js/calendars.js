@@ -29,16 +29,21 @@ export const getIslamicDate = async (date) => {
     if (islamicDate) {
         renderIslamicCalender(islamicDate)
     } else {
-        let err = new Error("Islamic calendar unavailable") // Create custom error object
+        const err = new Error("Islamic calendar unavailable") // Create custom error object
         err.code = 99
         errorHandler(err)
     }
 }
 //* Converting Gregorian date to Islamic date
 async function fetchIslamicCalendar(gregorian) {
-    const { data, status } = await axios.get('/islamic-date', { params: { gregorian } });
-    if (status >= 200 && status < 300) {
-        return data
+    try {
+        const { data, status } = await axios.get('/islamic-date', { params: { gregorian } });
+        if (status >= 200 && status < 300) {
+            return data
+        }
+    } catch (err) {
+        errorHandler(err)
+        throw err // re-throw the error to return a rejected promise
     }
 }
 

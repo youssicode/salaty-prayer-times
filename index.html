@@ -37,17 +37,18 @@
         </header>
         <div class="location" role="button">
           <div class="location__actual-location-wrapper">
-            <i class="actual-location__icon fa-solid fa-location-dot"></i>
+            <i class="location__actual-location-wrapper__icon fa-solid fa-location-dot"></i>
             <div class="location__actual-location-wrapper__cityName"></div>
-            <i class="actual-location__icon fa-solid fa-chevron-down"></i>
+            <i class="location__actual-location-wrapper__icon location__actual-location-wrapper__icon--arrow fa-solid fa-chevron-down"></i>
           </div>
           <div class="location__search-wrapper">
             <div class="location__search-wrapper__city">
-              <i class="search-for-city-icon fa-solid fa-magnifying-glass"></i>
+              <label for="search-city-input" class="search-for-city-icon fa-solid fa-magnifying-glass"></label>
               <input
+                id="search-city-input"
                 type="text"
                 class="search-for-city-input"
-                placeholder="Please enter a city name"
+                placeholder="City name (e.g. Rabat, MA)"
               />
               <!-- List of cities suggestions == To Add Dinamically with JS == -->
               <ul class="extracted-cities-list"></ul>
@@ -99,7 +100,7 @@
                 <img
                   class="prayerTimeCard__sky-icon"
                   src="./src/images/dawn-icon.png"
-                  alt="dawn icon"
+                  alt="Icon depicting dawn"
                 />
                 <h2 class="prayerTimeCard__prayerName">fajr</h2>
               </div>
@@ -116,7 +117,7 @@
                 <img
                   class="prayerTimeCard__sky-icon"
                   src="./src/images/sunrise-icon.png"
-                  alt="sunrise icon"
+                  alt="Icon depicting sunrise"
                 />
                 <h2 class="prayerTimeCard__prayerName">sunrise</h2>
               </div>
@@ -131,7 +132,7 @@
                 <img
                   class="prayerTimeCard__sky-icon"
                   src="./src/images/sun-icon.png"
-                  alt="sun icon"
+                  alt="Icon depicting sun"
                 />
                 <h2 class="prayerTimeCard__prayerName">dhuhr</h2>
               </div>
@@ -148,7 +149,7 @@
                 <img
                   class="prayerTimeCard__sky-icon"
                   src="./src/images/cloudy-icon.png"
-                  alt="cloud icon"
+                  alt="Icon depicting cloud"
                 />
                 <h2 class="prayerTimeCard__prayerName">asr</h2>
               </div>
@@ -165,7 +166,7 @@
                 <img
                   class="prayerTimeCard__sky-icon"
                   src="./src/images/sunset-icon.png"
-                  alt="sunset icon"
+                  alt="Icon depicting sunset"
                 />
                 <h2 class="prayerTimeCard__prayerName">maghrib</h2>
               </div>
@@ -182,7 +183,7 @@
                 <img
                   class="prayerTimeCard__sky-icon"
                   src="./src/images/night-icon.png"
-                  alt="night icon"
+                  alt="Icon depicting night"
                 />
                 <h2 class="prayerTimeCard__prayerName">ishaa</h2>
               </div>
@@ -203,7 +204,7 @@
                 <img
                   class="displayNearbyMosques__show__icon"
                   src="./src/images/map-location-icon.png"
-                  alt="location-on-map-icon"
+                  alt="Icon depicting location on a map"
                 />
               </button>
               <button class="displayNearbyMosques__hide">hide</button>
@@ -257,7 +258,7 @@
           <img
             src="./src/images/adhan-overlay-background.jpg"
             class="adhan-overlay-background-image"
-            alt="adhan overlay main image"
+            alt="mosque image as Adhan's overlay background"
           />
           <div class="adhan-overlay__main-div__circle circle1"></div>
           <div class="adhan-overlay__main-div__circle circle2"></div>

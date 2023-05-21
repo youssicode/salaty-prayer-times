@@ -21,6 +21,10 @@ function dom() {
     maghribTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.maghrib"),
     ishaaTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.ishaa"),
     locationSearchWrapper: document.querySelector(".location__search-wrapper"),
+
+    showLocationSearchWrapper: document.querySelector(".location__actual-location-wrapper__icon--arrow"),
+    searchForCityBtn: document.querySelector(".search-for-city-icon"),
+    
     locationWrapper: document.querySelector(".location"),
     locationBtn: document.querySelector(".location"),
     mainTimeLabel: document.querySelector(".timingContainer__timeDua__timeNow"),

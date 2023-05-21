@@ -25,6 +25,19 @@ body {
     background-color: $bg-main;
     color: $text-color-primary;
     text-transform: capitalize;
+
+    scrollbar-width: .7rem;
+    scrollbar-color: $bg-second;    
+    
+    &::-webkit-scrollbar {
+        width: .7rem;
+        background-color: $bg-second;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $active-color;
+        border-radius: 5px;
+    }
 }
 
 body.noscroll {

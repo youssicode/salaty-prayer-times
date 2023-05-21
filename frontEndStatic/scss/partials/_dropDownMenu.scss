@@ -120,8 +120,9 @@ nav {
             }
             
             &:hover {
-                background-color: #e1e100;
-                margin-left: 5px;
+                color: $active-color;
+                background-color:  $bg-second;
+                // margin-left: 5px;
             }
         }        
 

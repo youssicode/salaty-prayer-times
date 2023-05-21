@@ -6,7 +6,7 @@ import { getUserCoordinates, autoLocateCity } from "./locations.js";
 import { getPrayerTimes, refreshPrayerTimingForChosenCity } from "./prayerTimings.js";
 import { autoCompleteCitiesList } from "./autoCompleteCitiesList.js";
 import { saveToLocalStorage, getDataFromLocalStorage} from "./localStorage.js";
-import { clearChildren, renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideErrorMessage, hideNearbyMosques, renderAutoLocatedCity, renderIslamicCalender} from "./dataRendering.js";
+import { clearChildren, renderLocalTime, renderGregorianDate, renderFooterYear, hideLocationSearchWrapper, hideNearbyMosques, renderAutoLocatedCity, renderIslamicCalender} from "./dataRendering.js";
 import { toggleMenu, SaveCurrentLocation, loadSavedLocationSettings } from "./settings.js";
 import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
 import { loadAdhanSettings, adhanActivation, initiateAdhanSettings } from "./adhanSettings.js";
@@ -15,6 +15,7 @@ import { renderAboutModalOverlay, closeAboutModal } from "./about.js";
 import getNearbyMosquesList from "./nearbyMosques.js";
 import { getAndRenderHadeeth } from "./hadeeths_list.js";
 import dom from "./domElements.js"; // default export
+import errorHandler, {hideErrorMessage} from "./errorHandler.js";
 
 //? Main Functions
 //================
@@ -115,12 +116,77 @@ dom().autoLocateButton.addEventListener("click", () => {
 });
 
 //* Display/Hide city search component
-dom().locationBtn.addEventListener("mousedown", () => {
+dom().showLocationSearchWrapper.addEventListener("mousedown", () => {
   dom().locationSearchWrapper.classList.add("city-search-component-activated");
 });
 
+// Search Data about typed city
+dom().searchForCityBtn.addEventListener("click", () => {
+  const userInput = dom().citySearchInput.value
+  if (testTypedCityFormat(userInput)) {
+    refreshDataForNewCity(userInput)
+  } else {
+    const err = new Error("Wrong input format.")
+    err.code = 66
+    errorHandler(err)
+  }
+});
+
+const testTypedCityFormat = (input) => {
+  // regular expression to match the format used to fetch times data
+  const regex = /^[a-zA-Z\s\-.']+,\s{1}[a-zA-Z]{2}$/; 
+  // ^ the starting
+  // [a-zA-Z\s\.\-\']+  one or more letters, spaces, periods, hyphens, or apostrophes (for city name)
+  // , then a comma
+  // \s{1} then exactly one whitespace character (for separating city and country eso)
+  // [a-zA-Z]{2} then exactly two letters (for country eso code)
+  // $ the end of the string
+
+  if (input.match(regex)) return true
+  return false
+}
+
 //* Auto-complete user entry with matched cities in Search component
 dom().citySearchInput.addEventListener("input", autoCompleteCitiesList)
+
+export const addClickEventToSuggestedCity = (element, city) => {
+  element.addEventListener("click", async () => {
+    refreshDataForNewCity(city)
+  })
+}
+
+const refreshDataForNewCity = async (city) => {
+  try {
+    dom().actualLocationLabel.innerText = city
+    const { newHijriDate, city_time_zone } = await refreshPrayerTimingForChosenCity(city)
+    saveToLocalStorage('salaty_localTimeZone', city_time_zone)
+    const cityAdresse = {
+        cityName: city.slice(0, -4),
+        countryName: city.slice(-2),
+        countryShortName: city.slice(-2)
+    }
+    saveToLocalStorage('salaty_localAdresse', cityAdresse)
+    hideErrorMessage()
+    hideLocationSearchWrapper()
+    hideNearbyMosques()
+  
+    //* Refresh Current Gregorian Date
+    refreshGregorianDate(city_time_zone)
+  
+    //* Refresh Current Hijri Date
+    renderIslamicCalender(newHijriDate)
+  
+    //* Refresh Current Time
+    displayTime(city_time_zone)
+  
+    //* Refresh Upcoming Card
+    const fetchedPrayerTimesByCity = getDataFromLocalStorage('prayerTimings')
+    renderUpcomingPrayerCard(fetchedPrayerTimesByCity, city_time_zone)
+    
+  } catch (error) {
+    errorHandler(error)
+  }
+}
 
 //* Render Nearby Mosques List according to current location
 dom().nearbyMosquesShowBtn.addEventListener("click", () => {

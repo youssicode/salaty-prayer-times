@@ -1,25 +1,22 @@
 //? Imported Modules
 //==================
 
-import dom from "./domElements.js";
 import { citiesOfTheWorld } from "./citiesList.js";
-import { refreshPrayerTimingForChosenCity } from "./prayerTimings.js";
-import { displayTime } from "./index.js";
-import { refreshGregorianDate } from "./calendars.js";
-import { renderUpcomingPrayerCard } from "./upcomingPrayer.js";
-import { saveToLocalStorage, getDataFromLocalStorage } from "./localStorage.js";
+import { addClickEventToSuggestedCity } from "./index.js";
+import { getDataFromLocalStorage } from "./localStorage.js";
+import dom from "./domElements.js";
 
 
 //? Functions
 //================
 export const renderLocalTime = (time) => {
-    dom().mainTimeLabel.innerText = time
+    dom().mainTimeLabel.textContent = time
 }
 
 export const renderIslamicCalender = (islamicDate) => {
     const { month, day, year } = islamicDate
     const islamic_date_label = `${month} ${day}, ${year}`
-    dom().islamicDateLabel.innerText = islamic_date_label
+    dom().islamicDateLabel.textContent = islamic_date_label
 }
 
 export const renderGregorianDate = (date) => {
@@ -31,16 +28,16 @@ export const renderGregorianDate = (date) => {
         year: date.getFullYear(),
     }
 
-    dom().gregorianDateLabel.innerText = `${toDay.weekday}, ${toDay.monthName} ${toDay.day}, ${toDay.year}`
+    dom().gregorianDateLabel.textContent = `${toDay.weekday}, ${toDay.monthName} ${toDay.day}, ${toDay.year}`
 }
 
 export const renderAutoLocatedCity = ({ cityName, countryShortName }) => {
-    dom().actualLocationLabel.innerText = `${cityName}, ${countryShortName}`
+    dom().actualLocationLabel.textContent = `${cityName}, ${countryShortName}`
 }
 
 export const renderPrayerTiming = (timesArray) => {
     for (let i = 0; i < dom().prayerTimeLabels.length; i++) {
-        dom().prayerTimeLabels[i].innerText = timesArray[i].prayerTime
+        dom().prayerTimeLabels[i].textContent = timesArray[i].prayerTime
     }
 }
 
@@ -49,7 +46,7 @@ export const renderUpcomingPrayer = (index, content) => {
         card.classList.remove("prayerTimeCard--nextPrayer")
     })
     dom().prayerTimeCards[index].classList.add("prayerTimeCard--nextPrayer")
-    dom().upcomingPrayerLabel.innerText = content
+    dom().upcomingPrayerLabel.textContent = content
 }
 
 export const renderUpcomingPrayerCountDown = (remainingTimeStamp) => {
@@ -59,7 +56,7 @@ export const renderUpcomingPrayerCountDown = (remainingTimeStamp) => {
     hours = hours < 10 ? '0' + hours : hours
     minutes = minutes < 10 ? '0' + minutes : minutes
     seconds = seconds < 10 ? '0' + seconds : seconds
-    dom().countDownLabel.innerText = `${hours}:${minutes}:${seconds}`
+    dom().countDownLabel.textContent = `${hours}:${minutes}:${seconds}`
 }
 
 export const renderCallToPrayerOverlay = () => {
@@ -118,7 +115,7 @@ const displayMosquesList = (mosques_list) => {
         </div>
         </li>
         `
-        domMosquesCardsWrap.innerHTML += mosqueCardTemplate
+        domMosquesCardsWrap.insertAdjacentHTML("beforeend", mosqueCardTemplate)
     })
 
     const mapContainer = document.createElement("aside")
@@ -168,41 +165,6 @@ export const renderCitiesList = (input) => {
             addClickEventToSuggestedCity(cityCountryName, citiesOfTheWorld[i])
         }
     }
-}
-
-const addClickEventToSuggestedCity = (element, city) => {
-    element.addEventListener("click", async () => {
-        dom().actualLocationLabel.innerText = city
-        const cityAdresse = {
-            cityName: city.slice(0, -4),
-            countryName: city.slice(-2),
-            countryShortName: city.slice(-2)
-        }
-        saveToLocalStorage('salaty_localAdresse', cityAdresse)
-        hideErrorMessage()
-        hideLocationSearchWrapper()
-        hideNearbyMosques()
-        const { newHijriDate, city_time_zone } = await refreshPrayerTimingForChosenCity(city)
-        saveToLocalStorage('salaty_localTimeZone', city_time_zone)
-
-        //* Refresh Current Time
-        displayTime(city_time_zone)
-
-        //* Refresh Current Gregorian Date
-        refreshGregorianDate(city_time_zone)
-
-        //* Refresh Current Hijri Date
-        renderIslamicCalender(newHijriDate)
-
-        //* Refresh Upcoming Card
-        const fetchedPrayerTimesByCity = getDataFromLocalStorage('prayerTimings')
-        renderUpcomingPrayerCard(fetchedPrayerTimesByCity, city_time_zone)
-    })
-}
-
-export const hideErrorMessage = () => {
-    const errorLAbel = document.querySelector(".error-label")
-    errorLAbel ? errorLAbel.remove() : null // Hide error message if it exist
 }
 
 export const hideLocationSearchWrapper = () => {

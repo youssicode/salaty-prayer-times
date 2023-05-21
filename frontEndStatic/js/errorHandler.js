@@ -26,6 +26,10 @@ const errorHandler = (error) => {
             errorMessage = "Request timeout."
             showErrorMessage(errorMessage, dom().locationBtn)
             break;
+        case 66:
+            errorMessage = error.message
+            showErrorMessage(errorMessage, dom().locationSearchWrapper)
+            break;
         case 77:
             errorMessage = error.message
             showErrorMessage(errorMessage, dom().locationBtn)
@@ -43,7 +47,9 @@ const errorHandler = (error) => {
 
 // function takes a message and appends an error-label div containing the message to a provided position element
 const showErrorMessage = (message, position) => {
-
+    // Hide any previous messages
+    hideErrorMessage()
+    
     //*Method 1
     const errorLabel = document.createElement('div');
     errorLabel.classList.add('error-label');
@@ -57,6 +63,11 @@ const showErrorMessage = (message, position) => {
     //*Method 3(not recommanded: can cause re-instancing DOM elements issue )
     // const errorLabel = `<div class='error-label'>${message}</div>`
     // position.innerHTML += errorLabel
+}
+
+export const hideErrorMessage = () => {
+    const errorLAbel = document.querySelector(".error-label")
+    errorLAbel ? errorLAbel.remove() : null // Hide error message if it exist
 }
 
 export default errorHandler
