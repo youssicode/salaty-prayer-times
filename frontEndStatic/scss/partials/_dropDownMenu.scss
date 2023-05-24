@@ -4,6 +4,7 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
+
     @include responsive_large() {
         position: absolute;
     }
@@ -56,13 +57,13 @@ nav {
         border-bottom-right-radius: 100%;
         overflow: hidden;
         font-family: $Comfortaa;
+        text-transform: none;
 
         position: absolute;
         top: 0;
         left: 0;
         transform: rotate(-90deg);
         transform-origin: 0 0;
-
         transition: transform 0.5s ease-out;
         z-index: 999;
 
@@ -80,6 +81,9 @@ nav {
             margin-top: .5rem;
             margin-bottom: 1rem;
             color: $bg-second;
+            &::first-letter {
+                text-transform: uppercase;
+            }
         }
         
         &__link {
@@ -97,7 +101,10 @@ nav {
             transition-property: right;
             transition-duration: 600ms;
             transition-timing-function: ease-out;
-        
+            &::first-letter {
+                text-transform: uppercase;
+            }
+            
             &--location {
                 transition-delay: 150ms;
             }

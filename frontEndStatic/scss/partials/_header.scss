@@ -23,7 +23,9 @@
     }
 }
 
-.islamic_date {
+.islamic_date,
+.gregorian_date {
+    display: block;
     font-family: $Comfortaa;
     font-size: 1.3rem;
     text-align: center;
@@ -31,8 +33,5 @@
 }
 
 .gregorian_date {
-    font-family: $Comfortaa;
     font-size: 1.4rem;
-    text-align: center;
-    margin-bottom: $margin-0rem5;
 }

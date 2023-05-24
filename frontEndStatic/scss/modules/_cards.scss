@@ -12,7 +12,7 @@
 }
 
 .timingContainer__timeDua__hadeeth {
-    color: #fff;
+    color: $text-color-primary;
     text-transform: none;
     font-family: "Comfortaa",cursive;
     background-color: rgba(0,0,0,.3);
@@ -44,22 +44,21 @@
     }
 
     &::after {
-        content: "Today's Hadeeth";
-        position: absolute;
-        background-color: $active-color;
-        color: $bg-main;
-        font-size: 1.2rem;
-        font-weight: 700;
-        text-align: center;
-        cursor: pointer;
-        border-top-right-radius: 1rem;
-        border-top-left-radius: 1rem;
-        width: 16rem;
-        height: 2rem;
-        line-height: 2rem;
-        top: -2rem;
-        left: 50%;
-        transform: translateX(-50%);
+    content: "--- Today's Hadeeth ---";
+    position: absolute;
+    background-color: rgba(55,27,11,0.7);
+    color: $active-color;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    width: 17rem;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 5px;
+    top: -2.2rem;
+    left: 50%;
+    transform: translateX(-50%);
     }
     
     .timingContainer__timeDua__hadeeth__quote {

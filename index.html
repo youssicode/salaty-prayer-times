@@ -4,6 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Salaty Prayer Times</title>
+    <meta name="title" content="Salaty Prayer Times">
+    <meta name="description" content="Islamic prayer times depending on user location or city, and nearby mosques names and location.">
+    <meta name="author" content="Youssef El-Hrouzi">
+
+    <!-- Open Graph Protocol : Sharing link card -->
+    <meta property="og:title" content="Salaty: Prayer Times">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://salaty.onrender.com/">
+    <meta property="og:title" content="./src/images/sm-preview.png">
+  
+
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +36,6 @@
       type="image/x-icon"
       href="./src/images/icons8-mosque-35.png"
     />
-    <title>Salaty Prayer Times</title>
   </head>
   <body>
     <main class="main-container">
@@ -31,8 +43,8 @@
         <header class="heroSection__header">
           <div class="appLogo">salaty: prayer times</div>
           <div class="date">
-            <div class="gregorian_date"></div>
-            <div class="islamic_date"></div>
+            <time class="gregorian_date"></time>
+            <time class="islamic_date"></time>
           </div>
         </header>
         <div class="location" role="button">
@@ -61,11 +73,11 @@
           </div>
         </div>
 
-        <div class="timingContainer">
+        <section class="timingContainer">
           <div class="timingContainer__timeDua">
             <h1 class="timingContainer__timeDua__timeNow"></h1>
 
-            <div class="timingContainer__timeDua__hadeeth">
+            <aside class="timingContainer__timeDua__hadeeth">
               <blockquote class="timingContainer__timeDua__hadeeth__quote">
                 Verily Allah, most High, loves for you to perfect a good deed when you perform it.
               </blockquote>
@@ -75,7 +87,7 @@
               <cite class="timingContainer__timeDua__hadeeth__attribution">
                 Attribution: [Al-Albani]
                </cite>
-            </div>
+            </aside>
 
           </div>
           <div class="timingContainer__upcomingPrayer">
@@ -91,7 +103,7 @@
             </p>
             <div class="custom-border"></div>
           </div>
-        </div>
+        </section>
       </section>
       <section class="prayerTimesSection">
         <div class="prayerTimesContainer">
@@ -198,7 +210,7 @@
             </li>
           </ul>
 
-          <div class="nearbyMosquesSection">
+          <section class="nearbyMosquesSection">
             <header class="displayNearbyMosquesHeader">
               <button class="displayNearbyMosques__show">
                 <h3 class="displayNearbyMosques__show__text">nearby mosques</h3>
@@ -211,7 +223,7 @@
               <button class="displayNearbyMosques__hide">hide</button>
             </header>
             <div class="mosquesWrapper"></div>
-          </div>
+          </section>
         </div>
       </section>
       <footer class="pageFooter">
@@ -267,10 +279,10 @@
         <div class="dropdown">
           <div class="dropdown__content">
             <section>
-              <h3 class="dropdown__content__title">Settings</h3>
+              <h3 class="dropdown__content__title">settings</h3>
 
               <div class="dropdown__content__link dropdown__content__link--save-location">
-                Save current location infos
+                save current location infos
                 <label class="switch switchWrapper--save-location">
                   <input
                     class="switch__input switch__input--location"
@@ -281,7 +293,7 @@
               </div>
               
               <div class="dropdown__content__link dropdown__content__link--alarm">
-                Deactivate Adhan alarm
+                disable all Adhan's alarm
                 <label class="switch switchWrapper--alarm">
                   <input
                     class="switch__input switch__input--adhan"
@@ -292,23 +304,19 @@
               </div>
 
               <div class="dropdown__content__link dropdown__content__link--times-table">
-                Show prayer times table
-              </div>
-
-              <div class="dropdown__content__link dropdown__content__link--theme">
-                Change theme
+                show prayer times table
               </div>
 
             </section>
             <section>
-              <h3 class="dropdown__content__title">Help</h3>
+              <h3 class="dropdown__content__title">help</h3>
 
               <div class="dropdown__content__link dropdown__content__link--docs">
-                Documentation
+                user guide
               </div>
 
               <div class="dropdown__content__link dropdown__content__link--about">
-                About
+                about
               </div>
 
             </section>
@@ -401,7 +409,7 @@
             <hr>
             <ul class="about__body__links">
               <li class="about__body__links__link"><a target="_blank" href="https://www.facebook.com/SalatyPrayerTimes">Salaty on Facebook</a></li>
-              <li class="about__body__links__link"><a target="_blank" href="mailto:youssef.elhrouzi@yahoo.com">Contact support</a></li>
+              <li class="about__body__links__link"><a target="_blank" href="mailto:salaty-support@gmail.com">Contact support</a></li>
               <li class="about__body__links__link about__body__links__link--restore-settings">Restore default settings</li>
             </ul>
           </main>
