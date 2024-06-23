@@ -17,7 +17,7 @@ Thanks for checking out this coding project.
 
 ### The Project
 
-- This project is about building out an app that display the islamic prayer times for a specific zone or a choosen city, based on "aladhan.com" API. Also it aims to help users to find and reach the nearest mosques to there actual location.
+- This project is about building out an app that provide , based on multi APIs, the Islamic prayer times for a specific location or a chosen city. Also it aims to help users to find and reach the nearest mosques to their actual location.
 
 ### Links
 
@@ -26,10 +26,10 @@ Thanks for checking out this coding project.
 
 ### Project's Main Features
 
-- Place autocomplete  can be used to automatically fill in the name and/or address of a place as you type.
-- 
-- 
-- 
+- Place autocomplete can be used to automatically fill in the name and/or address of a place as you type.
+-
+-
+-
 
 ## My process
 
@@ -47,9 +47,9 @@ Thanks for checking out this coding project.
 - CSS/SCSS Preprocessor
 - Vanella JavaScript
 - TOOLS:
-    - NPM Modules
-    - Version Control with Git
-    - Postman (Check APIs Requests)
+  - NPM Modules
+  - Version Control with Git
+  - Postman (Check APIs Requests)
 
 ### What I learned
 
@@ -64,9 +64,6 @@ Thanks for checking out this coding project.
 - Debugging code with Chrome DevTools
 - Practicing CSS BEM-Architecture
 - SCSS: structuring modules, use of "@forward" / "@use" keywords
-
-
-
 
 ### Continued development
 
