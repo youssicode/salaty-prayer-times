@@ -1,78 +1,89 @@
 //? DOM Elements References
 //=========================
 
-function dom() {
+export const query = (selector) => document.querySelector(selector)
+export const queryAll = (selector) => document.querySelectorAll(selector)
+
+export default function dom() {
   const domElements = {
-    actualLocationLabel: document.querySelector(
-      ".location__actual-location-wrapper__cityName"
+    // Location Elements
+    actualLocationLabel: query(".location__actual-location-wrapper__cityName"),
+    autoLocateButton: query(".location__search-wrapper__auto-locate-button"),
+    locationSearchWrapper: query(".location__search-wrapper"),
+    showLocationSearchWrapper: query(
+      ".location__actual-location-wrapper__icon--arrow"
     ),
-    autoLocateButton: document.querySelector(
-      ".location__search-wrapper__auto-locate-button"
+    searchForCityBtn: query(".search-for-city-icon"),
+    locationWrapper: query(".location"),
+    locationBtn: query(".location"),
+    citySearchInput: query(".search-for-city-input"),
+    citiesListMatch: query(".extracted-cities-list"),
+    saveLocationBtn: query(".dropdown__content__link--save-location"),
+    saveLocationSwitch: query(".switch__input--location"),
+    saveLocationSwitchWrapper: query(".switchWrapper--save-location"),
+
+    // Date Labels
+    islamicDateLabel: query(".islamic_date"),
+    gregorianDateLabel: query(".gregorian_date"),
+    footerYear: query(".actual-year"),
+
+    // Prayer Time Labels
+    fajrTimeLabel: query(".prayerTimeCard__prayerTime.fajr"),
+    sunriseTimeLabel: query(".prayerTimeCard__prayerTime.sunrise"),
+    dhuhrTimeLabel: query(".prayerTimeCard__prayerTime.dhuhr"),
+    asrTimeLabel: query(".prayerTimeCard__prayerTime.asr"),
+    maghribTimeLabel: query(".prayerTimeCard__prayerTime.maghrib"),
+    ishaaTimeLabel: query(".prayerTimeCard__prayerTime.ishaa"),
+
+    // Time Labels
+    mainTimeLabel: query(".timingContainer__timeDua__timeNow"),
+    upcomingPrayerLabel: query(".timingContainer__upcomingPrayer__prayerName"),
+    upcomingPrayerCustomBorder: query(".custom-border"),
+    countDownLabel: query(".timingContainer__upcomingPrayer__remainingTime"),
+    prayerTimeCards: queryAll(".prayerTimeCard"),
+    prayerTimeLabels: queryAll(".prayerTimeCard__prayerTime"),
+
+    // Adhan Elements
+    adhanBells: queryAll(".prayerTimeCard__adhan"),
+    adhanOverlay: query(".adhan-overlay"),
+    muteAdhanButton: query(".mute-adhan-button"),
+    activateAdhanSwitch: query(".switch__input--adhan"),
+    activateAdhanBtn: query(".dropdown__content__link--alarm"),
+    activateAdhanSwitchWrapper: query(".switchWrapper--alarm"),
+
+    // Nearby Mosques Section
+    nearbyMosquesSection: query(".nearbyMosquesSection"),
+    mosquesWrapper: query(".mosquesWrapper"),
+    nearbyMosquesShowBtn: query(".displayNearbyMosques__show"),
+    nearbyMosquesHideBtn: query(".displayNearbyMosques__hide"),
+
+    // Menu Elements
+    navContainer: query(".nav-container"),
+    menuBurgerBtn: query(".burger_btn"),
+    dropDownMenu: query(".dropdown__content"),
+    menuHideBtn: query(".dropdown__hide-btn"),
+    restoreSettings: query(".about__body__links__link--restore-settings"),
+
+    // Hadeeth Section
+    showHadeethBtn: query(".timingContainer__timeDua__hadeeth"),
+    hadeethQuote: query(".timingContainer__timeDua__hadeeth__quote"),
+    hadeethGrade: query(".timingContainer__timeDua__hadeeth__grade"),
+    hadeethAttribution: query(
+      ".timingContainer__timeDua__hadeeth__attribution"
     ),
-    islamicDateLabel: document.querySelector(".islamic_date"),
-    gregorianDateLabel: document.querySelector(".gregorian_date"),
-    footerYearLabel: document.querySelector(".actual-year"),
-    fajrTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.fajr"),
-    sunriseTimeLabel: document.querySelector(
-      ".prayerTimeCard__prayerTime.sunrise"
-    ),
-    dhuhrTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.dhuhr"),
-    asrTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.asr"),
-    maghribTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.maghrib"),
-    ishaaTimeLabel: document.querySelector(".prayerTimeCard__prayerTime.ishaa"),
-    locationSearchWrapper: document.querySelector(".location__search-wrapper"),
 
-    showLocationSearchWrapper: document.querySelector(".location__actual-location-wrapper__icon--arrow"),
-    searchForCityBtn: document.querySelector(".search-for-city-icon"),
-    
-    locationWrapper: document.querySelector(".location"),
-    locationBtn: document.querySelector(".location"),
-    mainTimeLabel: document.querySelector(".timingContainer__timeDua__timeNow"),
-    citySearchInput: document.querySelector(".search-for-city-input"),
-    citiesListMatch: document.querySelector(".extracted-cities-list"),
-    upcomingPrayerLabel: document.querySelector(".timingContainer__upcomingPrayer__prayerName"),
-    upcomingPrayerCustomBorder: document.querySelector(".custom-border"),
-    countDownLabel: document.querySelector(".timingContainer__upcomingPrayer__remainingTime"),
-    prayerTimeCards: document.querySelectorAll(".prayerTimeCard"),
-    prayerTimeLabels: document.querySelectorAll(".prayerTimeCard__prayerTime"),
-    adhanBells: document.querySelectorAll(".prayerTimeCard__adhan"),
-    adhanOverlay: document.querySelector(".adhan-overlay"),
-    muteAdhanButton: document.querySelector(".mute-adhan-button"),
-    nearbyMosquesSection: document.querySelector(".nearbyMosquesSection"),
-    mosquesWrapper: document.querySelector(".mosquesWrapper"),
-    nearbyMosquesShowBtn: document.querySelector(".displayNearbyMosques__show"),
-    nearbyMosquesHideBtn: document.querySelector(".displayNearbyMosques__hide"),
-    footerYear: document.querySelector(".actual-year"),
-    menuBurgerBtn: document.querySelector(".burger_btn"),
-    dropDownMenu: document.querySelector(".dropdown__content"),
-    menuHideBtn: document.querySelector(".dropdown__hide-btn"),
-    activateAdhanSwitch: document.querySelector(".switch__input--adhan"),
-    activateAdhanBtn: document.querySelector(".dropdown__content__link--alarm"),
-    activateAdhanSwitchWrapper: document.querySelector(".switchWrapper--alarm"),
-    saveLocationBtn: document.querySelector(".dropdown__content__link--save-location"),
-    saveLocationSwitch: document.querySelector(".switch__input--location"),
-    saveLocationSwitchWrapper: document.querySelector(".switchWrapper--save-location"),
+    // Times Table Elements
+    showTimesTable: query(".dropdown__content__link--times-table"),
+    timesTableModal: query(".times-table-modal-overlay"),
+    closeTimesTable: query(".times-table-modal__close-btn"),
+    timesTableTBody: query(".times-table-tbody"),
+    monthPicker: query(".times-table__header__month-picker"),
 
-    showHadeethBtn: document.querySelector(".timingContainer__timeDua__hadeeth"),
-    hadeethQuote: document.querySelector(".timingContainer__timeDua__hadeeth__quote"),
-    hadeethGrade: document.querySelector(".timingContainer__timeDua__hadeeth__grade"),
-    hadeethAttribution: document.querySelector(".timingContainer__timeDua__hadeeth__attribution"),
-  
-    navContainer: document.querySelector(".nav-container"),
-    showTimesTable : document.querySelector(".dropdown__content__link--times-table"),
-    timesTableModal : document.querySelector(".times-table-modal-overlay"),
-    closeTimesTable : document.querySelector(".times-table-modal__close-btn"),
-    monthPicker : document.querySelector(".times-table__header__month-picker"),
-    timesTableTBody : document.querySelector(".times-table-tbody"),
-    
-    
-    aboutModal : document.querySelector(".about-modal-overlay"),
-    showAboutModal : document.querySelector(".dropdown__content__link--about"),
-    closeAboutModal : document.querySelector(".about__header__close-btn"),
-    restoreSettings : document.querySelector(".about__body__links__link--restore-settings"),
-  };
+    // About Section
+    aboutModal: query(".about-modal-overlay"),
+    showAboutModal: query(".dropdown__content__link--about"),
+    closeAboutModal: query(".about__header__close-btn"),
+  }
 
-  return domElements;
+  return domElements
 }
-
-export default dom;
