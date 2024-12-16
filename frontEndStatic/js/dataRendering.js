@@ -3,18 +3,26 @@
 
 import { addClickEventToSuggestedCity } from "./index.js"
 import { getDataFromLocalStorage } from "./localStorage.js"
-import dom from "./domElements.js"
+import { query, queryAll } from "./domElements.js"
+
+//? DOM Elements
+//==============
+const actualLocationLabel = query(
+  ".location__actual-location-wrapper__cityName"
+)
+const nearbyMosquesSection = query(".nearbyMosquesSection")
+const mosquesWrapper = query(".mosquesWrapper")
 
 //? Functions
-//================
+//===========
 export const renderLocalTime = (time) => {
-  dom().mainTimeLabel.textContent = time
+  query(".timingContainer__timeDua__timeNow").textContent = time
 }
 
 export const renderIslamicCalender = (islamicDate) => {
   const { month, day, year } = islamicDate
   const islamic_date_label = `${month} ${day}, ${year}`
-  dom().islamicDateLabel.textContent = islamic_date_label
+  query(".islamic_date").textContent = islamic_date_label
 }
 
 export const renderGregorianDate = (date) => {
@@ -26,25 +34,29 @@ export const renderGregorianDate = (date) => {
     year: date.getFullYear(),
   }
 
-  dom().gregorianDateLabel.textContent = `${toDay.weekday}, ${toDay.monthName} ${toDay.day}, ${toDay.year}`
+  query(
+    ".gregorian_date"
+  ).textContent = `${toDay.weekday}, ${toDay.monthName} ${toDay.day}, ${toDay.year}`
 }
 
 export const renderAutoLocatedCity = ({ cityName, countryShortName }) => {
-  dom().actualLocationLabel.textContent = `${cityName}, ${countryShortName}`
+  actualLocationLabel.textContent = `${cityName}, ${countryShortName}`
 }
 
 export const renderPrayerTiming = (timesArray) => {
-  for (let i = 0; i < dom().prayerTimeLabels.length; i++) {
-    dom().prayerTimeLabels[i].textContent = timesArray[i].prayerTime
+  const prayerTimeLabels = queryAll(".prayerTimeCard__prayerTime")
+  for (let i = 0; i < prayerTimeLabels.length; i++) {
+    prayerTimeLabels[i].textContent = timesArray[i].prayerTime
   }
 }
 
 export const renderUpcomingPrayer = (index, content) => {
-  dom().prayerTimeCards.forEach((card) => {
+  const prayerTimeCards = queryAll(".prayerTimeCard")
+  prayerTimeCards.forEach((card) => {
     card.classList.remove("prayerTimeCard--nextPrayer")
   })
-  dom().prayerTimeCards[index].classList.add("prayerTimeCard--nextPrayer")
-  dom().upcomingPrayerLabel.textContent = content
+  prayerTimeCards[index].classList.add("prayerTimeCard--nextPrayer")
+  query(".timingContainer__upcomingPrayer__prayerName").textContent = content
 }
 
 export const renderUpcomingPrayerCountDown = (remainingTimeStamp) => {
@@ -56,20 +68,27 @@ export const renderUpcomingPrayerCountDown = (remainingTimeStamp) => {
   hours = hours < 10 ? "0" + hours : hours
   minutes = minutes < 10 ? "0" + minutes : minutes
   seconds = seconds < 10 ? "0" + seconds : seconds
-  dom().countDownLabel.textContent = `${hours}:${minutes}:${seconds}`
+  query(
+    ".timingContainer__upcomingPrayer__remainingTime"
+  ).textContent = `${hours}:${minutes}:${seconds}`
 }
 
 export const renderCallToPrayerOverlay = () => {
+  const adhanOverlay = query(".adhan-overlay")
+  const upcomingPrayerCustomBorder = query(".custom-border")
+
   // play 'Call-To_Prayer' sound track
   let adhanSound = document.createElement("audio")
   adhanSound.setAttribute("src", "../src/audio/Adhan_Alaqsa.mp3")
   adhanSound.play()
+
   // Show/Hide overlay + Start/Stop Adhan
-  dom().adhanOverlay.classList.remove("adhan-overlay--hidden")
-  dom().upcomingPrayerCustomBorder.classList.add("animation-paused")
+  adhanOverlay.classList.remove("adhan-overlay--hidden")
+  upcomingPrayerCustomBorder.classList.add("animation-paused")
   document.body.classList.add("noscroll") // Prevent the main page from scrolling
+
   // Hide overlay + Stop Adhan
-  dom().muteAdhanButton.addEventListener("click", stopAdhan)
+  query(".mute-adhan-button").addEventListener("click", stopAdhan)
   window.addEventListener("keydown", (e) =>
     e.key == "Escape" ? stopAdhan() : null
   )
@@ -78,30 +97,30 @@ export const renderCallToPrayerOverlay = () => {
 
   function stopAdhan() {
     document.body.classList.remove("noscroll")
-    dom().upcomingPrayerCustomBorder.classList.remove("animation-paused")
-    dom().adhanOverlay.classList.add("adhan-overlay--hidden")
+    upcomingPrayerCustomBorder.classList.remove("animation-paused")
+    adhanOverlay.classList.add("adhan-overlay--hidden")
     adhanSound.pause()
   }
 }
 
 export const renderMosquesList = (lists) => {
-  dom().nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked") //show area that will contain list of mosques and the map
+  nearbyMosquesSection.classList.add("nearbyMosquesBtnClicked") //show area that will contain list of mosques and the map
   displayMosquesList(lists)
   //* add EventListener to Remove Nearby Mosques List
-  dom().nearbyMosquesHideBtn.addEventListener("click", () => {
+  query(".displayNearbyMosques__hide").addEventListener("click", () => {
     hideNearbyMosques()
   })
 }
 
 export const hideNearbyMosques = () => {
-  dom().mosquesWrapper.innerHTML = ""
-  dom().nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
+  mosquesWrapper.innerHTML = ""
+  nearbyMosquesSection.classList.remove("nearbyMosquesBtnClicked")
 }
 
 const displayMosquesList = (mosques_list) => {
   const domMosquesCardsWrap = document.createElement("ul")
   domMosquesCardsWrap.className = "mosquesList"
-  dom().mosquesWrapper.appendChild(domMosquesCardsWrap)
+  mosquesWrapper.appendChild(domMosquesCardsWrap)
 
   mosques_list.forEach((mosque) => {
     const mosqueCardTemplate = `
@@ -111,7 +130,7 @@ const displayMosquesList = (mosques_list) => {
         <h4 class="mosqueInformationsCard__title__mosque-name">${
           mosque.name
         }</h4>
-        <p class="mosqueInformationsCard__title__city">${dom().actualLocationLabel.textContent.slice(
+        <p class="mosqueInformationsCard__title__city">${actualLocationLabel.textContent.slice(
           0,
           -4
         )}</p>
@@ -129,7 +148,7 @@ const displayMosquesList = (mosques_list) => {
 
   const mapContainer = document.createElement("aside")
   mapContainer.id = "map"
-  dom().mosquesWrapper.appendChild(mapContainer)
+  mosquesWrapper.appendChild(mapContainer)
 
   displayMosquesMarkersOnMap(mosques_list, mapContainer)
 }
@@ -166,20 +185,19 @@ export const renderMatchedCityName = (city, city_wrapper) => {
   cityCountryName.classList.add("extracted-cities-list__city")
   cityCountryName.textContent = city
   city_wrapper.appendChild(cityCountryName)
-  //! dom().citiesListMatch.appendChild(cityCountryName)
   addClickEventToSuggestedCity(cityCountryName, city)
 }
 
 export const hideLocationSearchWrapper = () => {
-  dom().locationSearchWrapper.classList.remove(
+  query(".location__search-wrapper").classList.remove(
     "city-search-component-activated"
   )
-  dom().citySearchInput.value = ""
-  clearChildren(dom().citiesListMatch)
+  query(".search-for-city-input").value = ""
+  clearChildren(query(".extracted-cities-list"))
 }
 
 export const renderFooterYear = (year) => {
-  dom().footerYear.textContent = year
+  query(".actual-year").textContent = year
 }
 
 export const clearChildren = (target) => {

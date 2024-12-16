@@ -1,17 +1,18 @@
 //? Imported Modules
 //==================
-import dom from "./domElements.js"; // default export
-// import { getDataFromLocalStorage } from "./localStorage.js";
+import { query } from "./domElements.js"
 
 //? Functions
 //===========
+const aboutModal = query(".about-modal-overlay")
 export const renderAboutModalOverlay = () => {
-    dom().dropDownMenu.classList.remove("visible")
-    dom().aboutModal.classList.add("open")
-    document.body.classList.add("noscroll") // Prevent the main page from scrolling
+  const dropDownMenu = query(".dropdown__content")
+  dropDownMenu.classList.remove("visible")
+  aboutModal.classList.add("open")
+  document.body.classList.add("noscroll") // Prevent the main page from scrolling
 }
 
 export const closeAboutModal = () => {
-    document.body.classList.remove("noscroll")
-    dom().aboutModal.classList.remove("open")
+  document.body.classList.remove("noscroll")
+  aboutModal.classList.remove("open")
 }

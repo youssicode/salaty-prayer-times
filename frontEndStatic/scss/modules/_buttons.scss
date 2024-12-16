@@ -3,85 +3,83 @@
 // Nearby Mosques Button
 
 .nearbyMosquesSection {
-    position: relative;
-    @include card-style($shadow-color);
+  position: relative;
+  @include card-style($shadow-color);
 
-    @include responsive_medium2 {
-        width: 40%;
-        @include auto-margin-center;
+  @include responsive_medium2 {
+    width: 40%;
+    @include auto-margin-center;
+  }
+
+  &:not(.nearbyMosquesBtnClicked) {
+    cursor: pointer;
+
+    &:hover {
+      background-color: $active-color;
+
+      & .displayNearbyMosques__show__text {
+        color: $bg-second;
+        text-shadow: none;
+      }
     }
+  }
 
-    &:not(.nearbyMosquesBtnClicked) {
-        cursor: pointer;
+  &.nearbyMosquesBtnClicked .displayNearbyMosquesHeader {
+    justify-content: space-between;
+  }
 
-        &:hover {
-            background-color: $active-color;
+  &.nearbyMosquesBtnClicked .displayNearbyMosques__hide {
+    display: initial;
+  }
 
-            & .displayNearbyMosques__show__text {
-                color: $bg-second;
-                text-shadow: none;
-            }
-        }
+  &.nearbyMosquesBtnClicked {
+    width: 100%;
+
+    & .displayNearbyMosquesHeader {
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
     }
-
-    &.nearbyMosquesBtnClicked .displayNearbyMosquesHeader {
-        justify-content: space-between;
-    }
-
-    &.nearbyMosquesBtnClicked .displayNearbyMosques__hide {
-        display: initial;
-    }
-
-    &.nearbyMosquesBtnClicked {
-        width: 100%;
-
-        & .displayNearbyMosquesHeader {
-            margin-top: .5rem;
-            margin-bottom: 1.5rem
-        }
-    }
+  }
 }
 
 .displayNearbyMosquesHeader {
-    @include center-content-with-flex;
-    // margin-bottom: $margin-2rem5;
-
+  @include center-content-with-flex;
+  // margin-bottom: $margin-2rem5;
 }
 
-
 .displayNearbyMosques__hide {
-    color: $active-color;
-    text-transform: capitalize;
-    font-family: $Catamaran;
-    font-size: 1.5rem;
-    font-weight: 400;
-    text-decoration: underline;
-    display: none;
+  color: $active-color;
+  text-transform: capitalize;
+  font-family: $Catamaran;
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-decoration: underline;
+  display: none;
 }
 
 .displayNearbyMosques__show__text {
-    display: inline-block;
-    margin-right: $margin-0rem5;
-    color: $text-color-primary;
-    font-family: $Catamaran;
-    text-transform: capitalize;
-    font-size: 1.8rem;
-    letter-spacing: .1rem;
-    @extend .text-black-shadow;
+  display: inline-block;
+  margin-right: $margin-0rem5;
+  color: $text-color-primary;
+  font-family: $Catamaran;
+  text-transform: capitalize;
+  font-size: 1.8rem;
+  letter-spacing: 0.1rem;
+  @extend .text-black-shadow;
 }
 
 .displayNearbyMosques__show__icon {
-    display: inline-block;
+  display: inline-block;
 }
 
 // Ana error's message holder
 .error-label {
-    position: absolute;
-    top: 102%;
-    left: 0;
-    color: darkred;
-    font-size: 1.2rem;
-    font-family: sans-serif;
-    text-transform: initial;
-    padding-left: inherit;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  color: #4d0000;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  text-transform: initial;
+  padding-left: inherit;
 }
