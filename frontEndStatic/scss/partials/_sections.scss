@@ -1,23 +1,22 @@
 @use "../utilities" as *; // ... as *; to use just the variables names.
 
 .heroSection {
+  width: 100%;
+  height: 650px;
+  padding: 1.2rem;
+  background-image: url("../src/images/hero-section-background-image_Sunset-behind-mosque.webp");
 
-    width: 100%;
-    height: 650px;
-    padding: 1.2rem;
-    background-image: url("../src/images/hero-section-background-image_Sunset-behind-mosque.jpg");
+  @include responsive_large() {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
 
-    @include responsive_large() {
-        border-top-left-radius: inherit;
-        border-top-right-radius: inherit;
-    }
-    
-    // for positioning Hadeeth Card
-    position: relative;
-    overflow: hidden;
+  // for positioning Hadeeth Card
+  position: relative;
+  overflow: hidden;
 }
 
 .prayerTimesSection {
-    background-color: $bg-main;
-    padding: 1.2rem;
+  background-color: $bg-main;
+  padding: 1.2rem;
 }

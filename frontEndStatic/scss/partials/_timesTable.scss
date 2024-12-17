@@ -1,50 +1,50 @@
 @use "../utilities" as *;
 
-  /* times-table-modal styles */
+/* times-table-modal styles */
+.times-table-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow-y: auto;
+}
+@media only screen and (min-width: 600px) {
   .times-table-modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0,.9);
-    overflow-y: auto;
-  }
-  @media only screen and (min-width: 600px) {
-    .times-table-modal-overlay {
-      transition: all 1s ease;
-      padding: $margin-2rem5;
-    }
-    
-    .times-table-container {
-      transition: all 1s ease;
-      border-radius: 1.5rem;
-      overflow: hidden;
-    }
-  }
-  
-  .times-table-modal-overlay.open {
-    display: block
+    transition: all 1s ease;
+    padding: $margin-2rem5;
   }
 
   .times-table-container {
-    @include auto-margin-center;
-    position: relative;
-    width: 100%;  
-    max-width: $min-width-medium;  
+    transition: all 1s ease;
+    border-radius: 1.5rem;
+    overflow: hidden;
   }
-  
-  /* Header styles */
-  .times-table__header {
-    background-color: $bg-second;
-    width: 100%;
-    height: 17.5rem;
-    padding-top: 4rem;
-    background-image: url("../src/images/times-table-header-background.jpg");
-    background-size: cover;
-  }
-  
+}
+
+.times-table-modal-overlay.open {
+  display: block;
+}
+
+.times-table-container {
+  @include auto-margin-center;
+  position: relative;
+  width: 100%;
+  max-width: $min-width-medium;
+}
+
+/* Header styles */
+.times-table__header {
+  background-color: $bg-second;
+  width: 100%;
+  height: 17.5rem;
+  padding-top: 4rem;
+  background-image: url("../src/images/times-table-header-background.webp");
+  background-size: cover;
+}
+
 .times-table__header__title {
   text-align: center;
   font-size: 2.4rem;
@@ -70,7 +70,7 @@
   font-size: 1.5rem;
   font-weight: 700;
 }
-  
+
 .times-table-modal__close-btn {
   position: absolute;
   top: 1rem;
@@ -79,7 +79,7 @@
   font-size: 2rem;
   cursor: pointer;
 }
-  
+
 /* Table styles */
 .times-table-body {
   background-color: $bg-primary;
@@ -96,8 +96,8 @@
 .times-table th,
 .times-table td {
   text-align: center;
-  padding-left: .5rem;
-  padding-right: .5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   font-size: 1.2rem;
   font-family: $Comfortaa;
 }
@@ -117,7 +117,7 @@
 }
 
 .times-table tbody tr:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 tr.today {
@@ -128,12 +128,12 @@ tr.today {
 }
 
 tr.today::after {
-  content: '';
-  position:absolute;
+  content: "";
+  position: absolute;
   top: 0;
   left: 0;
   width: 0;
   height: 0;
   border: 1.1rem solid transparent;
-  border-left: 0.7rem solid  $bg-second;
+  border-left: 0.7rem solid $bg-second;
 }

@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Salaty Prayer Times</title>
-    <meta name="title" content="Salaty Prayer Times">
-    <meta name="description" content="Islamic prayer times depending on user location or city with a list of nearest mosques with there location on map.">
-    <meta name="author" content="Youssef El-Hrouzi">
+    <meta name="title" content="Salaty Prayer Times" />
+    <meta
+      name="description"
+      content="Islamic prayer times depending on user location or city with a list of nearest mosques with there location on map."
+    />
+    <meta name="author" content="Youssef El-Hrouzi" />
 
     <!-- Open Graph Protocol : Sharing link card -->
-    <meta property="og:title" content="Salaty: Prayer Times">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://salaty.onrender.com/">
-    <meta property="og:image" content="./src/images/sm-preview.jpg">
-  
+    <meta property="og:title" content="Salaty: Prayer Times" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://salaty.onrender.com/" />
+    <meta property="og:image" content="./src/images/sm-preview.webp" />
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,13 +51,21 @@
         </header>
         <div class="location" role="button">
           <div class="location__actual-location-wrapper">
-            <i class="location__actual-location-wrapper__icon fa-solid fa-location-dot"></i>
+            <i
+              class="location__actual-location-wrapper__icon fa-solid fa-location-dot"
+            ></i>
             <div class="location__actual-location-wrapper__cityName"></div>
-            <i class="location__actual-location-wrapper__icon location__actual-location-wrapper__icon--arrow fa-solid fa-chevron-down"  tabindex="2"></i>
+            <i
+              class="location__actual-location-wrapper__icon location__actual-location-wrapper__icon--arrow fa-solid fa-chevron-down"
+              tabindex="2"
+            ></i>
           </div>
           <div class="location__search-wrapper">
             <div class="location__search-wrapper__city">
-              <label for="search-city-input" class="search-for-city-icon fa-solid fa-magnifying-glass"></label>
+              <label
+                for="search-city-input"
+                class="search-for-city-icon fa-solid fa-magnifying-glass"
+              ></label>
               <input
                 id="search-city-input"
                 type="text"
@@ -79,16 +89,16 @@
 
             <aside class="timingContainer__timeDua__hadeeth">
               <blockquote class="timingContainer__timeDua__hadeeth__quote">
-                Verily Allah, most High, loves for you to perfect a good deed when you perform it.
+                Verily Allah, most High, loves for you to perfect a good deed
+                when you perform it.
               </blockquote>
               <cite class="timingContainer__timeDua__hadeeth__grade">
                 Grade: Sahih/Authentic
               </cite>
               <cite class="timingContainer__timeDua__hadeeth__attribution">
                 Attribution: [Al-Albani]
-               </cite>
+              </cite>
             </aside>
-
           </div>
           <div class="timingContainer__upcomingPrayer">
             <label class="timingContainer__upcomingPrayer__label"
@@ -268,7 +278,7 @@
           </ul>
         </div>
       </footer>
-      
+
       <!-- Burger Menu / Settings -->
       <nav class="nav-container">
         <div class="burger_btn" tabindex="1">
@@ -281,7 +291,9 @@
             <section>
               <h3 class="dropdown__content__title">settings</h3>
 
-              <div class="dropdown__content__link dropdown__content__link--save-location">
+              <div
+                class="dropdown__content__link dropdown__content__link--save-location"
+              >
                 save current location infos
                 <label class="switch switchWrapper--save-location">
                   <input
@@ -291,8 +303,10 @@
                   <span class="switch__slider"></span>
                 </label>
               </div>
-              
-              <div class="dropdown__content__link dropdown__content__link--alarm">
+
+              <div
+                class="dropdown__content__link dropdown__content__link--alarm"
+              >
                 disable all Adhan's alarm
                 <label class="switch switchWrapper--alarm">
                   <input
@@ -303,22 +317,26 @@
                 </label>
               </div>
 
-              <div class="dropdown__content__link dropdown__content__link--times-table">
+              <div
+                class="dropdown__content__link dropdown__content__link--times-table"
+              >
                 show prayer times table
               </div>
-
             </section>
             <section>
               <h3 class="dropdown__content__title">help</h3>
 
-              <div class="dropdown__content__link dropdown__content__link--docs">
+              <div
+                class="dropdown__content__link dropdown__content__link--docs"
+              >
                 user guide
               </div>
 
-              <div class="dropdown__content__link dropdown__content__link--about">
+              <div
+                class="dropdown__content__link dropdown__content__link--about"
+              >
                 about
               </div>
-
             </section>
             <div class="dropdown__hide-btn">X</div>
           </div>
@@ -329,7 +347,7 @@
       <div class="adhan-overlay adhan-overlay--hidden">
         <div class="adhan-overlay__main-div">
           <img
-            src="./src/images/adhan-overlay-background.jpg"
+            src="./src/images/adhan-overlay-background.webp"
             class="adhan-overlay-background-image"
             alt="mosque image as Adhan's overlay background"
           />
@@ -361,9 +379,11 @@
                 <option value="december">December</option>
               </select>
             </div>
-            <button class="times-table-modal__close-btn fa-solid fa-arrow-left"></button>
+            <button
+              class="times-table-modal__close-btn fa-solid fa-arrow-left"
+            ></button>
           </header>
-        
+
           <main class="times-table-body">
             <table class="times-table">
               <thead>
@@ -389,44 +409,91 @@
       <section class="about-modal-overlay">
         <div class="about-dilog">
           <header class="about__header">
-            <button class="about__header__close-btn fa-solid fa-arrow-left"></button>
+            <button
+              class="about__header__close-btn fa-solid fa-arrow-left"
+            ></button>
             <p class="about__header__title">About</p>
           </header>
           <main class="about__body">
-            <img class="about__body__logo" src="./src/images/icons8-mosque-64.png" alt="app logo"/>
+            <img
+              class="about__body__logo"
+              src="./src/images/icons8-mosque-64.png"
+              alt="app logo"
+            />
             <div class="about__body__infos">
               <p class="about__body__infos__info">Salaty : Prayer Times</p>
               <p class="about__body__infos__info">Version : 1.0.0</p>
-              <p class="about__body__infos__info">Developed by : <a class="app-developer" target="_blank" href="https://www.linkedin.com/in/youssef-el-hrouzi/">Youssef El-Hrouzi</a></p>
+              <p class="about__body__infos__info">
+                Developed by :
+                <a
+                  class="app-developer"
+                  target="_blank"
+                  href="https://www.linkedin.com/in/youssef-el-hrouzi/"
+                  >Youssef El-Hrouzi</a
+                >
+              </p>
               <p class="about__body__infos__info">Data from :</p>
               <ul>
-                <li class="about__body__infos__api-source"><a target="_blank" href="https://aladhan.com">aladhan.com</a></li>
-                <li class="about__body__infos__api-source"><a target="_blank" href="https://bigdatacloud.net">bigdatacloud.net</a></li>
-                <li class="about__body__infos__api-source"><a target="_blank" href="https://hadeethenc.com/en/home">HadeethEnc.com</a></li>
-                <li class="about__body__infos__api-source"><a target="_blank" href="https://developers.google.com/maps/">maps.googleapis.com</a></li>
+                <li class="about__body__infos__api-source">
+                  <a target="_blank" href="https://aladhan.com">aladhan.com</a>
+                </li>
+                <li class="about__body__infos__api-source">
+                  <a target="_blank" href="https://bigdatacloud.net"
+                    >bigdatacloud.net</a
+                  >
+                </li>
+                <li class="about__body__infos__api-source">
+                  <a target="_blank" href="https://hadeethenc.com/en/home"
+                    >HadeethEnc.com</a
+                  >
+                </li>
+                <li class="about__body__infos__api-source">
+                  <a target="_blank" href="https://developers.google.com/maps/"
+                    >maps.googleapis.com</a
+                  >
+                </li>
               </ul>
             </div>
-            <hr>
+            <hr />
             <ul class="about__body__links">
-              <li class="about__body__links__link"><a target="_blank" href="https://www.facebook.com/SalatyPrayerTimes">Salaty on Facebook</a></li>
-              <li class="about__body__links__link"><a target="_blank" href="mailto:salaty-support@gmail.com">Contact support</a></li>
-              <li class="about__body__links__link about__body__links__link--restore-settings">Restore default settings</li>
+              <li class="about__body__links__link">
+                <a
+                  target="_blank"
+                  href="https://www.facebook.com/SalatyPrayerTimes"
+                  >Salaty on Facebook</a
+                >
+              </li>
+              <li class="about__body__links__link">
+                <a target="_blank" href="mailto:salaty-support@gmail.com"
+                  >Contact support</a
+                >
+              </li>
+              <li
+                class="about__body__links__link about__body__links__link--restore-settings"
+              >
+                Restore default settings
+              </li>
             </ul>
           </main>
         </div>
       </section>
-
     </main>
     <!-- Importing Axios Librery from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Google Map API script -->
+    <script>
+      function initMap() {
+        // defining init map function without runing it
+        // the function code is declared in dataRendering.js file
+      }
+    </script>
     <script
       async
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxfqb9w_PEW-FmlbM4rgVn1Gm0w1qeTiU&callback=initMap"
       defer
-      ></script>
-      <!-- Main App Script File -->
-      <script type="module" src="./js/index.js"></script>
-    </body>
+    ></script>
+    <!-- Main App Script File -->
+    <script type="module" src="./js/index.js"></script>
+  </body>
 </html>
