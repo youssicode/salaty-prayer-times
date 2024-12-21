@@ -1,7 +1,7 @@
 //? Imported Modules
 //==================
 
-import { addClickEventToSuggestedCity } from "./index.js"
+// import { addClickEventToSuggestedCity } from "./index.js"
 import { getDataFromLocalStorage } from "./localStorage.js"
 import { query, queryAll } from "./domElements.js"
 
@@ -180,13 +180,13 @@ const displayMosquesMarkersOnMap = (mosquesMarkers, mapContainer) => {
   })()
 }
 
-export const renderMatchedCityName = (city, city_wrapper) => {
-  const cityCountryName = document.createElement("LI")
-  cityCountryName.classList.add("extracted-cities-list__city")
-  cityCountryName.textContent = city
-  city_wrapper.appendChild(cityCountryName)
-  addClickEventToSuggestedCity(cityCountryName, city)
-}
+// export const renderMatchedCityName = (city, city_wrapper) => {
+//   const cityCountryName = document.createElement("LI")
+//   cityCountryName.classList.add("extracted-cities-list__city")
+//   cityCountryName.textContent = city
+//   city_wrapper.appendChild(cityCountryName)
+//   addClickEventToSuggestedCity(cityCountryName, city)
+// }
 
 export const hideLocationSearchWrapper = () => {
   query(".location__search-wrapper").classList.remove(
